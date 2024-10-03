@@ -155,9 +155,11 @@ class IntroScreen extends StatelessWidget {
           ),
         )),
         Positioned(
-            bottom: itemSize / 3,
+            // bottom: itemSize / 3,
+            // bottom: itemSize * 4.5,
             right: itemSize / 3,
-            // bottom: itemSize / 1.5,
+            // right: itemSize / 1.4,
+            bottom: itemSize / 1.5,
             // right: (MediaQuery.of(context).size.width / 2) - ((itemSize / 1.8) / 2),
             child: GestureDetector(
               onTap: () {

@@ -355,9 +355,9 @@ class SyncManager extends GetxController {
       }
     }
 
-    if (videoCats.isNotEmpty) {
-      for (var x = 0; x < videoCats.length; x++) {
-        VideoCategory videoCat = VideoCategory.fromJson(videoCats[x]);
+    if (videoCats?.isNotEmpty ?? false) {
+      for (var x = 0; x < (videoCats?.length ?? 0); x++) {
+        VideoCategory videoCat = VideoCategory.fromJson(videoCats?[x]);
         await DataBaseHelper.dataBaseInstance().updateVideoCats(videoCat);
         await AudioFolders().downloadIcon(videoCat.iconUrl!);
         // print('updating Videos ${videoModel.id} $result}');
@@ -374,24 +374,24 @@ class SyncManager extends GetxController {
 
     // TODO
     // RelatedArticles
-    if (relatedArticles.isNotEmpty) {
-      for (var x = 0; x < relatedArticles.length; x++) {
-        RelatedArticlesModel relatedArticlesModel = RelatedArticlesModel.fromJson(relatedArticles[x]);
+    if (relatedArticles?.isNotEmpty ?? false) {
+      for (var x = 0; x < (relatedArticles?.length ?? 0); x++) {
+        RelatedArticlesModel relatedArticlesModel = RelatedArticlesModel.fromJson(relatedArticles?[x]);
         DataBaseHelper.dataBaseInstance().updateRelatedArticles(relatedArticlesModel);
       }
     }
 
     // tagWords
-    if (tagWords.isNotEmpty) {
-      for (var x = 0; x < tagWords.length; x++) {
-        TagWordModel tagWordModel = TagWordModel.fromJson(tagWords[x]);
+    if (tagWords?.isNotEmpty ?? false) {
+      for (var x = 0; x < (tagWords?.length ?? 0); x++) {
+        TagWordModel tagWordModel = TagWordModel.fromJson(tagWords?[x]);
         await DataBaseHelper.dataBaseInstance().updateTagWords(tagWordModel);
       }
     }
     // relatedTags
-    if (relatedTags.isNotEmpty) {
-      for (var x = 0; x < relatedTags.length; x++) {
-        RelatedTagModel tagModel = RelatedTagModel.fromJson(relatedTags[x]);
+    if (relatedTags?.isNotEmpty ?? false) {
+      for (var x = 0; x < (relatedTags?.length ?? 0); x++) {
+        RelatedTagModel tagModel = RelatedTagModel.fromJson(relatedTags?[x]);
         await DataBaseHelper.dataBaseInstance().updateRelatedTags(tagModel);
       }
     }

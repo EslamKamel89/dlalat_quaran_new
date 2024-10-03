@@ -1,0 +1,106 @@
+import 'package:dlalat_quran/ui/home_sura_screen.dart';
+import 'package:dlalat_quran/ui/intro_screen.dart';
+import 'package:dlalat_quran/ui/setting_screen.dart';
+import 'package:dlalat_quran/utils/colors.dart';
+import 'package:dlalat_quran/utils/constants.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+
+import '../ui/short_explanation_index.dart';
+
+class QuranBar extends StatelessWidget implements PreferredSizeWidget {
+  final String title;
+
+  const QuranBar(this.title, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      shape: const ContinuousRectangleBorder(
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(30),
+              bottomRight: Radius.circular(30)
+          )
+      ),
+      title: Text(
+        title,
+        style: const TextStyle(
+            color: Colors.white,
+            fontFamily: 'Almarai'
+        ),
+      ),
+      centerTitle: true,
+      flexibleSpace: Stack(
+        children: [
+          Container(
+            width: Get.width,
+            decoration: const BoxDecoration(
+                color: primaryColor,
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(15),
+                    bottomRight: Radius.circular(15)
+                )
+            ),
+            height: 120,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+              child: Image.asset(
+                toolBarBackImage,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+        ],
+      ),
+      backgroundColor: lightGray,
+      actions: [
+        SizedBox(
+          width: 40,
+          height: 40,
+          child: InkWell(
+            onTap: () {
+              Get.offAll( IntroScreen());
+              Get.to(HomeSuraScreen());
+            },
+            customBorder: const CircleBorder(),
+            child: const Icon(
+              Icons.menu_book,
+              size: 25,
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 40,
+          height: 40,
+          child: InkWell(
+            onTap: () {
+              Get.back();
+              Get.to(SettingScreen());
+            },
+            customBorder: const CircleBorder(),
+            child: const Icon(
+              Icons.settings,
+              size: 25,
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 40,
+          height: 40,
+          child: InkWell(
+            onTap: () => Get.offAll( IntroScreen()),
+            customBorder: const CircleBorder(),
+            child: const Icon(
+              Icons.home_outlined,
+              size: 25,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  @override
+  Size get preferredSize => Size(Get.width, isSmallScreen ? 50 : 60);
+}

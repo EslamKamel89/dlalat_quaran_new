@@ -1,18 +1,11 @@
-import 'package:dlalat_quran/utils/constants.dart';
+import 'package:dlalat_quaran_new/utils/constants.dart';
 import 'package:get_storage/get_storage.dart';
 
 class ReciterModel {
   int? id, enabled;
   String? name_ar, name_en, name_fr, name_it, name_es;
 
-  ReciterModel(
-      {this.id,
-      this.enabled,
-      this.name_ar,
-      this.name_en,
-      this.name_fr,
-      this.name_it,
-      this.name_es});
+  ReciterModel({this.id, this.enabled, this.name_ar, this.name_en, this.name_fr, this.name_it, this.name_es});
 
   factory ReciterModel.fromJson(Map<String, dynamic> json) => ReciterModel(
         id: json["id"],

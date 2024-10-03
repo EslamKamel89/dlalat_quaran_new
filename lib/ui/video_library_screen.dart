@@ -1,11 +1,11 @@
 import 'dart:developer';
 
-import 'package:dlalat_quran/controllers/video_screen_controller.dart';
-import 'package:dlalat_quran/utils/colors.dart';
-import 'package:dlalat_quran/widgets/font_text.dart';
-import 'package:dlalat_quran/widgets/quran_toolbar.dart';
-import 'package:dlalat_quran/widgets/search_widget.dart';
-import 'package:dlalat_quran/widgets/video_item.dart';
+import 'package:dlalat_quaran_new/controllers/video_screen_controller.dart';
+import 'package:dlalat_quaran_new/utils/colors.dart';
+import 'package:dlalat_quaran_new/widgets/font_text.dart';
+import 'package:dlalat_quaran_new/widgets/quran_toolbar.dart';
+import 'package:dlalat_quaran_new/widgets/search_widget.dart';
+import 'package:dlalat_quaran_new/widgets/video_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,10 +13,9 @@ class VideoLibraryScreen extends StatelessWidget {
   static String id = '/VideoLibraryScreen';
   final TextEditingController _textController = TextEditingController();
   String? catId;
-  final VideoScreenController _videoScreenController =
-  Get.put(VideoScreenController());
+  final VideoScreenController _videoScreenController = Get.put(VideoScreenController());
 
-  VideoLibraryScreen({Key? key}) : super(key: key);
+  VideoLibraryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,33 +30,36 @@ class VideoLibraryScreen extends StatelessWidget {
         appBar: QuranBar('video_library'.tr),
         body: Column(
           children: [
-
-            AlMaraiText(18,Get.arguments["tagName"].toString() ),
-            SearchWidget(_textController, null , () {
+            AlMaraiText(18, Get.arguments["tagName"].toString()),
+            SearchWidget(_textController, null, () {
               _videoScreenController.search(_textController.text.toString().toLowerCase());
             }),
             Expanded(
                 child: Container(
-                  margin: const EdgeInsets.only(left: 10, right: 10),
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      boxShadow: [BoxShadow(color: mediumGray, blurRadius: 10)]),
-                  child: Obx(() => _videoScreenController.filteredList.isNotEmpty ?GridView.count(
-                    crossAxisCount: 2,
-                    children: _videoScreenController.filteredList.map((e) {
-                      return VideoItem(videoModel: e,);
-                    }).toList(),
-                  ): Container(
-                    width: double.infinity,
-                    alignment: Alignment.center,
-                    child: AlMaraiText(14,'لا يوجد بيانات'),
-                  )),
-                ))
+              margin: const EdgeInsets.only(left: 10, right: 10),
+              decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  boxShadow: [BoxShadow(color: mediumGray, blurRadius: 10)]),
+              child: Obx(() => _videoScreenController.filteredList.isNotEmpty
+                  ? GridView.count(
+                      crossAxisCount: 2,
+                      children: _videoScreenController.filteredList.map((e) {
+                        return VideoItem(
+                          videoModel: e,
+                        );
+                      }).toList(),
+                    )
+                  : Container(
+                      width: double.infinity,
+                      alignment: Alignment.center,
+                      child: AlMaraiText(14, 'لا يوجد بيانات'),
+                    )),
+            ))
           ],
         ),
       ),
-      onWillPop: ()async{
+      onWillPop: () async {
         Get.delete<VideoScreenController>();
         return true;
       },

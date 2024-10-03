@@ -5,21 +5,21 @@ import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_logging_interceptor/dio_logging_interceptor.dart';
-import 'package:dlalat_quran/db/database_helper.dart';
-import 'package:dlalat_quran/models/RelatedArticlesModel.dart';
-import 'package:dlalat_quran/models/RelatedTagModel.dart';
-import 'package:dlalat_quran/models/TagWordModel.dart';
-import 'package:dlalat_quran/models/article_model.dart';
-import 'package:dlalat_quran/models/aya_model.dart';
-import 'package:dlalat_quran/models/db_word_model.dart';
-import 'package:dlalat_quran/models/reciters_model.dart';
-import 'package:dlalat_quran/models/sura_model.dart';
-import 'package:dlalat_quran/models/tag_model.dart';
-import 'package:dlalat_quran/models/video_category.dart';
-import 'package:dlalat_quran/models/video_model.dart';
-import 'package:dlalat_quran/utils/audio_download.dart';
-import 'package:dlalat_quran/utils/audio_folders.dart';
-import 'package:dlalat_quran/utils/print_helper.dart';
+import 'package:dlalat_quaran_new/db/database_helper.dart';
+import 'package:dlalat_quaran_new/models/RelatedArticlesModel.dart';
+import 'package:dlalat_quaran_new/models/RelatedTagModel.dart';
+import 'package:dlalat_quaran_new/models/TagWordModel.dart';
+import 'package:dlalat_quaran_new/models/article_model.dart';
+import 'package:dlalat_quaran_new/models/aya_model.dart';
+import 'package:dlalat_quaran_new/models/db_word_model.dart';
+import 'package:dlalat_quaran_new/models/reciters_model.dart';
+import 'package:dlalat_quaran_new/models/sura_model.dart';
+import 'package:dlalat_quaran_new/models/tag_model.dart';
+import 'package:dlalat_quaran_new/models/video_category.dart';
+import 'package:dlalat_quaran_new/models/video_model.dart';
+import 'package:dlalat_quaran_new/utils/audio_download.dart';
+import 'package:dlalat_quaran_new/utils/audio_folders.dart';
+import 'package:dlalat_quaran_new/utils/print_helper.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -355,7 +355,7 @@ class SyncManager extends GetxController {
       }
     }
 
-    if (videoCats!.isNotEmpty) {
+    if (videoCats.isNotEmpty) {
       for (var x = 0; x < videoCats.length; x++) {
         VideoCategory videoCat = VideoCategory.fromJson(videoCats[x]);
         await DataBaseHelper.dataBaseInstance().updateVideoCats(videoCat);
@@ -374,27 +374,25 @@ class SyncManager extends GetxController {
 
     // TODO
     // RelatedArticles
-    if (relatedTags != null) {
-      if (relatedArticles!.isNotEmpty) {
-        for (var x = 0; x < relatedArticles.length; x++) {
-          RelatedArticlesModel relatedArticlesModel = RelatedArticlesModel.fromJson(relatedArticles[x]);
-          DataBaseHelper.dataBaseInstance().updateRelatedArticles(relatedArticlesModel);
-        }
+    if (relatedArticles.isNotEmpty) {
+      for (var x = 0; x < relatedArticles.length; x++) {
+        RelatedArticlesModel relatedArticlesModel = RelatedArticlesModel.fromJson(relatedArticles[x]);
+        DataBaseHelper.dataBaseInstance().updateRelatedArticles(relatedArticlesModel);
       }
+    }
 
-      // tagWords
-      if (tagWords!.isNotEmpty) {
-        for (var x = 0; x < tagWords.length; x++) {
-          TagWordModel tagWordModel = TagWordModel.fromJson(tagWords[x]);
-          await DataBaseHelper.dataBaseInstance().updateTagWords(tagWordModel);
-        }
+    // tagWords
+    if (tagWords.isNotEmpty) {
+      for (var x = 0; x < tagWords.length; x++) {
+        TagWordModel tagWordModel = TagWordModel.fromJson(tagWords[x]);
+        await DataBaseHelper.dataBaseInstance().updateTagWords(tagWordModel);
       }
-      // relatedTags
-      if (relatedTags.isNotEmpty) {
-        for (var x = 0; x < relatedTags.length; x++) {
-          RelatedTagModel tagModel = RelatedTagModel.fromJson(relatedTags[x]);
-          await DataBaseHelper.dataBaseInstance().updateRelatedTags(tagModel);
-        }
+    }
+    // relatedTags
+    if (relatedTags.isNotEmpty) {
+      for (var x = 0; x < relatedTags.length; x++) {
+        RelatedTagModel tagModel = RelatedTagModel.fromJson(relatedTags[x]);
+        await DataBaseHelper.dataBaseInstance().updateRelatedTags(tagModel);
       }
     }
     _getDeleted();

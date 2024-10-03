@@ -1,10 +1,10 @@
-import 'package:dlalat_quran/controllers/short_explanation_index_controller.dart';
-import 'package:dlalat_quran/models/sura_model.dart';
-import 'package:dlalat_quran/ui/sura_en_screen.dart';
-import 'package:dlalat_quran/ui/sura_screen.dart';
-import 'package:dlalat_quran/utils/constants.dart';
-import 'package:dlalat_quran/widgets/search_widget.dart';
-import 'package:dlalat_quran/widgets/single_sura.dart';
+import 'package:dlalat_quaran_new/controllers/short_explanation_index_controller.dart';
+import 'package:dlalat_quaran_new/models/sura_model.dart';
+import 'package:dlalat_quaran_new/ui/sura_en_screen.dart';
+import 'package:dlalat_quaran_new/ui/sura_screen.dart';
+import 'package:dlalat_quaran_new/utils/constants.dart';
+import 'package:dlalat_quaran_new/widgets/search_widget.dart';
+import 'package:dlalat_quaran_new/widgets/single_sura.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -23,7 +23,7 @@ class ShortExplanationIndex extends StatelessWidget {
   final ShortExplainIndexController _controller = Get.put(ShortExplainIndexController());
   final TextEditingController _searchController = TextEditingController();
 
-  ShortExplanationIndex({Key? key}) : super(key: key);
+  ShortExplanationIndex({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,8 +1,8 @@
 import 'dart:developer';
 import 'dart:ui';
 
-import 'package:dlalat_quran/db/database_helper.dart';
-import 'package:dlalat_quran/models/video_model.dart';
+import 'package:dlalat_quaran_new/db/database_helper.dart';
+import 'package:dlalat_quaran_new/models/video_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,10 +11,9 @@ import '../utils/colors.dart';
 import '../widgets/video_item.dart';
 
 class DialogTagVideos extends StatelessWidget {
-
   TagModel tagModel;
 
-  DialogTagVideos(this.tagModel, {Key? key}) : super(key: key);
+  DialogTagVideos(this.tagModel, {super.key});
 
   final TagVideosController _controller = Get.put(TagVideosController());
 
@@ -28,13 +27,9 @@ class DialogTagVideos extends StatelessWidget {
         color: const Color(0x5dffffff),
         borderRadius: const BorderRadius.all(Radius.circular(15)),
         child: Container(
-          padding:
-          const EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 15),
-          decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(15))),
-          margin:
-          const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
+          padding: const EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 15),
+          decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(15))),
+          margin: const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
           child: Column(
             children: [
               Row(
@@ -48,14 +43,11 @@ class DialogTagVideos extends StatelessWidget {
                   ),
                   Expanded(
                       child: Text(
-                        tagModel.name(),
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                            fontFamily: 'Almarai',
-                            color: primaryColor,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold),
-                      )),
+                    tagModel.name(),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                        fontFamily: 'Almarai', color: primaryColor, fontSize: 15, fontWeight: FontWeight.bold),
+                  )),
                   const Icon(null),
                 ],
               ),
@@ -66,12 +58,14 @@ class DialogTagVideos extends StatelessWidget {
               ),
               Expanded(
                   child: Obx(() => GridView.count(
-                    crossAxisCount: 2,
-                    children: _controller.videosList.map((e) {
-                      log('Video From Dadasd ${e.toString()}');
-                      return VideoItem(videoModel: e,);
-                    }).toList(),
-                  )))
+                        crossAxisCount: 2,
+                        children: _controller.videosList.map((e) {
+                          log('Video From Dadasd ${e.toString()}');
+                          return VideoItem(
+                            videoModel: e,
+                          );
+                        }).toList(),
+                      )))
             ],
           ),
         ),
@@ -79,7 +73,8 @@ class DialogTagVideos extends StatelessWidget {
     );
   }
 }
-class TagVideosController extends GetxController{
+
+class TagVideosController extends GetxController {
   var videosList = <VideoModel>[].obs;
 
   getVideos(TagModel tagId) async {

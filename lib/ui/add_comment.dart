@@ -1,6 +1,6 @@
-import 'package:dlalat_quran/utils/colors.dart';
-import 'package:dlalat_quran/widgets/custom_buttons.dart';
-import 'package:dlalat_quran/widgets/quran_toolbar.dart';
+import 'package:dlalat_quaran_new/utils/colors.dart';
+import 'package:dlalat_quaran_new/widgets/custom_buttons.dart';
+import 'package:dlalat_quaran_new/widgets/quran_toolbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

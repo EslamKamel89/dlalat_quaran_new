@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:dlalat_quran/db/database_helper.dart';
+import 'package:dlalat_quaran_new/db/database_helper.dart';
 import 'package:get/get.dart';
 
 class ExplainDialogController extends GetxController {
@@ -9,11 +9,11 @@ class ExplainDialogController extends GetxController {
   var videoUrl = 'null'.obs;
 
   void getAyaExplain(String aya) async {
-    var explanation = await DataBaseHelper.dataBaseInstance().getExplanation(
-        aya);
-    explain.value=  explanation['explainText'].toString() == "NULL" ? 'not_available'.tr : explanation['explainText'].toString() ;
+    var explanation = await DataBaseHelper.dataBaseInstance().getExplanation(aya);
+    explain.value =
+        explanation['explainText'].toString() == "NULL" ? 'not_available'.tr : explanation['explainText'].toString();
     ayaText.value = explanation['ayaText'].toString();
-   if( explanation['videoUrl'].toString().startsWith('http')){
+    if (explanation['videoUrl'].toString().startsWith('http')) {
       videoUrl.value = explanation['videoUrl'].toString();
     }
     // videoUrl.value = explanation['videoUrl'].toString();
@@ -22,8 +22,4 @@ class ExplainDialogController extends GetxController {
 
     update();
   }
-
-
-
-
 }

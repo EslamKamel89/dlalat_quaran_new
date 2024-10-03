@@ -1,19 +1,19 @@
 import 'dart:developer';
 
 import 'package:audioplayers/audioplayers.dart';
-import 'package:dlalat_quran/controllers/player_bottom_controller.dart';
-import 'package:dlalat_quran/db/database_helper.dart';
-import 'package:dlalat_quran/ui/new_single_sura_screen.dart';
-import 'package:dlalat_quran/ui/short_explanation_index.dart';
-import 'package:dlalat_quran/ui/sura_en_screen.dart';
-import 'package:dlalat_quran/ui/sura_screen.dart';
-import 'package:dlalat_quran/utils/audio_download.dart';
-import 'package:dlalat_quran/utils/colors.dart';
-import 'package:dlalat_quran/utils/constants.dart';
-import 'package:dlalat_quran/widgets/font_text.dart';
-import 'package:dlalat_quran/widgets/loading_widget.dart';
-import 'package:dlalat_quran/widgets/player_slider.dart';
-import 'package:dlalat_quran/widgets/select_recitations_dialog.dart';
+import 'package:dlalat_quaran_new/controllers/player_bottom_controller.dart';
+import 'package:dlalat_quaran_new/db/database_helper.dart';
+import 'package:dlalat_quaran_new/ui/new_single_sura_screen.dart';
+import 'package:dlalat_quaran_new/ui/short_explanation_index.dart';
+import 'package:dlalat_quaran_new/ui/sura_en_screen.dart';
+import 'package:dlalat_quaran_new/ui/sura_screen.dart';
+import 'package:dlalat_quaran_new/utils/audio_download.dart';
+import 'package:dlalat_quaran_new/utils/colors.dart';
+import 'package:dlalat_quaran_new/utils/constants.dart';
+import 'package:dlalat_quaran_new/widgets/font_text.dart';
+import 'package:dlalat_quaran_new/widgets/loading_widget.dart';
+import 'package:dlalat_quaran_new/widgets/player_slider.dart';
+import 'package:dlalat_quaran_new/widgets/select_recitations_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -26,20 +26,21 @@ var listenerStart = false;
 var controllerObject = PlayerBottomController();
 
 class PlayerBottomWidget extends StatelessWidget {
-  String _locale = GetStorage().read(language);
+  final String _locale = GetStorage().read(language);
   int ayaId = 0;
   int ayaNo = 1;
   bool isPaused = false;
   PlayerBottomController playerBottomController = Get.put(controllerObject);
   String reciterId = '1';
   PlayerBottomWidget({
+    super.key,
     required this.ayaId,
     required this.ayaNo,
   });
 
   late PlayerSlider playerSlider;
 
-  void initPlayer() async{
+  void initPlayer() async {
     audioPlayer.setPlayerMode(PlayerMode.mediaPlayer);
     controllerObject.getCurrentReciter();
     if (ayaNo != 0) {
@@ -84,7 +85,6 @@ class PlayerBottomWidget extends StatelessWidget {
       audioPlayer.onPlayerComplete.listen((event) async {
         _playNext();
       });
-
     }
     listenerStart = true;
   }
@@ -103,8 +103,8 @@ class PlayerBottomWidget extends StatelessWidget {
 
         reciterId = playerBottomController.currentReciter.value.id.toString();
 
-        String fullPath = await AudioFolders().generatePath(
-            reciterId, playerSuraId.value.toString(), selectAyaNo.value);
+        String fullPath =
+            await AudioFolders().generatePath(reciterId, playerSuraId.value.toString(), selectAyaNo.value);
         await audioPlayer.play(DeviceFileSource(fullPath));
 
         if (autoScrollController != null) {
@@ -113,7 +113,6 @@ class PlayerBottomWidget extends StatelessWidget {
           log('scroller====null ,, ${selectAyaNo.value} ');
         }
       });
-
     }
     listenerStart = true;
   }
@@ -128,7 +127,6 @@ class PlayerBottomWidget extends StatelessWidget {
     }
 
     return Container(
-
       margin: const EdgeInsets.only(left: 15, right: 15),
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -150,13 +148,12 @@ class PlayerBottomWidget extends StatelessWidget {
               // Title Row
               children: [
                 Container(
-                  child: Image.asset(logoSmall),
                   padding: const EdgeInsets.all(5),
-                  decoration: const BoxDecoration(
-                      color: lightGray2,
-                      borderRadius: BorderRadius.all(Radius.circular(4))),
+                  decoration:
+                      const BoxDecoration(color: lightGray2, borderRadius: BorderRadius.all(Radius.circular(4))),
                   height: 25,
                   width: 25,
+                  child: Image.asset(logoSmall),
                 ),
                 const SizedBox(
                   width: 5,
@@ -177,52 +174,39 @@ class PlayerBottomWidget extends StatelessWidget {
                     const SizedBox(
                       width: 5,
                     ),
-                    Obx(() =>
-                        playerBottomController.currentReciter.value.id != null
-                            ? Center(
-                                child: AlMaraiTextBottom(
-                                    isSmallScreen ? 10 : 13,
-                                    playerBottomController
-                                                .currentReciter.value.id !=
-                                            0
-                                        ? playerBottomController
-                                            .currentReciter.value
-                                            .toString()
-                                        : '1'),
-                              )
-                            : const SizedBox()),
+                    Obx(() => playerBottomController.currentReciter.value.id != null
+                        ? Center(
+                            child: AlMaraiTextBottom(
+                                isSmallScreen ? 10 : 13,
+                                playerBottomController.currentReciter.value.id != 0
+                                    ? playerBottomController.currentReciter.value.toString()
+                                    : '1'),
+                          )
+                        : const SizedBox()),
                     const SizedBox(
                       width: 10,
                     ),
                     SizedBox(
                         height: isSmallScreen ? 15 : 25,
                         child: ElevatedButton(
-                            onPressed: () => Get.dialog(
-                                SelectRecitationsDialog(
-                                    playerBottomController)),
+                            onPressed: () => Get.dialog(SelectRecitationsDialog(playerBottomController)),
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xffF1F2F5),
                                 padding: const EdgeInsets.all(0),
-                                shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(5)))),
+                                shape:
+                                    const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5)))),
                             child: Padding(
                               padding: const EdgeInsets.all(3.0),
                               child: Text(
                                 'changeReciter'.tr,
                                 textScaleFactor: 1.0,
-                                style: const TextStyle(
-                                    fontSize: 10,
-                                    fontFamily: 'Almarai',
-                                    color: primaryColor),
+                                style: const TextStyle(fontSize: 10, fontFamily: 'Almarai', color: primaryColor),
                               ),
                             ))),
                     const SizedBox(
                       width: 10,
                     ),
-                    Obx(() => playerBottomController.isLoading.value
-                        ? const LoadingWidget()
-                        : const SizedBox()),
+                    Obx(() => playerBottomController.isLoading.value ? const LoadingWidget() : const SizedBox()),
                   ],
                 )
               ],
@@ -242,7 +226,6 @@ class PlayerBottomWidget extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () async {
-
                     if (!playerBottomController.isLoading.value) {
                       _playPrev();
                     } else {
@@ -251,9 +234,7 @@ class PlayerBottomWidget extends StatelessWidget {
                   },
                   customBorder: const CircleBorder(),
                   child: Image.asset(
-                    _locale == 'ar'
-                        ? 'assets/icons/ic_rewind_forward.png'
-                        : 'assets/icons/ic_rewind_back.png',
+                    _locale == 'ar' ? 'assets/icons/ic_rewind_forward.png' : 'assets/icons/ic_rewind_back.png',
                     height: isSmallScreen ? 15 : 20,
                     width: isSmallScreen ? 15 : 20,
                   ),
@@ -264,8 +245,7 @@ class PlayerBottomWidget extends StatelessWidget {
                 InkWell(
                   onTap: () async {
                     if (!playerBottomController.isLoading.value) {
-                      var isNetAvailable =
-                          await AudioDownload().isInternetAvailable();
+                      var isNetAvailable = await AudioDownload().isInternetAvailable();
 
                       switch (_playerState!) {
                         case PlayerState.stopped:
@@ -279,8 +259,7 @@ class PlayerBottomWidget extends StatelessWidget {
                           // }
 
                           String fullPath = await AudioFolders().generatePath(
-                              playerBottomController.currentReciter.value.id
-                                  .toString(),
+                              playerBottomController.currentReciter.value.id.toString(),
                               playerSuraId.value.toString(),
                               selectAyaNo.value);
 
@@ -321,9 +300,8 @@ class PlayerBottomWidget extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () async {
-
                     if (!playerBottomController.isLoading.value) {
-                   await   audioPlayer.stop();
+                      await audioPlayer.stop();
                       _playNext();
                     } else {
                       _loadingSnack();
@@ -331,9 +309,7 @@ class PlayerBottomWidget extends StatelessWidget {
                   },
                   customBorder: const CircleBorder(),
                   child: Image.asset(
-                    _locale == 'ar'
-                        ? 'assets/icons/ic_rewind_back.png'
-                        : 'assets/icons/ic_rewind_forward.png',
+                    _locale == 'ar' ? 'assets/icons/ic_rewind_back.png' : 'assets/icons/ic_rewind_forward.png',
                     height: isSmallScreen ? 15 : 20,
                     width: isSmallScreen ? 15 : 20,
                   ),
@@ -346,13 +322,12 @@ class PlayerBottomWidget extends StatelessWidget {
     );
   }
 
-  void _playNext() async{
+  void _playNext() async {
     if (int.parse(selectAyaNo.value) < playerSuraCount.value) {
       selectedAyaId.value = (int.parse(selectedAyaId.value) + 1).toString();
       selectAyaNo.value = (int.parse(selectAyaNo.value) + 1).toString();
       initPlayer();
-      currentPage.value = await DataBaseHelper.dataBaseInstance()
-          .getAyaPage(selectedAyaId.value);
+      currentPage.value = await DataBaseHelper.dataBaseInstance().getAyaPage(selectedAyaId.value);
 
       if (currentPage.value != currentPageNotifier.value) {
         pageController.jumpToPage(currentPage.value - 1);
@@ -373,19 +348,18 @@ class PlayerBottomWidget extends StatelessWidget {
       initPlayer();
       reciterId = playerBottomController.currentReciter.value.id.toString();
 
-      String fullPath = await AudioFolders().generatePath(
-          reciterId, playerSuraId.value.toString(), selectAyaNo.value);
+      String fullPath = await AudioFolders().generatePath(reciterId, playerSuraId.value.toString(), selectAyaNo.value);
       await audioPlayer.play(DeviceFileSource(fullPath));
     }
   }
-  void _playPrev() async{
+
+  void _playPrev() async {
     await audioPlayer.stop();
-    if (int.parse(selectAyaNo.value) >1) {
-      selectedAyaId.value = (int.parse(selectedAyaId.value)- 1).toString();
+    if (int.parse(selectAyaNo.value) > 1) {
+      selectedAyaId.value = (int.parse(selectedAyaId.value) - 1).toString();
       selectAyaNo.value = (int.parse(selectAyaNo.value) - 1).toString();
       initPlayer();
-      currentPage.value = await DataBaseHelper.dataBaseInstance()
-          .getAyaPage(selectedAyaId.value);
+      currentPage.value = await DataBaseHelper.dataBaseInstance().getAyaPage(selectedAyaId.value);
 
       if (currentPage.value != currentPageNotifier.value) {
         pageController.jumpToPage(currentPage.value - 1);
@@ -406,8 +380,7 @@ class PlayerBottomWidget extends StatelessWidget {
       initPlayer();
       reciterId = playerBottomController.currentReciter.value.id.toString();
 
-      String fullPath = await AudioFolders().generatePath(
-          reciterId, playerSuraId.value.toString(), selectAyaNo.value);
+      String fullPath = await AudioFolders().generatePath(reciterId, playerSuraId.value.toString(), selectAyaNo.value);
       await audioPlayer.play(DeviceFileSource(fullPath));
     }
   }
@@ -415,7 +388,7 @@ class PlayerBottomWidget extends StatelessWidget {
   void _loadingSnack() {
     Get.snackbar('recitations'.tr, 'audioLoadingMsg'.tr,
         snackPosition: SnackPosition.BOTTOM,
-        margin: EdgeInsets.all(8),
+        margin: const EdgeInsets.all(8),
         backgroundColor: primaryColor,
         colorText: Colors.white);
   }

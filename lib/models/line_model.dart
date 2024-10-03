@@ -1,4 +1,4 @@
-import 'package:dlalat_quran/models/row_model_entity.dart';
+import 'package:dlalat_quaran_new/models/row_model_entity.dart';
 
 class LineModel {
   int? lineNo;

@@ -1,5 +1,5 @@
-import 'package:dlalat_quran/models/sura_model.dart';
-import 'package:dlalat_quran/ui/sura_screen.dart';
+import 'package:dlalat_quaran_new/models/sura_model.dart';
+import 'package:dlalat_quaran_new/ui/sura_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,7 +9,7 @@ class SingleSura extends StatelessWidget {
   final SuraModel suraModel;
   Widget destination;
 
-  SingleSura(this.suraModel, this.destination, {Key? key}) : super(key: key);
+  SingleSura(this.suraModel, this.destination, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,8 @@ class SingleSura extends StatelessWidget {
       margin: const EdgeInsets.only(left: 15, right: 15, top: 10),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          foregroundColor: Colors.grey, backgroundColor: Colors.white,
+          foregroundColor: Colors.grey,
+          backgroundColor: Colors.white,
           padding: EdgeInsets.zero,
         ),
         onPressed: () {
@@ -26,11 +27,9 @@ class SingleSura extends StatelessWidget {
 
           Get.to(destination,
               transition: Transition.fade,
-              arguments:
-              destination.runtimeType == SuraScreen().runtimeType
+              arguments: destination.runtimeType == SuraScreen().runtimeType
                   ? {'page': '${suraModel.page}'}
                   : suraModel.toJson());
-
         },
         child: Container(
           padding: const EdgeInsets.all(8),

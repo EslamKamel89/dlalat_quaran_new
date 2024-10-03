@@ -4,10 +4,10 @@ import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
 // import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
-import 'package:dlalat_quran/db/database_helper.dart';
-import 'package:dlalat_quran/models/page_ayat_sura_model.dart';
-import 'package:dlalat_quran/utils/audio_folders.dart';
-import 'package:dlalat_quran/utils/constants.dart';
+import 'package:dlalat_quaran_new/db/database_helper.dart';
+import 'package:dlalat_quaran_new/models/page_ayat_sura_model.dart';
+import 'package:dlalat_quaran_new/utils/audio_folders.dart';
+import 'package:dlalat_quaran_new/utils/constants.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

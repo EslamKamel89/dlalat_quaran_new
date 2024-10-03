@@ -1,13 +1,13 @@
-import 'package:dlalat_quran/ui/add_research.dart';
-import 'package:dlalat_quran/ui/articles_screen.dart';
-import 'package:dlalat_quran/ui/audio_recitations_screen.dart';
-import 'package:dlalat_quran/ui/home_sura_screen.dart';
-import 'package:dlalat_quran/ui/setting_screen.dart';
-import 'package:dlalat_quran/ui/tags_screen.dart';
-import 'package:dlalat_quran/ui/video_categories_screen.dart';
-import 'package:dlalat_quran/utils/colors.dart';
-import 'package:dlalat_quran/utils/constants.dart';
-import 'package:dlalat_quran/widgets/splash_background.dart';
+import 'package:dlalat_quaran_new/ui/add_research.dart';
+import 'package:dlalat_quaran_new/ui/articles_screen.dart';
+import 'package:dlalat_quaran_new/ui/audio_recitations_screen.dart';
+import 'package:dlalat_quaran_new/ui/home_sura_screen.dart';
+import 'package:dlalat_quaran_new/ui/setting_screen.dart';
+import 'package:dlalat_quaran_new/ui/tags_screen.dart';
+import 'package:dlalat_quaran_new/ui/video_categories_screen.dart';
+import 'package:dlalat_quaran_new/utils/colors.dart';
+import 'package:dlalat_quaran_new/utils/constants.dart';
+import 'package:dlalat_quaran_new/widgets/splash_background.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -15,7 +15,7 @@ import 'package:get_storage/get_storage.dart';
 class IntroScreen extends StatelessWidget {
   static var id = '/IntroScreen';
 
-  const IntroScreen({Key? key}) : super(key: key);
+  const IntroScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

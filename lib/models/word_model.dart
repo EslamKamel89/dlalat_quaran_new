@@ -1,4 +1,4 @@
-import 'package:dlalat_quran/utils/constants.dart';
+import 'package:dlalat_quaran_new/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';

@@ -1,6 +1,6 @@
-import 'package:dlalat_quran/ui/select_language_screen.dart';
-import 'package:dlalat_quran/utils/constants.dart';
-import 'package:dlalat_quran/widgets/splash_background.dart';
+import 'package:dlalat_quaran_new/ui/select_language_screen.dart';
+import 'package:dlalat_quaran_new/utils/constants.dart';
+import 'package:dlalat_quaran_new/widgets/splash_background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
@@ -9,7 +9,7 @@ import 'package:get_storage/get_storage.dart';
 import 'intro_screen.dart';
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
   static const String id = "/SplashScreen";
   // SyncManager manager = Get.put(SyncManager());
 
@@ -64,7 +64,7 @@ class SplashScreen extends StatelessWidget {
 }
 
 class LoadingView extends StatelessWidget {
-  const LoadingView({Key? key}) : super(key: key);
+  const LoadingView({super.key});
 
   @override
   Widget build(BuildContext context) {

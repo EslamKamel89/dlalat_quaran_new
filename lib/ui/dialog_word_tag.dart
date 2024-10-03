@@ -1,9 +1,9 @@
 import 'dart:ui';
 
-import 'package:dlalat_quran/controllers/dialog_word_tag_controller.dart';
-import 'package:dlalat_quran/ui/add_comment.dart';
-import 'package:dlalat_quran/utils/colors.dart';
-import 'package:dlalat_quran/widgets/custom_buttons.dart';
+import 'package:dlalat_quaran_new/controllers/dialog_word_tag_controller.dart';
+import 'package:dlalat_quaran_new/ui/add_comment.dart';
+import 'package:dlalat_quaran_new/utils/colors.dart';
+import 'package:dlalat_quaran_new/widgets/custom_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
@@ -14,7 +14,7 @@ class DialogWordTag extends StatelessWidget {
   final String tagId;
   final String wordId;
 
-  DialogWordTag({Key? key, required this.tagId, required this.wordId}) : super(key: key);
+  DialogWordTag({super.key, required this.tagId, required this.wordId});
 
   final DialogWordTagController _dialogController = Get.put(DialogWordTagController());
 

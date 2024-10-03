@@ -1,7 +1,7 @@
 import 'dart:developer';
 
-import 'package:dlalat_quran/db/database_helper.dart';
-import 'package:dlalat_quran/models/sura_search_model.dart';
+import 'package:dlalat_quaran_new/db/database_helper.dart';
+import 'package:dlalat_quaran_new/models/sura_search_model.dart';
 import 'package:get/get.dart';
 
 class WordSearchController extends GetxController {
@@ -19,8 +19,7 @@ class WordSearchController extends GetxController {
     wordCount.value = sum.toString();
     loading.value = true;
     update();
-    resultList.value =
-        await DataBaseHelper.dataBaseInstance().searchByWord(key);
+    resultList.value = await DataBaseHelper.dataBaseInstance().searchByWord(key);
     for (var e in resultList) {
       sum += e.count!;
     }

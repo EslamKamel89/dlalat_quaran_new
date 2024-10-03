@@ -1,4 +1,4 @@
-import 'package:dlalat_quran/utils/constants.dart';
+import 'package:dlalat_quaran_new/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -93,14 +93,14 @@ class SuraModel {
         name = ' $sura_en - $sura_ar';
         break;
       case 'fr':
-        name = ' ${sura_fr.toString().toUpperCase() == 'NULL' ? "" :  " $sura_fr -"}  $sura_ar';
+        name = ' ${sura_fr.toString().toUpperCase() == 'NULL' ? "" : " $sura_fr -"}  $sura_ar';
         break;
       case 'es':
-        name = ' ${sura_fr.toString().toUpperCase() == 'NULL' ? "" :  " $sura_sp -"} $sura_ar';
+        name = ' ${sura_fr.toString().toUpperCase() == 'NULL' ? "" : " $sura_sp -"} $sura_ar';
 
         break;
       case 'it':
-        name = ' ${sura_fr.toString().toUpperCase() == 'NULL' ? "" :  " $sura_sp -"} $sura_ar';
+        name = ' ${sura_fr.toString().toUpperCase() == 'NULL' ? "" : " $sura_sp -"} $sura_ar';
 
         break;
       default:

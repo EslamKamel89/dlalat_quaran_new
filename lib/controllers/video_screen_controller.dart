@@ -1,4 +1,4 @@
-import 'package:dlalat_quran/db/database_helper.dart';
+import 'package:dlalat_quaran_new/db/database_helper.dart';
 import 'package:get/get.dart';
 
 class VideoScreenController extends GetxController {
@@ -13,11 +13,7 @@ class VideoScreenController extends GetxController {
   }
 
   void search(String key) {
-    filteredList.value = videosList
-        .where(((x) => x.toString().contains(key)))
-        .toList();
+    filteredList.value = videosList.where(((x) => x.toString().contains(key))).toList();
     update();
   }
-
-
 }

@@ -1,6 +1,5 @@
-
-import 'package:dlalat_quran/controllers/short_explanation_index_controller.dart';
-import 'package:dlalat_quran/db/database_helper.dart';
+import 'package:dlalat_quaran_new/controllers/short_explanation_index_controller.dart';
+import 'package:dlalat_quaran_new/db/database_helper.dart';
 import 'package:get/get.dart';
 
 class SuraScreenController extends GetxController {
@@ -12,7 +11,7 @@ class SuraScreenController extends GetxController {
 
   int ayaNo = 0;
 
-  var canSwipe= true.obs;
+  var canSwipe = true.obs;
 
   void getPage(int page) async {
     var list = await _dataBaseHelper.getFull(page);
@@ -22,8 +21,7 @@ class SuraScreenController extends GetxController {
     getSuraName(int.parse(currentPage.value[list.length - 1][0].sura));
     update();
 
-    getJuz(int.parse(currentPage.value[0][0].aya),
-        int.parse(currentPage.value[0][0].sura));
+    getJuz(int.parse(currentPage.value[0][0].aya), int.parse(currentPage.value[0][0].sura));
   }
 
   void getJuz(int aya, int sura) async {
@@ -46,7 +44,6 @@ class SuraScreenController extends GetxController {
   void onClose() async {
     super.onClose();
     Get.put(ShortExplainIndexController());
-     Get.delete<SuraScreenController>();
+    Get.delete<SuraScreenController>();
   }
-
 }

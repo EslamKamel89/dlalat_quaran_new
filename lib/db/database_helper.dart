@@ -4,24 +4,24 @@ import 'dart:io';
 
 import 'package:html/parser.dart';
 import 'package:collection/collection.dart';
-import 'package:dlalat_quran/models/RelatedArticlesModel.dart';
-import 'package:dlalat_quran/models/RelatedTagModel.dart';
-import 'package:dlalat_quran/models/TagWordModel.dart';
-import 'package:dlalat_quran/models/article_model.dart';
-import 'package:dlalat_quran/models/aya_model.dart';
-import 'package:dlalat_quran/models/db_word_model.dart';
-import 'package:dlalat_quran/models/language_model.dart';
-import 'package:dlalat_quran/models/page_ayat_sura_model.dart';
-import 'package:dlalat_quran/models/reciters_model.dart';
-import 'package:dlalat_quran/models/row_model_entity.dart';
-import 'package:dlalat_quran/models/sura_model.dart';
-import 'package:dlalat_quran/models/sura_search_model.dart';
-import 'package:dlalat_quran/models/sura_search_result_model.dart';
-import 'package:dlalat_quran/models/tag_model.dart';
-import 'package:dlalat_quran/models/video_category.dart';
-import 'package:dlalat_quran/models/video_model.dart';
-import 'package:dlalat_quran/models/word_model.dart';
-import 'package:dlalat_quran/utils/constants.dart';
+import 'package:dlalat_quaran_new/models/RelatedArticlesModel.dart';
+import 'package:dlalat_quaran_new/models/RelatedTagModel.dart';
+import 'package:dlalat_quaran_new/models/TagWordModel.dart';
+import 'package:dlalat_quaran_new/models/article_model.dart';
+import 'package:dlalat_quaran_new/models/aya_model.dart';
+import 'package:dlalat_quaran_new/models/db_word_model.dart';
+import 'package:dlalat_quaran_new/models/language_model.dart';
+import 'package:dlalat_quaran_new/models/page_ayat_sura_model.dart';
+import 'package:dlalat_quaran_new/models/reciters_model.dart';
+import 'package:dlalat_quaran_new/models/row_model_entity.dart';
+import 'package:dlalat_quaran_new/models/sura_model.dart';
+import 'package:dlalat_quaran_new/models/sura_search_model.dart';
+import 'package:dlalat_quaran_new/models/sura_search_result_model.dart';
+import 'package:dlalat_quaran_new/models/tag_model.dart';
+import 'package:dlalat_quaran_new/models/video_category.dart';
+import 'package:dlalat_quaran_new/models/video_model.dart';
+import 'package:dlalat_quaran_new/models/word_model.dart';
+import 'package:dlalat_quaran_new/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
@@ -67,8 +67,7 @@ class DataBaseHelper {
         } catch (_) {}
 
         ByteData data = await rootBundle.load(join("assets", _dataBaseName));
-        List<int> bytes = data.buffer
-            .asUint8ClampedList(data.offsetInBytes, data.lengthInBytes);
+        List<int> bytes = data.buffer.asUint8ClampedList(data.offsetInBytes, data.lengthInBytes);
         await File(path).writeAsBytes(bytes, flush: true);
         //print('Opened');
       }
@@ -80,8 +79,7 @@ class DataBaseHelper {
 
   Future<List<SuraModel>> suraIndex() async {
     List<SuraModel> suras = [];
-    List<Map<String, dynamic>> rawQuery =
-        await _database!.rawQuery("SELECT * FROM $_sura");
+    List<Map<String, dynamic>> rawQuery = await _database!.rawQuery("SELECT * FROM $_sura");
     for (var x = 0; x < rawQuery.length; x++) {
       var suraModel = SuraModel.fromJson(rawQuery[x]);
       suras.add(suraModel);
@@ -114,8 +112,7 @@ class DataBaseHelper {
     List<Map<String, dynamic>> rawQuery = await _database!.rawQuery(query);
     log('querty = \n$query');
 
-    int linesCount =
-        int.parse(rawQuery[rawQuery.length - 1]['line'].toString());
+    int linesCount = int.parse(rawQuery[rawQuery.length - 1]['line'].toString());
 
     var newMap = groupBy(rawQuery, (Map obj) => obj['line']);
 
@@ -128,20 +125,14 @@ class DataBaseHelper {
         for (var j = 0; j < newMap[newMap.keys.first + i]!.length; j++) {
           WordModel childWord = WordModel();
 
-          childWord.word_id =
-              newMap[newMap.keys.first + i]![j]['id'].toString();
-          childWord.sura =
-              newMap[newMap.keys.first + i]![j]['sura_id'].toString();
+          childWord.word_id = newMap[newMap.keys.first + i]![j]['id'].toString();
+          childWord.sura = newMap[newMap.keys.first + i]![j]['sura_id'].toString();
           childWord.color =
-              newMap[newMap.keys.first + i]![j]['has_tag'].toString() != 'null'
-                  ? Colors.red
-                  : Colors.black;
-          childWord.ayaId =
-              newMap[newMap.keys.first + i]![j]['ayaId'].toString();
-          String n =
-              newMap[newMap.keys.first + i]![j]['word_ar'].toString() != "null"
-                  ? newMap[newMap.keys.first + i]![j]['word_ar'].toString()
-                  : newMap[newMap.keys.first + i]![j]['ayaNo'].toString();
+              newMap[newMap.keys.first + i]![j]['has_tag'].toString() != 'null' ? Colors.red : Colors.black;
+          childWord.ayaId = newMap[newMap.keys.first + i]![j]['ayaId'].toString();
+          String n = newMap[newMap.keys.first + i]![j]['word_ar'].toString() != "null"
+              ? newMap[newMap.keys.first + i]![j]['word_ar'].toString()
+              : newMap[newMap.keys.first + i]![j]['ayaNo'].toString();
           childWord.line = newMap[newMap.keys.first + i]![j]['line'];
           childWord.char_type = childWord.word_ar = n;
           childWord.suraName = await getSuraById(childWord.sura!);
@@ -150,12 +141,9 @@ class DataBaseHelper {
 
           // childWord.juz = newMap[newMap.keys.first+1]![j]['juz'];
           childWord.char_type = newMap[newMap.keys.first + i]![j]['char_type'];
-          childWord.tagId =
-              newMap[newMap.keys.first + i]![j]['tag_id'].toString();
-          childWord.videoId =
-              newMap[newMap.keys.first + i]![j]['aya_video_url'].toString();
-          childWord.wordVideo =
-              newMap[newMap.keys.first + i]![j]['word_video_url'].toString();
+          childWord.tagId = newMap[newMap.keys.first + i]![j]['tag_id'].toString();
+          childWord.videoId = newMap[newMap.keys.first + i]![j]['aya_video_url'].toString();
+          childWord.wordVideo = newMap[newMap.keys.first + i]![j]['word_video_url'].toString();
 
           log('wordVideo = ${newMap[newMap.keys.first + i]![j]['word_video'].toString()}');
 
@@ -174,20 +162,20 @@ class DataBaseHelper {
     return linesModelList;
   }
 
-  Future<String> getAyaId(int sura_id, int aya_no) async {
+  Future<String> getAyaId(int suraId, int ayaNo) async {
     String ayaId = '0';
-    List<Map<String, dynamic>> rawQuery = await _database!.rawQuery(
-        "SELECT id FROM ayat WHERE sura_id = '$sura_id' AND ayah = '$aya_no' ");
+    List<Map<String, dynamic>> rawQuery =
+        await _database!.rawQuery("SELECT id FROM ayat WHERE sura_id = '$suraId' AND ayah = '$ayaNo' ");
     ayaId = rawQuery[0]['id'].toString();
     //print('aya_AyaId $ayaId');
     return ayaId;
   }
-  Future<String> getAyaTextAr(int sura_id, int aya_no , int aya_id) async {
-    print("rawQuery ======================= $sura_id     , $aya_no     $aya_id");
+
+  Future<String> getAyaTextAr(int suraId, int ayaNo, int ayaId) async {
+    print("rawQuery ======================= $suraId     , $ayaNo     $ayaId");
 
     String ayaAr = '';
-    List<Map<String, dynamic>> rawQuery = await _database!.rawQuery(
-        "SELECT text_ar FROM ayat WHERE id = '$aya_id' ");
+    List<Map<String, dynamic>> rawQuery = await _database!.rawQuery("SELECT text_ar FROM ayat WHERE id = '$ayaId' ");
     ayaAr = rawQuery[0]['text_ar'].toString();
     return ayaAr;
   }
@@ -207,8 +195,7 @@ class DataBaseHelper {
     List<Map<String, dynamic>> rawQuery = await _database!.rawQuery(sqlQuery);
 
     //print('current ayat Start $startAya End $endAya');
-    int linesCount =
-        int.parse(rawQuery[rawQuery.length - 1]['ayaNo'].toString());
+    int linesCount = int.parse(rawQuery[rawQuery.length - 1]['ayaNo'].toString());
 
     var newMap = groupBy(rawQuery, (Map obj) => obj['ayaNo']);
 
@@ -222,24 +209,16 @@ class DataBaseHelper {
         for (var j = 0; j < newMap[newMap.keys.first + i]!.length; j++) {
           WordModel childWord = WordModel();
 
-          childWord.word_id =
-              newMap[newMap.keys.first + i]![j]['id'].toString();
-          childWord.sura =
-              newMap[newMap.keys.first + i]![j]['sura_id'].toString();
+          childWord.word_id = newMap[newMap.keys.first + i]![j]['id'].toString();
+          childWord.sura = newMap[newMap.keys.first + i]![j]['sura_id'].toString();
           childWord.color =
-              newMap[newMap.keys.first + i]![j]['has_tag'].toString() != 'null'
-                  ? Colors.red
-                  : Colors.black;
-          childWord.ayaId =
-              newMap[newMap.keys.first + i]![j]['ayaId'].toString();
+              newMap[newMap.keys.first + i]![j]['has_tag'].toString() != 'null' ? Colors.red : Colors.black;
+          childWord.ayaId = newMap[newMap.keys.first + i]![j]['ayaId'].toString();
           String n = newMap[newMap.keys.first + i]![j]['word_ar'] != "null"
               ? newMap[newMap.keys.first + i]![j]['word_ar'].toString()
               : newMap[newMap.keys.first + i]![j]['ayaNo'].toString();
 
-          String nEn = newMap[newMap.keys.first + i]![j]['word_en']
-                      .toString()
-                      .toLowerCase() !=
-                  "null"
+          String nEn = newMap[newMap.keys.first + i]![j]['word_en'].toString().toLowerCase() != "null"
               ? newMap[newMap.keys.first + i]![j]['word_en'].toString()
               : newMap[newMap.keys.first + i]![j]['ayaNo'].toString();
 
@@ -251,13 +230,9 @@ class DataBaseHelper {
 
           // childWord.juz = newMap[newMap.keys.first+1]![j]['juz'];
 
-          childWord.tagId =
-              newMap[newMap.keys.first + i]![j]['tag_id'].toString();
-          childWord.videoId =
-              newMap[newMap.keys.first + i]![j]['vedio'].toString();
-          childWord.word_en = newMap[newMap.keys.first + i]![j]['word_en']
-              .toString()
-              .replaceAll("NULL", 'null');
+          childWord.tagId = newMap[newMap.keys.first + i]![j]['tag_id'].toString();
+          childWord.videoId = newMap[newMap.keys.first + i]![j]['vedio'].toString();
+          childWord.word_en = newMap[newMap.keys.first + i]![j]['word_en'].toString().replaceAll("NULL", 'null');
           // childWord.videoId = newMap[newMap.keys.first + i]![j]['vedio'].toString();
 
           line = '$line $n';
@@ -278,8 +253,8 @@ class DataBaseHelper {
 
   Future<String> getJuz(int aya, int sura) async {
     String juz = "";
-    var queryResult = await _database!.rawQuery(
-        "SELECT juz FROM ayat where ayah ='$aya' AND sura_id = '$sura' LIMIT '1'");
+    var queryResult =
+        await _database!.rawQuery("SELECT juz FROM ayat where ayah ='$aya' AND sura_id = '$sura' LIMIT '1'");
     juz = queryResult[0]['juz'].toString();
     return juz;
   }
@@ -287,8 +262,7 @@ class DataBaseHelper {
   Future<String> getSuraById(String id) async {
     String suraName = '';
 
-    var queryResult =
-        await _database!.rawQuery("SELECT * FROM sura where id ='$id'");
+    var queryResult = await _database!.rawQuery("SELECT * FROM sura where id ='$id'");
 
     // //print("Sura Object ${queryResult[0]['sura_ar']}");
     suraName = '${queryResult[0]['sura_ar']}';
@@ -298,8 +272,7 @@ class DataBaseHelper {
   Future<int> getAyaPage(String ayaId) async {
     int ayaPage = 1;
 
-    var queryResult =
-        await _database!.rawQuery("SELECT page FROM ayat where id ='$ayaId'");
+    var queryResult = await _database!.rawQuery("SELECT page FROM ayat where id ='$ayaId'");
 
     // //print("Sura Object ${queryResult[0]['sura_ar']}");
     ayaPage = int.parse(queryResult[0]['page'].toString());
@@ -308,8 +281,7 @@ class DataBaseHelper {
 
   Future<String> getSuraByPage(int suraId) async {
     //print('Sura Id $suraId');
-    var list =
-        await _database!.rawQuery("SELECT * FROM sura WHERE id ='$suraId' ");
+    var list = await _database!.rawQuery("SELECT * FROM sura WHERE id ='$suraId' ");
 
     String suraName = "";
     // //print('List Aya $list');
@@ -322,8 +294,7 @@ class DataBaseHelper {
 
   Future<int> suraCount(int suraId) async {
     int suraCount = 0;
-    var list = await _database!
-        .rawQuery("SELECT ayah FROM $_sura WHERE id = '$suraId'");
+    var list = await _database!.rawQuery("SELECT ayah FROM $_sura WHERE id = '$suraId'");
     suraCount = int.parse(list[0]['ayah'].toString());
     //print('sura Count is $list Count = $suraCount');
 
@@ -389,8 +360,7 @@ class DataBaseHelper {
     log('video tags = $list');
     if (list.isNotEmpty) {
       for (var x = 0; x < list.length; x++) {
-        videos.add(
-            VideoModel.fromJson(list[x]));
+        videos.add(VideoModel.fromJson(list[x]));
       }
     }
     return videos;
@@ -400,8 +370,8 @@ class DataBaseHelper {
     List<TagModel> relatedList = [];
     // List<Map<String, dynamic>> rawQuery = await _database!.rawQuery(
     //     "SELECT related_tag_id FROM $_articlesRelations WHERE $_articlesId = '$articleId'");
-    List<Map<String, dynamic>> rawQuery = await _database!.rawQuery(
-        "select * from tags where id in ( select related_tag_id from related_tag WHERE tag_id = $articleId)");
+    List<Map<String, dynamic>> rawQuery = await _database!
+        .rawQuery("select * from tags where id in ( select related_tag_id from related_tag WHERE tag_id = $articleId)");
 
     // "select * from tags where id in ( select related_tag_id from article_tag )"
     //log("related => $rawQuery");
@@ -417,14 +387,11 @@ class DataBaseHelper {
 
 //TODO ARTICLES
   Future<List<ArticleModel>> allArticles() async {
-    var langId = modes
-        .where((element) => element.langCode == GetStorage().read(language))
-        .toList()[0]
-        .dbLangId;
+    var langId = modes.where((element) => element.langCode == GetStorage().read(language)).toList()[0].dbLangId;
 
     List<ArticleModel> articlesList = [];
-    List<Map<String, dynamic>> rawQuery = await _database!
-        .rawQuery("SELECT * FROM $_articles  WHERE lang_id = '$langId'");
+    List<Map<String, dynamic>> rawQuery =
+        await _database!.rawQuery("SELECT * FROM $_articles  WHERE lang_id = '$langId'");
 
     for (var x = 0; x < rawQuery.length; x++) {
       var tagModel = ArticleModel.fromJson(rawQuery[x]);
@@ -456,8 +423,8 @@ class DataBaseHelper {
 //TODO VIDEOS
   Future<List<VideoModel>> allVideos() async {
     List<VideoModel> videosList = [];
-    List<Map<String, dynamic>> rawQuery = await _database!
-        .rawQuery("SELECT * FROM $_videosTable WHERE type = 'public'");
+    List<Map<String, dynamic>> rawQuery =
+        await _database!.rawQuery("SELECT * FROM $_videosTable WHERE type = 'public'");
 
     for (var x = 0; x < rawQuery.length; x++) {
       var videoModel = VideoModel.fromJson(rawQuery[x]);
@@ -470,8 +437,7 @@ class DataBaseHelper {
   Future<List<VideoModel>> categoryVideos(String type) async {
     List<VideoModel> videosList = [];
     String query = "SELECT  DISTINCT * FROM $_videosTable WHERE type = '$type' AND enabled = 1 GROUP by id";
-    List<Map<String, dynamic>> rawQuery = await _database!
-        .rawQuery(query);
+    List<Map<String, dynamic>> rawQuery = await _database!.rawQuery(query);
     log('SLSLS \n $query');
 
     for (var x = 0; x < rawQuery.length; x++) {
@@ -489,7 +455,7 @@ class DataBaseHelper {
     // cats.add(VideoCategory(id:'tag',nameAr: "كلمات قرآنية" ,nameEn: 'Quranic words',enabled: 1));
     // cats.add(VideoCategory(id:'explain',nameAr: "تفسير آيات" ,nameEn: 'Verses explaination',enabled: 1));
     for (var element in list) {
-      https://qurantoall.com/control-panel/storage/
+      https: //qurantoall.com/control-panel/storage/
       // await AudioFolders().downloadIcon(element['icon']);
       log('Videos Url ${element['icon']}');
       cats.add(VideoCategory.fromJson(element));
@@ -603,11 +569,9 @@ class DataBaseHelper {
 
   Future<List<PageAyatSuraModel>> pageAyatSura(int page) async {
     List<PageAyatSuraModel> models = [];
-    var list = await _database!
-        .rawQuery("SELECT sura_id, ayah FROM $_ayat WHERE page = $page");
+    var list = await _database!.rawQuery("SELECT sura_id, ayah FROM $_ayat WHERE page = $page");
     for (var x = 0; x < list.length; x++) {
-      models.add(PageAyatSuraModel(
-          list[x]['ayah'].toString(), list[x]['sura_id'].toString()));
+      models.add(PageAyatSuraModel(list[x]['ayah'].toString(), list[x]['sura_id'].toString()));
     }
     // //print('Models $models');
     return models;
@@ -623,8 +587,7 @@ class DataBaseHelper {
 
   Future<int> updateSura(SuraModel suraModel) async {
     log('Update Aya ${suraModel.id}');
-    return await _database!.update(_sura, suraModel.toJson(),
-        where: 'id = ?', whereArgs: [suraModel.id]);
+    return await _database!.update(_sura, suraModel.toJson(), where: 'id = ?', whereArgs: [suraModel.id]);
   }
 
   Future<int> deleteSura(int suraId) async {
@@ -640,8 +603,7 @@ class DataBaseHelper {
 
   Future<int> updateAya(AyaModel ayaModel) async {
     log('Update Aya ${ayaModel.id}');
-    return await _database!.update(_ayat, ayaModel.toJson(),
-        where: 'id = ?', whereArgs: [ayaModel.id]);
+    return await _database!.update(_ayat, ayaModel.toJson(), where: 'id = ?', whereArgs: [ayaModel.id]);
   }
 
   Future<int> deleteAya(int ayaId) async {
@@ -657,8 +619,7 @@ class DataBaseHelper {
 
   Future<int> updateWord(DbWordModel wordModel) async {
     log('Update Word ${wordModel.id}');
-    return await _database!.update('words', wordModel.toJson(),
-        where: 'id = ?', whereArgs: [wordModel.id]);
+    return await _database!.update('words', wordModel.toJson(), where: 'id = ?', whereArgs: [wordModel.id]);
   }
 
   Future<int> deleteWord(int id) async {
@@ -674,36 +635,32 @@ class DataBaseHelper {
 
   Future<int> updateArticles(ArticleModel articleModel) async {
     log('Update Article ${articleModel.id}');
-    return await _database!.update(_articles, articleModel.toJson(),
-        where: 'id = ?', whereArgs: [articleModel.id]);
+    return await _database!.update(_articles, articleModel.toJson(), where: 'id = ?', whereArgs: [articleModel.id]);
   }
 
   Future<int> deleteArticles(int articleModel) async {
     log('delete Article $articleModel');
-    return await _database!
-        .delete(_articles, where: 'id = ?', whereArgs: [articleModel]);
+    return await _database!.delete(_articles, where: 'id = ?', whereArgs: [articleModel]);
   }
 
   // tags
   Future<int> insertTags(TagModel tagModel) async {
     log('insert Tag ${tagModel.id}');
-    if(!await ifExists(_tag, tagModel.id!.toString())){
+    if (!await ifExists(_tag, tagModel.id!.toString())) {
       return await _database!.insert(_tag, tagModel.toJson());
-    }else{
+    } else {
       return 0;
     }
   }
 
   Future<int> updateTags(TagModel tagModel) async {
     log('Update Tag ${tagModel.toString()}');
-    return await _database!.update(_tag, tagModel.toJson(),
-        where: 'id = ?', whereArgs: [tagModel.id]);
+    return await _database!.update(_tag, tagModel.toJson(), where: 'id = ?', whereArgs: [tagModel.id]);
   }
 
   Future<int> deleteTags(int tagModel) async {
     log('delete(table) Tag $tagModel');
-    return await _database!
-        .delete(_tag, where: 'id = ?', whereArgs: [tagModel]);
+    return await _database!.delete(_tag, where: 'id = ?', whereArgs: [tagModel]);
   }
 
   // reciters
@@ -721,14 +678,13 @@ class DataBaseHelper {
 
   Future<int> updateReciters(ReciterModel reciterModel) async {
     log('Update Reciter ${reciterModel.id}');
-    return await _database!.update(_recitersTable, reciterModel.toJson(),
-        where: 'id = ?', whereArgs: [reciterModel.id]);
+    return await _database!
+        .update(_recitersTable, reciterModel.toJson(), where: 'id = ?', whereArgs: [reciterModel.id]);
   }
 
   Future<int> deleteReciters(int reciterModel) async {
     log('delete Reciter $reciterModel');
-    return await _database!
-        .delete(_recitersTable, where: 'id = ?', whereArgs: [reciterModel]);
+    return await _database!.delete(_recitersTable, where: 'id = ?', whereArgs: [reciterModel]);
   }
 
   // languages
@@ -757,9 +713,9 @@ class DataBaseHelper {
   Future<int> insertVideoCats(VideoCategory videoCats) async {
     // log('insert Video ${videoModel.id}');
     log('insert Video Cat ');
-  if(!await uidExists(videoCats.id!)){
-    await _database!.insert(_videoCats, videoCats.toJson());
-  }
+    if (!await uidExists(videoCats.id!)) {
+      await _database!.insert(_videoCats, videoCats.toJson());
+    }
 
     return 0;
   }
@@ -772,8 +728,7 @@ class DataBaseHelper {
     return exists == 1;
   }
 
-
-  Future<bool> ifExists(String table,String id) async {
+  Future<bool> ifExists(String table, String id) async {
     var result = await _database!.rawQuery(
       'SELECT EXISTS(SELECT 1 FROM $table WHERE id="$id")',
     );
@@ -782,13 +737,11 @@ class DataBaseHelper {
   }
 
   Future<int> updateVideoCats(VideoCategory videoCats) async {
-    return await _database!.update(_videoCats, videoCats.toJson(),
-        where: 'id = ?', whereArgs: [videoCats.id]);
+    return await _database!.update(_videoCats, videoCats.toJson(), where: 'id = ?', whereArgs: [videoCats.id]);
   }
 
   Future<int> deleteVideoCats(String videoModel) async {
-    return await _database!
-        .delete(_videoCats, where: 'id = ?', whereArgs: [videoModel]);
+    return await _database!.delete(_videoCats, where: 'id = ?', whereArgs: [videoModel]);
   }
 
   // videos
@@ -799,19 +752,16 @@ class DataBaseHelper {
 
   Future<int> updateVideos(VideoModel videoModel) async {
     log('Update Video ${videoModel.id}');
-    return await _database!.update(_videosTable, videoModel.toJson(),
-        where: 'id = ?', whereArgs: [videoModel.id]);
+    return await _database!.update(_videosTable, videoModel.toJson(), where: 'id = ?', whereArgs: [videoModel.id]);
   }
 
   Future<int> deleteVideos(int videoModel) async {
     log('delete Video $videoModel');
-    return await _database!
-        .delete(_videosTable, where: 'id = ?', whereArgs: [videoModel]);
+    return await _database!.delete(_videosTable, where: 'id = ?', whereArgs: [videoModel]);
   }
 
   // relatedArticles
-  Future<int> insertRelatedArticles(
-      RelatedArticlesModel relatedArticlesModel) async {
+  Future<int> insertRelatedArticles(RelatedArticlesModel relatedArticlesModel) async {
     log('insert RelatedArticlesModel ${relatedArticlesModel.id}');
     return await _database!.insert(
       'related_articles',
@@ -819,18 +769,15 @@ class DataBaseHelper {
     );
   }
 
-  Future<int> updateRelatedArticles(
-      RelatedArticlesModel relatedArticlesModel) async {
+  Future<int> updateRelatedArticles(RelatedArticlesModel relatedArticlesModel) async {
     log('Update RelatedArticlesModel ${relatedArticlesModel.id}');
-    return await _database!.update(
-        'related_articles', relatedArticlesModel.toJson(),
+    return await _database!.update('related_articles', relatedArticlesModel.toJson(),
         where: 'id = ?', whereArgs: [relatedArticlesModel.id]);
   }
 
   Future<int> deleteRelatedArticles(int relatedArticlesModel) async {
     log('delete RelatedArticlesModel $relatedArticlesModel');
-    return await _database!.delete('related_articles',
-        where: 'id = ?', whereArgs: [relatedArticlesModel]);
+    return await _database!.delete('related_articles', where: 'id = ?', whereArgs: [relatedArticlesModel]);
   }
 
   // tagWords
@@ -841,14 +788,12 @@ class DataBaseHelper {
 
   Future<int> updateTagWords(TagWordModel tagModel) async {
     log('Update updateTagWords ${tagModel.id}');
-    return await _database!.update('tag_word', tagModel.toJson(),
-        where: 'id = ?', whereArgs: [tagModel.id]);
+    return await _database!.update('tag_word', tagModel.toJson(), where: 'id = ?', whereArgs: [tagModel.id]);
   }
 
   Future<int> deleteTagWords(int tagModel) async {
     log('delete updateTagWords $tagModel');
-    return await _database!
-        .delete('tag_word', where: 'id = ?', whereArgs: [tagModel]);
+    return await _database!.delete('tag_word', where: 'id = ?', whereArgs: [tagModel]);
   }
 
   // relatedTags
@@ -859,20 +804,18 @@ class DataBaseHelper {
 
   Future<int> updateRelatedTags(RelatedTagModel relatedTagModel) async {
     log('Update RelatedTags ${relatedTagModel.id}');
-    return await _database!.update('related_tag', relatedTagModel.toJson(),
-        where: 'id = ?', whereArgs: [relatedTagModel.id]);
+    return await _database!
+        .update('related_tag', relatedTagModel.toJson(), where: 'id = ?', whereArgs: [relatedTagModel.id]);
   }
 
   Future<int> deleteRelatedTags(int relatedTagModel) async {
     log('delete RelatedTags $relatedTagModel');
-    return await _database!
-        .delete('related_tag', where: 'id = ?', whereArgs: [relatedTagModel]);
+    return await _database!.delete('related_tag', where: 'id = ?', whereArgs: [relatedTagModel]);
   }
 
   Future<String> pageAyatText() async {
     String ayat = '\n';
-    var rawQuery = await _database!
-        .rawQuery("select text from quran_text where sura = '2'");
+    var rawQuery = await _database!.rawQuery("select text from quran_text where sura = '2'");
 
     for (var x = 0; x < 8; x++) {
       ayat = '$ayat${rawQuery[x]['text']!}\n';
@@ -883,8 +826,7 @@ class DataBaseHelper {
 
   Future<String> videoUrlAya(int ayaId) async {
     String url = 'null';
-    String query =
-        'SELECT url FROM videos WHERE ayat_id = $ayaId AND enabled = 1';
+    String query = 'SELECT url FROM videos WHERE ayat_id = $ayaId AND enabled = 1';
     var result = await _database!.rawQuery(query);
     if (result.isNotEmpty) {
       url = result[0]['url'].toString();
@@ -894,8 +836,7 @@ class DataBaseHelper {
 
   Future<String> videoUrlWord(int wordId) async {
     String url = 'null';
-    String query =
-        'SELECT url FROM videos WHERE word_id = $wordId AND enabled = 1';
+    String query = 'SELECT url FROM videos WHERE word_id = $wordId AND enabled = 1';
     var result = await _database!.rawQuery(query);
     log('Vudei Yrk = $result \n query $query');
     if (result.isNotEmpty) {
@@ -908,9 +849,9 @@ class DataBaseHelper {
 
   Future<List<SuraSearchModel>> searchByWord(String key) async {
     List<SuraSearchModel> result = [];
-    String query = " SELECT COUNT(*) AS count, sura.id AS sura_id, sura.sura_ar,sura.sura_en FROM ayat JOIN sura ON sura.id = ayat.sura_id WHERE ayat.simple LIKE  '%$key%' "
-    " GROUP BY sura.id";
-
+    String query =
+        " SELECT COUNT(*) AS count, sura.id AS sura_id, sura.sura_ar,sura.sura_en FROM ayat JOIN sura ON sura.id = ayat.sura_id WHERE ayat.simple LIKE  '%$key%' "
+        " GROUP BY sura.id";
 
     // " SELECT count(*) as count, sura.id as sura_id, sura_ar, sura_en from ayat,sura where sura.id=ayat.sura_id and ayat.simple like  '%$key%' "
     //     " group by sura_id";
@@ -924,8 +865,7 @@ class DataBaseHelper {
     return result;
   }
 
-  Future<List<List<SuraSearchResultModel>>> getDetails(
-      int suraId, String key) async {
+  Future<List<List<SuraSearchResultModel>>> getDetails(int suraId, String key) async {
     List<List<SuraSearchResultModel>> result = [];
     // String query = ""
     //     "SELECT ayat.text_ar, ayat.simple, sura.sura_ar, ayat.page"
@@ -966,8 +906,7 @@ class DataBaseHelper {
           aya.textAr = newMap2[i]['word_ar'];
           aya.searchKey = key;
           aya.page = newMap2[i]['page'];
-          aya.simple =
-              newMap2[i]['simple'] == null ? " " : newMap2[i]['simple'];
+          aya.simple = newMap2[i]['simple'] ?? " ";
           aya.suraAr = newMap2[i]['sura_ar'];
           aya.ayaId = newMap2[i]['ayaId'];
           log('finalResult Aya $x - $i ${aya.toJson()}}');
@@ -982,12 +921,11 @@ class DataBaseHelper {
     return result;
   }
 
-
-  Future<String> getLastSyncDate() async{
-    String lastData= '';
+  Future<String> getLastSyncDate() async {
+    String lastData = '';
     String query = "SELECT value FROM saved_values WHERE key = 1";
     var list = await _database!.rawQuery(query);
-    log('current Date db ${list}');
+    log('current Date db $list');
     lastData = list[0]['value'].toString();
     return lastData;
   }
@@ -1005,18 +943,14 @@ class DataBaseHelper {
   }
 
   void updateColor(String id, int colorValue) async {
-    String mQuery =
-        "Update colors set color_value = $colorValue where id = '$id'";
+    String mQuery = "Update colors set color_value = $colorValue where id = '$id'";
     var list = await _database!.rawQuery(mQuery);
     log('UpdateStatus $list $mQuery');
   }
 
-
-
   String parseHtmlString(String htmlString) {
     final document = parse(htmlString);
-    final String parsedString =
-        parse(document.body!.text).documentElement!.text;
+    final String parsedString = parse(document.body!.text).documentElement!.text;
     return parsedString;
   }
 }

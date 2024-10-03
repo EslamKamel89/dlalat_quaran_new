@@ -1,28 +1,29 @@
 import 'dart:developer';
 
 import 'package:audioplayers/audioplayers.dart';
+import 'package:dlalat_quaran_new/ui/select_language_screen.dart';
 // import 'package:device_preview/device_preview.dart';
-import 'package:dlalat_quran/db/database_helper.dart';
-import 'package:dlalat_quran/network/sync_manager.dart';
-import 'package:dlalat_quran/ui/about_app_screen.dart';
-import 'package:dlalat_quran/ui/add_comment.dart';
-import 'package:dlalat_quran/ui/add_research.dart';
-import 'package:dlalat_quran/ui/artice_details_screen.dart';
-import 'package:dlalat_quran/ui/articles_screen.dart';
-import 'package:dlalat_quran/ui/audio_recitations_screen.dart';
-import 'package:dlalat_quran/ui/home_sura_screen.dart';
-import 'package:dlalat_quran/ui/intro_screen.dart';
-import 'package:dlalat_quran/ui/search_result_screen.dart';
-import 'package:dlalat_quran/ui/select_language_screen.dart';
-import 'package:dlalat_quran/ui/setting_screen.dart';
-import 'package:dlalat_quran/ui/splash_screen.dart';
-import 'package:dlalat_quran/ui/tag_details_screen.dart';
-import 'package:dlalat_quran/ui/tags_screen.dart';
-import 'package:dlalat_quran/ui/video_categories_screen.dart';
-import 'package:dlalat_quran/ui/video_player_screen.dart';
-import 'package:dlalat_quran/utils/audio_folders.dart';
-import 'package:dlalat_quran/utils/constants.dart';
-import 'package:dlalat_quran/utils/current_locales.dart';
+import 'package:dlalat_quaran_new/db/database_helper.dart';
+import 'package:dlalat_quaran_new/network/sync_manager.dart';
+import 'package:dlalat_quaran_new/ui/about_app_screen.dart';
+import 'package:dlalat_quaran_new/ui/add_comment.dart';
+import 'package:dlalat_quaran_new/ui/add_research.dart';
+import 'package:dlalat_quaran_new/ui/artice_details_screen.dart';
+import 'package:dlalat_quaran_new/ui/articles_screen.dart';
+import 'package:dlalat_quaran_new/ui/audio_recitations_screen.dart';
+import 'package:dlalat_quaran_new/ui/home_sura_screen.dart';
+import 'package:dlalat_quaran_new/ui/intro_screen.dart';
+import 'package:dlalat_quaran_new/ui/search_result_screen.dart';
+import 'package:dlalat_quaran_new/ui/select_language_screen.dart';
+import 'package:dlalat_quaran_new/ui/setting_screen.dart';
+import 'package:dlalat_quaran_new/ui/splash_screen.dart';
+import 'package:dlalat_quaran_new/ui/tag_details_screen.dart';
+import 'package:dlalat_quaran_new/ui/tags_screen.dart';
+import 'package:dlalat_quaran_new/ui/video_categories_screen.dart';
+import 'package:dlalat_quaran_new/ui/video_player_screen.dart';
+import 'package:dlalat_quaran_new/utils/audio_folders.dart';
+import 'package:dlalat_quaran_new/utils/constants.dart';
+import 'package:dlalat_quaran_new/utils/current_locales.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -45,7 +46,7 @@ void main() async {
 class DlalatQuran extends StatefulWidget {
   static final AudioPlayer mainAudioPlayer = AudioPlayer();
 
-  const DlalatQuran({Key? key}) : super(key: key);
+  const DlalatQuran({super.key});
 
   @override
   State<DlalatQuran> createState() => _DlalatQuranState();

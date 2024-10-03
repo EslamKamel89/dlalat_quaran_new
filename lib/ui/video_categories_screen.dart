@@ -1,12 +1,12 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:dlalat_quran/db/database_helper.dart';
-import 'package:dlalat_quran/models/video_category.dart';
-import 'package:dlalat_quran/ui/video_library_screen.dart';
-import 'package:dlalat_quran/utils/audio_folders.dart';
-import 'package:dlalat_quran/utils/constants.dart';
-import 'package:dlalat_quran/widgets/white_container.dart';
+import 'package:dlalat_quaran_new/db/database_helper.dart';
+import 'package:dlalat_quaran_new/models/video_category.dart';
+import 'package:dlalat_quaran_new/ui/video_library_screen.dart';
+import 'package:dlalat_quaran_new/utils/audio_folders.dart';
+import 'package:dlalat_quaran_new/utils/constants.dart';
+import 'package:dlalat_quaran_new/widgets/white_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -16,10 +16,9 @@ import '../widgets/quran_toolbar.dart';
 
 class VideoCategoriesScreen extends StatelessWidget {
   static String id = '/VideoCategoriesScreen';
-  final VideoCategoriesController _controller =
-      Get.put(VideoCategoriesController());
+  final VideoCategoriesController _controller = Get.put(VideoCategoriesController());
 
-  VideoCategoriesScreen({Key? key}) : super(key: key);
+  VideoCategoriesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,12 +41,9 @@ class VideoCategoriesScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(5),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.transparent,
-                            padding: const EdgeInsets.all(0)),
-                        onPressed: () =>
-                            Get.to(VideoLibraryScreen(), arguments: {
-                          "videoCatId":
-                              _controller.catList[index].id.toString(),
+                            backgroundColor: Colors.transparent, padding: const EdgeInsets.all(0)),
+                        onPressed: () => Get.to(VideoLibraryScreen(), arguments: {
+                          "videoCatId": _controller.catList[index].id.toString(),
                           "tagName": _controller.catList[index].toString()
                         }),
                         child: WhiteContainer(
@@ -58,7 +54,8 @@ class VideoCategoriesScreen extends StatelessWidget {
                               children: [
                                 _controller.catList[index].icon == null
                                     ? Image.asset(logoMedium)
-                                    : Image.file(File('${GetStorage().read(iconsPath)}/${_controller.catList.value[index].icon!.replaceAll('icon/', '')}')),
+                                    : Image.file(File(
+                                        '${GetStorage().read(iconsPath)}/${_controller.catList.value[index].icon!.replaceAll('icon/', '')}')),
                                 const SizedBox(
                                   width: 20,
                                 ),
@@ -83,9 +80,9 @@ class VideoCategoriesController extends GetxController {
 
   void getCats() async {
     catList.value = await DataBaseHelper.dataBaseInstance().videosCategories();
-    for(var element in catList.value){
-      File? file =  File('${GetStorage().read(iconsPath)}/${element.icon!.replaceAll('icon/', '')}');
-      if(!await file.exists()){
+    for (var element in catList.value) {
+      File? file = File('${GetStorage().read(iconsPath)}/${element.icon!.replaceAll('icon/', '')}');
+      if (!await file.exists()) {
         await AudioFolders().downloadIcon("https://qurantoall.com/control-panel/storage/${element.icon}");
       }
     }

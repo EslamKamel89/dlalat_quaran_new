@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:dlalat_quran/utils/colors.dart';
+import 'package:dlalat_quaran_new/utils/colors.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 // ignore: must_be_immutable
 class SearchWidget extends StatelessWidget {
   final TextEditingController _editingController;
-    VoidCallback? function;
-    FocusNode? focusNode;
-   VoidCallback? onSubmittedfunction;
-   SearchWidget( this._editingController, this.function, this.onSubmittedfunction, {Key? key}) : super(key: key);
+  VoidCallback? function;
+  FocusNode? focusNode;
+  VoidCallback? onSubmittedfunction;
+  SearchWidget(this._editingController, this.function, this.onSubmittedfunction, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,22 +23,20 @@ class SearchWidget extends StatelessWidget {
         children: [
           Expanded(
               child: TextField(
-                focusNode: focusNode!=null?focusNode : null,
-                style: const TextStyle(fontFamily: 'Almarai'),
+            focusNode: focusNode,
+            style: const TextStyle(fontFamily: 'Almarai'),
             controller: _editingController,
-            decoration:  InputDecoration(
-                hintText: 'search'.tr,
-                border: InputBorder.none,
-                contentPadding: const EdgeInsets.all(0)),
-                onSubmitted: (value) {
-                  print("value   -------------------------- $value");
-                  onSubmittedfunction;
-                  // Trigger search when Enter is pressed
-                },
+            decoration: InputDecoration(
+                hintText: 'search'.tr, border: InputBorder.none, contentPadding: const EdgeInsets.all(0)),
+            onSubmitted: (value) {
+              print("value   -------------------------- $value");
+              onSubmittedfunction;
+              // Trigger search when Enter is pressed
+            },
           )),
           InkWell(
-            child: const Icon(Icons.search),
             onTap: function,
+            child: const Icon(Icons.search),
           )
         ],
       ),

@@ -1,12 +1,12 @@
 import 'dart:developer';
 
-import 'package:dlalat_quran/db/database_helper.dart';
-import 'package:dlalat_quran/models/tag_model.dart';
-import 'package:dlalat_quran/models/video_model.dart';
-import 'package:dlalat_quran/ui/dialog_tag_videos.dart';
-import 'package:dlalat_quran/ui/video_library_screen.dart';
-import 'package:dlalat_quran/utils/colors.dart';
-import 'package:dlalat_quran/widgets/quran_toolbar.dart';
+import 'package:dlalat_quaran_new/db/database_helper.dart';
+import 'package:dlalat_quaran_new/models/tag_model.dart';
+import 'package:dlalat_quaran_new/models/video_model.dart';
+import 'package:dlalat_quaran_new/ui/dialog_tag_videos.dart';
+import 'package:dlalat_quaran_new/ui/video_library_screen.dart';
+import 'package:dlalat_quaran_new/utils/colors.dart';
+import 'package:dlalat_quaran_new/widgets/quran_toolbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
@@ -18,10 +18,9 @@ late TagModel model;
 //ignore: must_be_immutable
 class TagDetailsScreen extends StatelessWidget {
   static String id = '/TagDetailsScreen';
-  final TagDetailsController _detailsController =
-      Get.put(TagDetailsController());
+  final TagDetailsController _detailsController = Get.put(TagDetailsController());
 
-  TagDetailsScreen({Key? key}) : super(key: key);
+  TagDetailsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,46 +30,46 @@ class TagDetailsScreen extends StatelessWidget {
     _detailsController.getRelatedTags();
     _detailsController.getTagVideos();
 
-    return Obx(()=>Scaffold(
-      appBar: QuranBar(_detailsController.selectedTagModel.value.name()),
-      backgroundColor: lightGray2,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 8.0, right: 8.8, top: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Obx(() => Text(
-                  _detailsController.selectedTagModel.value.name(),
-                  textAlign: TextAlign.start,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: primaryColor,
-                      fontSize: 18,
-                      fontFamily: 'Almarai'),
-                )),
-                Obx(()=> _detailsController.tagVideos.isNotEmpty? GestureDetector(
-                  child: const Icon(Icons.videocam_rounded,size: 40,color: primaryColor2,),
-                  onTap: (){
-                    Get.dialog(DialogTagVideos(_detailsController.selectedTagModel.value));
-                  },
-
-                ):SizedBox())
-
-              ],
-            ),
-          ),
-          Expanded(
-              child: Container(
+    return Obx(() => Scaffold(
+          appBar: QuranBar(_detailsController.selectedTagModel.value.name()),
+          backgroundColor: lightGray2,
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0, right: 8.8, top: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Obx(() => Text(
+                          _detailsController.selectedTagModel.value.name(),
+                          textAlign: TextAlign.start,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, color: primaryColor, fontSize: 18, fontFamily: 'Almarai'),
+                        )),
+                    Obx(() => _detailsController.tagVideos.isNotEmpty
+                        ? GestureDetector(
+                            child: const Icon(
+                              Icons.videocam_rounded,
+                              size: 40,
+                              color: primaryColor2,
+                            ),
+                            onTap: () {
+                              Get.dialog(DialogTagVideos(_detailsController.selectedTagModel.value));
+                            },
+                          )
+                        : const SizedBox())
+                  ],
+                ),
+              ),
+              Expanded(
+                  child: Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: const BorderRadius.all(Radius.circular(15)),
                     border: Border.all(color: lightGray2, width: 1)),
-                margin:
-                const EdgeInsets.only(top: 20, bottom: 20, right: 10, left: 10),
+                margin: const EdgeInsets.only(top: 20, bottom: 20, right: 10, left: 10),
                 child: Scrollbar(
                   trackVisibility: true,
                   // hoverThickness: 50,
@@ -79,60 +78,60 @@ class TagDetailsScreen extends StatelessWidget {
                   thumbVisibility: true,
                   thickness: 10,
                   child: SingleChildScrollView(
-                    child: Obx(()=> SizedBox(
-                      width: double.infinity,
-                      child: Text(_detailsController.selectedTagModel.value.description(),textAlign: TextAlign.justify,
-                      ),
-                    )),
+                    child: Obx(() => SizedBox(
+                          width: double.infinity,
+                          child: Text(
+                            _detailsController.selectedTagModel.value.description(),
+                            textAlign: TextAlign.justify,
+                          ),
+                        )),
                   ),
                 ),
               )),
-          Obx(() => Visibility(
-            // To Be Continue
-            visible: _detailsController.relatedTags.isNotEmpty,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                 Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'read_also'.tr,
-                    style: const TextStyle(
-                        color: primaryColor, fontFamily: "Almarai"),
-                  ),
-                ),
-                Container(
-                  height: 40,
-                  margin: const EdgeInsets.only(bottom: 8),
-                  padding: const EdgeInsets.only(left: 3, right: 3),
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: _detailsController.relatedTags.length,
-                    itemBuilder: (context, index) {
-                      return ElevatedButton(
-                        onPressed: () {
-                          _detailsController.updateTagModel(
-                              _detailsController.relatedTags[index]);
-                        },
-                        child: Text(
-                          _detailsController.relatedTags[index]
-                              .name(),
-                          style: const TextStyle(fontFamily: 'Almarai'),
+              Obx(() => Visibility(
+                    // To Be Continue
+                    visible: _detailsController.relatedTags.isNotEmpty,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'read_also'.tr,
+                            style: const TextStyle(color: primaryColor, fontFamily: "Almarai"),
+                          ),
                         ),
-                        style: ElevatedButton.styleFrom(
-                            foregroundColor: Colors.blueGrey, backgroundColor: Colors.white,
-                            padding: EdgeInsets.zero,
-                            elevation: 2),
-                      );
-                    },
-                  ),
-                )
-              ],
-            ),
-          )),
-        ],
-      ),
-    ));
+                        Container(
+                          height: 40,
+                          margin: const EdgeInsets.only(bottom: 8),
+                          padding: const EdgeInsets.only(left: 3, right: 3),
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: _detailsController.relatedTags.length,
+                            itemBuilder: (context, index) {
+                              return ElevatedButton(
+                                onPressed: () {
+                                  _detailsController.updateTagModel(_detailsController.relatedTags[index]);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    foregroundColor: Colors.blueGrey,
+                                    backgroundColor: Colors.white,
+                                    padding: EdgeInsets.zero,
+                                    elevation: 2),
+                                child: Text(
+                                  _detailsController.relatedTags[index].name(),
+                                  style: const TextStyle(fontFamily: 'Almarai'),
+                                ),
+                              );
+                            },
+                          ),
+                        )
+                      ],
+                    ),
+                  )),
+            ],
+          ),
+        ));
   }
 }
 
@@ -143,12 +142,11 @@ class TagDetailsController extends GetxController {
   var tagVideos = <VideoModel>[].obs;
 
   void getRelatedTags() async {
-    relatedTags.value =
-        await DataBaseHelper.dataBaseInstance().relatedTags(tagId);
+    relatedTags.value = await DataBaseHelper.dataBaseInstance().relatedTags(tagId);
     update();
   }
 
-  getTagVideos() async{
+  getTagVideos() async {
     tagVideos.value = await DataBaseHelper.dataBaseInstance().tagsVideos(tagId);
     update();
   }
@@ -164,17 +162,15 @@ class TagDetailsController extends GetxController {
 
 class EvidenceDetailsBody extends StatelessWidget {
   const EvidenceDetailsBody({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(8),
       margin: const EdgeInsets.all(8),
-      decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(15))),
+      decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(15))),
       child: Column(
         children: [
           Expanded(
@@ -191,7 +187,8 @@ class EvidenceDetailsBody extends StatelessWidget {
             height: 45,
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white, backgroundColor: primaryColor,
+                    foregroundColor: Colors.white,
+                    backgroundColor: primaryColor,
                     padding: EdgeInsets.zero,
                     elevation: 2),
                 onPressed: () => print(''), // Video Click

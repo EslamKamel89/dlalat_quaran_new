@@ -1,12 +1,12 @@
 import 'dart:developer';
 
-import 'package:dlalat_quran/controllers/sura_screen_controller.dart';
-import 'package:dlalat_quran/models/sura_model.dart';
-import 'package:dlalat_quran/ui/player_bottom_widget.dart';
-import 'package:dlalat_quran/ui/short_explanation_index.dart';
-import 'package:dlalat_quran/utils/audio_download.dart';
-import 'package:dlalat_quran/utils/constants.dart';
-import 'package:dlalat_quran/widgets/quran_toolbar.dart';
+import 'package:dlalat_quaran_new/controllers/sura_screen_controller.dart';
+import 'package:dlalat_quaran_new/models/sura_model.dart';
+import 'package:dlalat_quaran_new/ui/player_bottom_widget.dart';
+import 'package:dlalat_quaran_new/ui/short_explanation_index.dart';
+import 'package:dlalat_quaran_new/utils/audio_download.dart';
+import 'package:dlalat_quaran_new/utils/constants.dart';
+import 'package:dlalat_quaran_new/widgets/quran_toolbar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,6 +19,8 @@ late SuraScreenController _controller;
 AudioDownload audioDownload = AudioDownload();
 
 class SuraScreen extends StatelessWidget {
+  const SuraScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     log('suraScreen ${Get.arguments['page']}');
@@ -64,7 +66,7 @@ late ValueNotifier<int> currentPageNotifier;
 
 //ignore: must_be_immutable
 class LinearProgressPageIndicatorDemo extends StatefulWidget {
-  LinearProgressPageIndicatorDemo({Key? key}) : super(key: key);
+  LinearProgressPageIndicatorDemo({super.key});
   bool playerVisibility = true;
 
   @override
@@ -75,8 +77,7 @@ class LinearProgressPageIndicatorDemo extends StatefulWidget {
 
 late PageController pageController;
 
-class _LinearProgressPageIndicatorDemoState
-    extends State<LinearProgressPageIndicatorDemo> {
+class _LinearProgressPageIndicatorDemoState extends State<LinearProgressPageIndicatorDemo> {
   int length = 604;
 
   @override
@@ -92,9 +93,7 @@ class _LinearProgressPageIndicatorDemoState
         SizedBox(
           height: 20,
           child: SliderTheme(
-            data: const SliderThemeData(
-                trackHeight: 2,
-                thumbShape: RoundSliderThumbShape(enabledThumbRadius: 5)),
+            data: const SliderThemeData(trackHeight: 2, thumbShape: RoundSliderThumbShape(enabledThumbRadius: 5)),
             child: SliderWidget(
               value: currentPageNotifier.value.toDouble(),
             ),
@@ -102,9 +101,8 @@ class _LinearProgressPageIndicatorDemoState
         ),
         Visibility(
           visible: true,
-          child: Obx(() => PlayerBottomWidget(
-              ayaId: int.parse(selectedAyaId.value),
-              ayaNo: int.parse(selectAyaNo.value))),
+          child:
+              Obx(() => PlayerBottomWidget(ayaId: int.parse(selectedAyaId.value), ayaNo: int.parse(selectAyaNo.value))),
         )
       ],
     );
@@ -124,9 +122,7 @@ class _LinearProgressPageIndicatorDemoState
               maxScale: 2.5,
               child: PageView.builder(
                 itemCount: length,
-                physics: _controller.canSwipe.value
-                    ? null
-                    : const NeverScrollableScrollPhysics(),
+                physics: _controller.canSwipe.value ? null : const NeverScrollableScrollPhysics(),
                 // scrollDirection: Axis.vertical,
                 controller: pageController,
                 itemBuilder: (BuildContext context, int index) {
@@ -142,9 +138,9 @@ class _LinearProgressPageIndicatorDemoState
                     _state.setState(() {});
 
                     var sharedPreferences = await SharedPreferences.getInstance();
-                    await sharedPreferences.setInt(savedPage, index+1);
+                    await sharedPreferences.setInt(savedPage, index + 1);
                     // ReadWriteValue(savedPage, 0).val = index+1;
-                  // await  GetStorage().write(savedPage, index+1);
+                    // await  GetStorage().write(savedPage, index+1);
                   }
                   // _controller.getPage(index + 1);
                 },
@@ -158,8 +154,7 @@ class _LinearProgressPageIndicatorDemoState
 late _SliderWidgetState _state;
 
 void changePosition(bool increase) {
-  int newPosition =
-      increase ? currentPageNotifier.value + 1 : currentPageNotifier.value - 1;
+  int newPosition = increase ? currentPageNotifier.value + 1 : currentPageNotifier.value - 1;
   if (_state.mounted) {
     currentPageNotifier.value = newPosition;
     currentPage.value = newPosition;
@@ -178,7 +173,7 @@ void jumpToPosition() {
 class SliderWidget extends StatefulWidget {
   double value;
 
-  SliderWidget({Key? key, required this.value}) : super(key: key);
+  SliderWidget({super.key, required this.value});
 
   @override
   _SliderWidgetState createState() => _SliderWidgetState();

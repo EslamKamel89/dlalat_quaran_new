@@ -1,12 +1,11 @@
-
 import 'dart:ui';
 
-import 'package:dlalat_quran/controllers/dialog_word_tag_controller.dart';
-import 'package:dlalat_quran/ui/video_player_screen.dart';
-import 'package:dlalat_quran/utils/colors.dart';
-import 'package:dlalat_quran/widgets/custom_buttons.dart';
-import 'package:dlalat_quran/widgets/font_text.dart';
-import 'package:dlalat_quran/widgets/video_item.dart';
+import 'package:dlalat_quaran_new/controllers/dialog_word_tag_controller.dart';
+import 'package:dlalat_quaran_new/ui/video_player_screen.dart';
+import 'package:dlalat_quaran_new/utils/colors.dart';
+import 'package:dlalat_quaran_new/widgets/custom_buttons.dart';
+import 'package:dlalat_quaran_new/widgets/font_text.dart';
+import 'package:dlalat_quaran_new/widgets/video_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
@@ -16,8 +15,6 @@ import '../utils/constants.dart';
 import '../widgets/video_item_dialog.dart';
 import 'new_single_sura_screen.dart';
 
-
-
 class DialogListenShowAya extends StatefulWidget {
   final int x;
   final String ayaText;
@@ -26,32 +23,29 @@ class DialogListenShowAya extends StatefulWidget {
   final int j;
   final GlobalKey<NewSingleSuraScreenState>? newSingleSuraScreenState;
 
-  DialogListenShowAya({
-    Key? key,
+  const DialogListenShowAya({
+    super.key,
     required this.x,
     required this.j,
     this.newSingleSuraScreenState,
     this.ayaText = "",
     this.ayaNum = "",
     this.suraText = "",
-  }) : super(key: key);
+  });
 
   @override
   State<DialogListenShowAya> createState() => _DialogListenShowAyaState();
 }
 
-class _DialogListenShowAyaState extends State<DialogListenShowAya>
-    with SingleTickerProviderStateMixin {
+class _DialogListenShowAyaState extends State<DialogListenShowAya> with SingleTickerProviderStateMixin {
   late AnimationController controller;
   late Animation<double> scaleAnimation;
 
   @override
   void initState() {
     super.initState();
-    controller = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 450));
-    scaleAnimation =
-        CurvedAnimation(parent: controller, curve: Curves.elasticInOut);
+    controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 450));
+    scaleAnimation = CurvedAnimation(parent: controller, curve: Curves.elasticInOut);
     controller.addListener(() {
       setState(() {});
     });
@@ -68,7 +62,7 @@ class _DialogListenShowAyaState extends State<DialogListenShowAya>
           scale: scaleAnimation,
           child: Container(
             padding: const EdgeInsets.all(8),
-           margin:const EdgeInsets.only(left: 30, right: 30),
+            margin: const EdgeInsets.only(left: 30, right: 30),
             decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -108,8 +102,7 @@ class _DialogListenShowAyaState extends State<DialogListenShowAya>
                           height: 50,
                           child: ElevatedButton(
                             onPressed: () async {
-                              widget.newSingleSuraScreenState?.currentState
-                                  ?.listenSound(widget.x, widget.j);
+                              widget.newSingleSuraScreenState?.currentState?.listenSound(widget.x, widget.j);
                               Get.back();
                             },
                             style: ElevatedButton.styleFrom(
@@ -121,7 +114,7 @@ class _DialogListenShowAyaState extends State<DialogListenShowAya>
                             ),
                             child: Text(
                               "listenToAya".tr,
-                              style: TextStyle(fontSize: 16.0),
+                              style: const TextStyle(fontSize: 16.0),
                             ),
                           ),
                         ),
@@ -131,24 +124,22 @@ class _DialogListenShowAyaState extends State<DialogListenShowAya>
                           height: 50,
                           child: ElevatedButton(
                             onPressed: () async {
-                              var shareText =
-                                  ' ${"Application : ".tr} ${"app_name".tr} \n'
-                                   '${widget.ayaText}\n'
+                              var shareText = ' ${"Application : ".tr} ${"app_name".tr} \n'
+                                  '${widget.ayaText}\n'
                                   '${"aya".tr} ${widget.ayaNum}  ${"from".tr}  ${widget.suraText}\n';
                               Share.share(shareText);
                             },
                             style: ElevatedButton.styleFrom(
                               foregroundColor: Colors.white,
                               backgroundColor: Colors.blue,
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 32.0, vertical: 12.0),
+                              padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 12.0),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30.0),
                               ),
                             ),
                             child: Text(
                               'shareAya'.tr,
-                              style: TextStyle(fontSize: 16.0),
+                              style: const TextStyle(fontSize: 16.0),
                             ),
                           ),
                         ),

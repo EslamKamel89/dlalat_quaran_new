@@ -1,11 +1,11 @@
-import 'package:dlalat_quran/controllers/sura_en_controller.dart';
-import 'package:dlalat_quran/models/sura_model.dart';
-import 'package:dlalat_quran/ui/player_bottom_widget.dart';
-import 'package:dlalat_quran/ui/short_explanation_index.dart';
-import 'package:dlalat_quran/utils/colors.dart';
-import 'package:dlalat_quran/utils/constants.dart';
-import 'package:dlalat_quran/widgets/aya_en_item.dart';
-import 'package:dlalat_quran/widgets/quran_toolbar.dart';
+import 'package:dlalat_quaran_new/controllers/sura_en_controller.dart';
+import 'package:dlalat_quaran_new/models/sura_model.dart';
+import 'package:dlalat_quaran_new/ui/player_bottom_widget.dart';
+import 'package:dlalat_quaran_new/ui/short_explanation_index.dart';
+import 'package:dlalat_quaran_new/utils/colors.dart';
+import 'package:dlalat_quaran_new/utils/constants.dart';
+import 'package:dlalat_quaran_new/widgets/aya_en_item.dart';
+import 'package:dlalat_quaran_new/widgets/quran_toolbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -19,7 +19,7 @@ ScrollController? enScrollController;
 class SuraEnScreen extends StatelessWidget {
   late SuraModel suraModel;
 
-  SuraEnScreen({Key? key}) : super(key: key);
+  SuraEnScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,69 +32,63 @@ class SuraEnScreen extends StatelessWidget {
     playerSuraCount.value = suraModel.ayah!;
     enScrollController = suraEnController.scrollController;
     autoScrollController = AutoScrollController(
-        viewportBoundaryGetter: () =>
-            Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
+        viewportBoundaryGetter: () => Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
         axis: Axis.vertical,
         suggestedRowHeight: 300);
     suraEnController.scrollController = autoScrollController!;
     suraEnController.addItems();
 
-
     return WillPopScope(
-      onWillPop: () async{
-        if(audioPlayer !=null){
+      onWillPop: () async {
+        if (audioPlayer != null) {
           await audioPlayer.stop();
         }
         return true;
-      } ,
+      },
       child: Scaffold(
         appBar: QuranBar(suraModel.toString()),
         backgroundColor: lightGray2,
         body: Column(
           children: [
             Expanded(
-              flex: 7,
+                flex: 7,
                 child: Stack(
-              children: [
-                Obx(() => ListView.builder(
-                      controller: autoScrollController,
-                      itemBuilder: (BuildContext context, int index) {
-                        if (suraEnController.suraAyat[index][0].ayaId ==
-                            selectedAyaId.value) {
-                        }
+                  children: [
+                    Obx(() => ListView.builder(
+                          controller: autoScrollController,
+                          itemBuilder: (BuildContext context, int index) {
+                            if (suraEnController.suraAyat[index][0].ayaId == selectedAyaId.value) {}
 
-                        return AutoScrollTag(
-                          key: ValueKey(index),
-                          controller: autoScrollController!,
-                          index: index,
-                          child: AyaEnItem(
-                            ayaModel: suraEnController.suraAyat[index],
-                            suraEnController: suraEnController,
-                          ),
-                        );
-                      },
-                      itemCount: suraEnController.suraAyat.length,
-                    )),
-                Obx(() => Visibility(
-                      visible: suraEnController.fetchingData.value,
-                      child: const Center(
-                          child: CircularProgressIndicator(
-                        color: primaryColor,
-                      )),
-                    ))
-              ],
-            )),
-           Expanded(
-             flex: 1,
-             child: Obx(() => PlayerBottomWidget(
-                    ayaId: int.parse(selectedAyaId.value),
-                    ayaNo: int.parse(selectAyaNo.value)),
+                            return AutoScrollTag(
+                              key: ValueKey(index),
+                              controller: autoScrollController!,
+                              index: index,
+                              child: AyaEnItem(
+                                ayaModel: suraEnController.suraAyat[index],
+                                suraEnController: suraEnController,
+                              ),
+                            );
+                          },
+                          itemCount: suraEnController.suraAyat.length,
+                        )),
+                    Obx(() => Visibility(
+                          visible: suraEnController.fetchingData.value,
+                          child: const Center(
+                              child: CircularProgressIndicator(
+                            color: primaryColor,
+                          )),
+                        ))
+                  ],
+                )),
+            Expanded(
+              flex: 1,
+              child: Obx(
+                () => PlayerBottomWidget(ayaId: int.parse(selectedAyaId.value), ayaNo: int.parse(selectAyaNo.value)),
               ),
-           )
+            )
           ],
         ),
       ),
     );
   }
-
 }

@@ -1,8 +1,8 @@
-import 'package:dlalat_quran/ui/home_sura_screen.dart';
-import 'package:dlalat_quran/ui/intro_screen.dart';
-import 'package:dlalat_quran/ui/setting_screen.dart';
-import 'package:dlalat_quran/utils/colors.dart';
-import 'package:dlalat_quran/utils/constants.dart';
+import 'package:dlalat_quaran_new/ui/home_sura_screen.dart';
+import 'package:dlalat_quaran_new/ui/intro_screen.dart';
+import 'package:dlalat_quaran_new/ui/setting_screen.dart';
+import 'package:dlalat_quaran_new/utils/colors.dart';
+import 'package:dlalat_quaran_new/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -12,23 +12,16 @@ import '../ui/short_explanation_index.dart';
 class QuranBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
 
-  const QuranBar(this.title, {Key? key}) : super(key: key);
+  const QuranBar(this.title, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       shape: const ContinuousRectangleBorder(
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(30),
-              bottomRight: Radius.circular(30)
-          )
-      ),
+          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30))),
       title: Text(
         title,
-        style: const TextStyle(
-            color: Colors.white,
-            fontFamily: 'Almarai'
-        ),
+        style: const TextStyle(color: Colors.white, fontFamily: 'Almarai'),
       ),
       centerTitle: true,
       flexibleSpace: Stack(
@@ -37,11 +30,7 @@ class QuranBar extends StatelessWidget implements PreferredSizeWidget {
             width: Get.width,
             decoration: const BoxDecoration(
                 color: primaryColor,
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(15),
-                    bottomRight: Radius.circular(15)
-                )
-            ),
+                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15))),
             height: 120,
             child: Padding(
               padding: const EdgeInsets.only(left: 8.0, right: 8.0),
@@ -60,8 +49,8 @@ class QuranBar extends StatelessWidget implements PreferredSizeWidget {
           height: 40,
           child: InkWell(
             onTap: () {
-              Get.offAll( IntroScreen());
-              Get.to(HomeSuraScreen());
+              Get.offAll(const IntroScreen());
+              Get.to(const HomeSuraScreen());
             },
             customBorder: const CircleBorder(),
             child: const Icon(
@@ -89,7 +78,7 @@ class QuranBar extends StatelessWidget implements PreferredSizeWidget {
           width: 40,
           height: 40,
           child: InkWell(
-            onTap: () => Get.offAll( IntroScreen()),
+            onTap: () => Get.offAll(const IntroScreen()),
             customBorder: const CircleBorder(),
             child: const Icon(
               Icons.home_outlined,

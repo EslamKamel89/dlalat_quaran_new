@@ -1,7 +1,7 @@
 import 'dart:developer';
 
-import 'package:dlalat_quran/db/database_helper.dart';
-import 'package:dlalat_quran/models/tag_model.dart';
+import 'package:dlalat_quaran_new/db/database_helper.dart';
+import 'package:dlalat_quaran_new/models/tag_model.dart';
 import 'package:get/get.dart';
 
 List<TagModel> _tagsList = [];

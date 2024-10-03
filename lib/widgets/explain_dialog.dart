@@ -1,13 +1,13 @@
 import 'dart:developer';
 import 'dart:ui';
 
-import 'package:dlalat_quran/controllers/expain_dialog_controller.dart';
-import 'package:dlalat_quran/ui/add_comment.dart';
-import 'package:dlalat_quran/ui/video_player_screen.dart';
-import 'package:dlalat_quran/utils/colors.dart';
-import 'package:dlalat_quran/utils/constants.dart';
-import 'package:dlalat_quran/widgets/custom_buttons.dart';
-import 'package:dlalat_quran/widgets/font_text.dart';
+import 'package:dlalat_quaran_new/controllers/expain_dialog_controller.dart';
+import 'package:dlalat_quaran_new/ui/add_comment.dart';
+import 'package:dlalat_quaran_new/ui/video_player_screen.dart';
+import 'package:dlalat_quaran_new/utils/colors.dart';
+import 'package:dlalat_quaran_new/utils/constants.dart';
+import 'package:dlalat_quaran_new/widgets/custom_buttons.dart';
+import 'package:dlalat_quaran_new/widgets/font_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:html/parser.dart';
@@ -17,7 +17,7 @@ class ExplainDialog extends StatelessWidget {
   final String ayaKey, videoId;
   VoidCallback? playerFunction;
 
-  ExplainDialog({Key? key, this.playerFunction, required this.ayaKey, required this.videoId}) : super(key: key);
+  ExplainDialog({super.key, this.playerFunction, required this.ayaKey, required this.videoId});
 
   final ExplainDialogController _dialogController = Get.put(ExplainDialogController());
 

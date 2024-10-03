@@ -1,9 +1,9 @@
 import 'package:audioplayers/audioplayers.dart';
-import 'package:dlalat_quran/db/database_helper.dart';
-import 'package:dlalat_quran/main.dart';
-import 'package:dlalat_quran/models/reciters_model.dart';
-import 'package:dlalat_quran/models/sura_model.dart';
-import 'package:dlalat_quran/utils/constants.dart';
+import 'package:dlalat_quaran_new/db/database_helper.dart';
+import 'package:dlalat_quaran_new/main.dart';
+import 'package:dlalat_quaran_new/models/reciters_model.dart';
+import 'package:dlalat_quaran_new/models/sura_model.dart';
+import 'package:dlalat_quaran_new/utils/constants.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -29,19 +29,17 @@ class AudioRecitationController extends GetxController {
   AudioPlayer? audioPlayer;
   PlayerState playerState = PlayerState.stopped;
 
-  void playerVisibleState(bool status){
-    showPlayer.value =  status;
+  void playerVisibleState(bool status) {
+    showPlayer.value = status;
     update();
   }
 
   void getReciter() async {
     recitersList.value = await DataBaseHelper.dataBaseInstance().getReciters();
     var sharedPref = await SharedPreferences.getInstance();
-    var selectedReciterId =  sharedPref.getString(reciterKey)?? "1";
+    var selectedReciterId = sharedPref.getString(reciterKey) ?? "1";
     try {
-      selectedReciter.value = recitersList
-          .where(((x) => x.id!.toString() == selectedReciterId))
-          .first;
+      selectedReciter.value = recitersList.where(((x) => x.id!.toString() == selectedReciterId)).first;
     } catch (e) {
       selectedReciter.value = recitersList[0];
     }
@@ -59,8 +57,7 @@ class AudioRecitationController extends GetxController {
   }
 
   void getSuraAyat(int suraId) async {
-    selectedSuraAyatCount.value =
-        await DataBaseHelper.dataBaseInstance().suraCount(suraId);
+    selectedSuraAyatCount.value = await DataBaseHelper.dataBaseInstance().suraCount(suraId);
     _ayatListFun();
     update();
   }
@@ -85,6 +82,5 @@ class AudioRecitationController extends GetxController {
   void onClose() {
     super.onClose();
     selectAya.value = '1';
-
   }
 }

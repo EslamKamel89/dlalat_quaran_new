@@ -1,13 +1,13 @@
-import 'package:dlalat_quran/controllers/tags_screen_controller.dart';
-import 'package:dlalat_quran/ui/tag_details_screen.dart';
-import 'package:dlalat_quran/widgets/quran_toolbar.dart';
-import 'package:dlalat_quran/widgets/search_widget.dart';
-import 'package:dlalat_quran/widgets/tag_item_widget.dart';
+import 'package:dlalat_quaran_new/controllers/tags_screen_controller.dart';
+import 'package:dlalat_quaran_new/ui/tag_details_screen.dart';
+import 'package:dlalat_quaran_new/widgets/quran_toolbar.dart';
+import 'package:dlalat_quaran_new/widgets/search_widget.dart';
+import 'package:dlalat_quaran_new/widgets/tag_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class TagsScreen extends StatelessWidget {
-  TagsScreen({Key? key}) : super(key: key);
+  TagsScreen({super.key});
 
   static String id = '/TagsScreen';
   final TagsScreenController _tasController = Get.put(TagsScreenController()..getTags());

@@ -1,8 +1,8 @@
 import 'package:audioplayers/audioplayers.dart';
-import 'package:dlalat_quran/controllers/audio_recitation_controller.dart';
-import 'package:dlalat_quran/utils/audio_download.dart';
-import 'package:dlalat_quran/utils/colors.dart';
-import 'package:dlalat_quran/utils/constants.dart';
+import 'package:dlalat_quaran_new/controllers/audio_recitation_controller.dart';
+import 'package:dlalat_quaran_new/utils/audio_download.dart';
+import 'package:dlalat_quaran_new/utils/colors.dart';
+import 'package:dlalat_quaran_new/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -13,17 +13,14 @@ import 'font_text.dart';
 class AudioRecitationPlayer extends StatelessWidget {
   late final AudioRecitationController _controller;
 
-  AudioRecitationPlayer(this._controller, {Key? key}) : super(key: key);
+  AudioRecitationPlayer(this._controller, {super.key});
   final String _locale = GetStorage().read(language);
 
   void changeAya(double newValue) async {
- await   _controller.audioPlayer!.stop();
+    await _controller.audioPlayer!.stop();
     _controller.selectAya.value = (newValue.toInt()).toString();
-    AudioDownload().suraDownloadPlay(
-        _controller.suraId.value,
-        int.parse(_controller.selectAya.value),
-        _controller.selectedSuraAyatCount.value,
-        _controller.audioPlayer!);
+    AudioDownload().suraDownloadPlay(_controller.suraId.value, int.parse(_controller.selectAya.value),
+        _controller.selectedSuraAyatCount.value, _controller.audioPlayer!);
 
     _controller.update();
   }
@@ -35,8 +32,7 @@ class AudioRecitationPlayer extends StatelessWidget {
       margin: const EdgeInsets.only(left: 7, right: 7),
       decoration: const BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(15), topRight: Radius.circular(15)),
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
         boxShadow: [
           BoxShadow(
             color: Colors.grey,
@@ -53,13 +49,12 @@ class AudioRecitationPlayer extends StatelessWidget {
               // Title Row
               children: [
                 Container(
-                  child: Image.asset(logoSmall),
                   padding: const EdgeInsets.all(5),
-                  decoration: const BoxDecoration(
-                      color: lightGray2,
-                      borderRadius: BorderRadius.all(Radius.circular(4))),
+                  decoration:
+                      const BoxDecoration(color: lightGray2, borderRadius: BorderRadius.all(Radius.circular(4))),
                   height: 25,
                   width: 25,
+                  child: Image.asset(logoSmall),
                 ),
                 const SizedBox(
                   width: 5,
@@ -85,8 +80,7 @@ class AudioRecitationPlayer extends StatelessWidget {
                             ? AlMaraiText(
                                 isSmallScreen ? 13 : 15,
                                 _controller.selectedReciter.value.id != 0
-                                    ? _controller.selectedReciter.value
-                                        .toString()
+                                    ? _controller.selectedReciter.value.toString()
                                     : '1')
                             : const SizedBox()),
                       ],
@@ -108,28 +102,20 @@ class AudioRecitationPlayer extends StatelessWidget {
                 onTap: () async {
                   await _controller.audioPlayer!.stop();
 
-                  if (int.parse(_controller.selectAya.value) <
-                      _controller.selectedSuraAyatCount.value) {
+                  if (int.parse(_controller.selectAya.value) < _controller.selectedSuraAyatCount.value) {
                     // initPlayer();
-
                   }
 
-
-
-                  if (int.parse(_controller.selectAya.value) >
-                     1) {
+                  if (int.parse(_controller.selectAya.value) > 1) {
                     var next = int.parse(_controller.selectAya.value) - 1;
                     _controller.selectAya.value = next.toString();
-                    var ayaPath = await AudioFolders().generatePath(
-                        _controller.selectedReciter.value.id.toString(),
-                        _controller.suraId.value.toString(),
-                        _controller.selectAya.value);
+                    var ayaPath = await AudioFolders().generatePath(_controller.selectedReciter.value.id.toString(),
+                        _controller.suraId.value.toString(), _controller.selectAya.value);
                     await _controller.audioPlayer!.stop();
-                    await   _controller.audioPlayer!.play(DeviceFileSource(ayaPath));
+                    await _controller.audioPlayer!.play(DeviceFileSource(ayaPath));
                   } else {
-                    await   _controller.audioPlayer!.stop();
+                    await _controller.audioPlayer!.stop();
                   }
-
 
                   // if (int.parse(_controller.selectAya.value) > 1) {
                   //   _controller.selectAya.value =
@@ -145,14 +131,10 @@ class AudioRecitationPlayer extends StatelessWidget {
                   // _controller.audioPlayer!.stop();
                   //
                   // _controller.audioPlayer!.play(DeviceFileSource(ayaPath));
-
-
                 },
                 customBorder: const CircleBorder(),
                 child: Image.asset(
-                  _locale == 'ar'
-                      ? 'assets/icons/ic_rewind_forward.png'
-                      : 'assets/icons/ic_rewind_back.png',
+                  _locale == 'ar' ? 'assets/icons/ic_rewind_forward.png' : 'assets/icons/ic_rewind_back.png',
                   height: isSmallScreen ? 15 : 20,
                   width: isSmallScreen ? 15 : 20,
                 ),
@@ -164,11 +146,9 @@ class AudioRecitationPlayer extends StatelessWidget {
                 onTap: () async {
                   switch (_controller.playerState) {
                     case PlayerState.stopped:
-                      var link = await AudioFolders().generatePath(
-                          _controller.selectedReciter.value.id.toString(),
-                          _controller.suraId.value.toString(),
-                          _controller.selectAya.value.toString());
-                     await _controller.audioPlayer!.stop();
+                      var link = await AudioFolders().generatePath(_controller.selectedReciter.value.id.toString(),
+                          _controller.suraId.value.toString(), _controller.selectAya.value.toString());
+                      await _controller.audioPlayer!.stop();
                       _controller.audioPlayer!.play(DeviceFileSource(link));
                       _controller.isPlaying.value = true;
                       _controller.update();
@@ -192,9 +172,7 @@ class AudioRecitationPlayer extends StatelessWidget {
                 },
                 customBorder: const CircleBorder(),
                 child: Obx(() => Image.asset(
-                      _controller.isPlaying.value
-                          ? 'assets/icons/ic_pause.png'
-                          : 'assets/icons/ic_player_play.png',
+                      _controller.isPlaying.value ? 'assets/icons/ic_pause.png' : 'assets/icons/ic_player_play.png',
                       height: isSmallScreen ? 15 : 20,
                       width: isSmallScreen ? 15 : 20,
                     )),
@@ -204,27 +182,20 @@ class AudioRecitationPlayer extends StatelessWidget {
               ),
               InkWell(
                 onTap: () async {
+                  await _controller.audioPlayer!.stop();
 
-
-              await    _controller.audioPlayer!.stop();
-
-                  if (int.parse(_controller.selectAya.value) <
-                      _controller.selectedSuraAyatCount.value) {
+                  if (int.parse(_controller.selectAya.value) < _controller.selectedSuraAyatCount.value) {
                     // initPlayer();
-
                   }
-                  if (int.parse(_controller.selectAya.value) <=
-                      _controller.selectedSuraAyatCount.value) {
+                  if (int.parse(_controller.selectAya.value) <= _controller.selectedSuraAyatCount.value) {
                     var next = int.parse(_controller.selectAya.value) + 1;
                     _controller.selectAya.value = next.toString();
-                    var ayaPath = await AudioFolders().generatePath(
-                        _controller.selectedReciter.value.id.toString(),
-                        _controller.suraId.value.toString(),
-                        _controller.selectAya.value);
+                    var ayaPath = await AudioFolders().generatePath(_controller.selectedReciter.value.id.toString(),
+                        _controller.suraId.value.toString(), _controller.selectAya.value);
                     await _controller.audioPlayer!.stop();
-                 await   _controller.audioPlayer!.play(DeviceFileSource(ayaPath));
+                    await _controller.audioPlayer!.play(DeviceFileSource(ayaPath));
                   } else {
-                 await   _controller.audioPlayer!.stop();
+                    await _controller.audioPlayer!.stop();
                   }
 
                   // if (int.parse(_controller.selectAya.value) <
@@ -238,15 +209,10 @@ class AudioRecitationPlayer extends StatelessWidget {
                   //     _controller.selectAya.value.toString());
                   //
                   // await _controller.audioPlayer!.play(DeviceFileSource(link));
-
-
-
                 },
                 customBorder: const CircleBorder(),
                 child: Image.asset(
-                  _locale == 'ar'
-                      ? 'assets/icons/ic_rewind_back.png'
-                      : 'assets/icons/ic_rewind_forward.png',
+                  _locale == 'ar' ? 'assets/icons/ic_rewind_back.png' : 'assets/icons/ic_rewind_forward.png',
                   height: isSmallScreen ? 15 : 20,
                   width: isSmallScreen ? 15 : 20,
                 ),
@@ -267,12 +233,7 @@ class ReciterPlayerSlider extends StatefulWidget {
 
   void Function(double)? onSeekChange;
 
-  ReciterPlayerSlider(
-      {Key? key,
-      required this.currentValue,
-      required this.maxValue,
-      required this.onSeekChange})
-      : super(key: key);
+  ReciterPlayerSlider({super.key, required this.currentValue, required this.maxValue, required this.onSeekChange});
 
   @override
   _ReciterPlayerSliderState createState() => _ReciterPlayerSliderState();
@@ -289,25 +250,21 @@ class _ReciterPlayerSliderState extends State<ReciterPlayerSlider> {
       height: 12,
       width: double.infinity,
       child: SliderTheme(
-        data: const SliderThemeData(
-            trackHeight: 2,
-            thumbShape: RoundSliderThumbShape(enabledThumbRadius: 5)),
+        data: const SliderThemeData(trackHeight: 2, thumbShape: RoundSliderThumbShape(enabledThumbRadius: 5)),
         child: Slider(
             inactiveColor: lightGray,
             activeColor: primaryColor2,
             thumbColor: primaryColor,
             value: widget.currentValue.toDouble(),
-            onChangeEnd: (value) async{
+            onChangeEnd: (value) async {
               widget.onSeekChange!(value);
               setState(() {
-
                 widget.currentValue = value.toInt();
               });
             },
-            onChanged: (value) async{
+            onChanged: (value) async {
               // widget.onSeekChange!(value);
               setState(() {
-
                 widget.currentValue = value.toInt();
               });
             },

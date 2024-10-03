@@ -1,17 +1,17 @@
 import 'dart:developer';
 
-import 'package:dlalat_quran/controllers/settings_controller.dart';
-import 'package:dlalat_quran/models/language_model.dart';
-import 'package:dlalat_quran/models/reciters_model.dart';
-import 'package:dlalat_quran/network/sync_manager.dart';
-import 'package:dlalat_quran/ui/about_app_screen.dart';
-import 'package:dlalat_quran/utils/colors.dart';
-import 'package:dlalat_quran/utils/constants.dart';
-import 'package:dlalat_quran/utils/print_helper.dart';
-import 'package:dlalat_quran/widgets/color_picker_widget.dart';
-import 'package:dlalat_quran/widgets/custom_buttons.dart';
-import 'package:dlalat_quran/widgets/font_text.dart';
-import 'package:dlalat_quran/widgets/quran_toolbar.dart';
+import 'package:dlalat_quaran_new/controllers/settings_controller.dart';
+import 'package:dlalat_quaran_new/models/language_model.dart';
+import 'package:dlalat_quaran_new/models/reciters_model.dart';
+import 'package:dlalat_quaran_new/network/sync_manager.dart';
+import 'package:dlalat_quaran_new/ui/about_app_screen.dart';
+import 'package:dlalat_quaran_new/utils/colors.dart';
+import 'package:dlalat_quaran_new/utils/constants.dart';
+import 'package:dlalat_quaran_new/utils/print_helper.dart';
+import 'package:dlalat_quaran_new/widgets/color_picker_widget.dart';
+import 'package:dlalat_quaran_new/widgets/custom_buttons.dart';
+import 'package:dlalat_quaran_new/widgets/font_text.dart';
+import 'package:dlalat_quaran_new/widgets/quran_toolbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -20,7 +20,7 @@ enum FontType { normal, bold }
 
 //ignore: must_be_immutable
 class SettingScreen extends StatelessWidget {
-  SettingScreen({Key? key}) : super(key: key);
+  SettingScreen({super.key});
   static String id = '/SettingScreen';
   SettingsController controller = Get.put(SettingsController());
   var screenWidth = Get.width;
@@ -277,7 +277,7 @@ class SettingScreen extends StatelessWidget {
 class LanguageSpinner extends StatefulWidget {
   late SettingsController controller;
 
-  LanguageSpinner(this.controller, {Key? key}) : super(key: key);
+  LanguageSpinner(this.controller, {super.key});
 
   @override
   _LanguageSpinnerState createState() => _LanguageSpinnerState();
@@ -325,7 +325,7 @@ class _LanguageSpinnerState extends State<LanguageSpinner> {
 class RecitersSpinner extends StatefulWidget {
   late SettingsController controller;
 
-  RecitersSpinner(this.controller, {Key? key}) : super(key: key);
+  RecitersSpinner(this.controller, {super.key});
 
   @override
   _RecitersSpinnerState createState() => _RecitersSpinnerState();
@@ -362,7 +362,7 @@ class _RecitersSpinnerState extends State<RecitersSpinner> {
 class FontTypeRadio extends StatefulWidget {
   SettingsController controller;
 
-  FontTypeRadio(this.controller, {Key? key}) : super(key: key);
+  FontTypeRadio(this.controller, {super.key});
 
   @override
   State<FontTypeRadio> createState() => _FontTypeRadioState();

@@ -1,8 +1,8 @@
 import 'dart:developer';
 
-import 'package:dlalat_quran/db/database_helper.dart';
-import 'package:dlalat_quran/models/word_model.dart';
-import 'package:dlalat_quran/utils/constants.dart';
+import 'package:dlalat_quaran_new/db/database_helper.dart';
+import 'package:dlalat_quaran_new/models/word_model.dart';
+import 'package:dlalat_quaran_new/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
@@ -17,24 +17,20 @@ class SuraEnController extends GetxController {
   int firstAya = 1;
   var ayaId = 0.obs;
   var fetchingData = false.obs;
-   AutoScrollController? scrollController;
+  AutoScrollController? scrollController;
 
   Color? normalFontColor;
   Color? tagWordsColor;
   Color? readWordsColor;
   Color? bgColor;
 
-
   TextStyle? redStyle;
   TextStyle? normal;
   TextStyle? playingStyle;
 
   TextStyle? redStyleEn;
-  TextStyle? normalEn ;
-  TextStyle? playingStyleEn ;
-
-
-
+  TextStyle? normalEn;
+  TextStyle? playingStyleEn;
 
   void getSuraAyat() async {
     // log('getSuraAyat Start Method');
@@ -53,11 +49,10 @@ class SuraEnController extends GetxController {
   }
 
   addItems() {
-    if(scrollController != null) {
+    if (scrollController != null) {
       scrollController!.addListener(() {
         log("scroll COntroller Listener ");
-        if (scrollController!.position.maxScrollExtent ==
-            scrollController!.position.pixels) {
+        if (scrollController!.position.maxScrollExtent == scrollController!.position.pixels) {
           if (firstAya + 11 < suraAyatCount) {
             firstAya = firstAya + 11;
             getSuraAyat();
@@ -66,7 +61,6 @@ class SuraEnController extends GetxController {
       });
     }
   }
-
 
   @override
   void onInit() {
@@ -78,30 +72,23 @@ class SuraEnController extends GetxController {
 
   void _getColors() async {
     // if (normalFontColor == null) {
-    normalFontColor = colors[
-    await DataBaseHelper.dataBaseInstance().getColor(KnormalFontColor)];
-    tagWordsColor = colors[
-    await DataBaseHelper.dataBaseInstance().getColor(KtagWordsColor)];
-    readWordsColor = colors[
-    await DataBaseHelper.dataBaseInstance().getColor(KreadWordsColor)];
-    bgColor =
-    colors[await DataBaseHelper.dataBaseInstance().getColor(KpageBg)];
+    normalFontColor = colors[await DataBaseHelper.dataBaseInstance().getColor(KnormalFontColor)];
+    tagWordsColor = colors[await DataBaseHelper.dataBaseInstance().getColor(KtagWordsColor)];
+    readWordsColor = colors[await DataBaseHelper.dataBaseInstance().getColor(KreadWordsColor)];
+    bgColor = colors[await DataBaseHelper.dataBaseInstance().getColor(KpageBg)];
 
-    redStyle =
-     TextStyle(color: tagWordsColor, fontFamily: 'Mcs', fontSize: 20);
-    normal =
-     TextStyle(color: normalFontColor, fontFamily: 'Mcs', fontSize: 20);
+    redStyle = TextStyle(color: tagWordsColor, fontFamily: 'Mcs', fontSize: 20);
+    normal = TextStyle(color: normalFontColor, fontFamily: 'Mcs', fontSize: 20);
     playingStyle = TextStyle(
-      color:readWordsColor,
+      color: readWordsColor,
       fontFamily: 'Mcs',
       fontSize: 20,
     );
 
-    redStyleEn =  TextStyle(color: tagWordsColor, fontSize: 20);
-    normalEn =  TextStyle(color: normalFontColor, fontSize: 20);
-    playingStyleEn =  TextStyle(color: readWordsColor, fontSize: 20);
+    redStyleEn = TextStyle(color: tagWordsColor, fontSize: 20);
+    normalEn = TextStyle(color: normalFontColor, fontSize: 20);
+    playingStyleEn = TextStyle(color: readWordsColor, fontSize: 20);
 
     // }
   }
-
 }

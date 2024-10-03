@@ -1,18 +1,18 @@
 import 'dart:developer';
 
 import 'package:audioplayers/audioplayers.dart';
-import 'package:dlalat_quran/controllers/audio_recitation_controller.dart';
-import 'package:dlalat_quran/utils/audio_download.dart';
-import 'package:dlalat_quran/utils/audio_folders.dart';
-import 'package:dlalat_quran/utils/colors.dart';
-import 'package:dlalat_quran/utils/constants.dart';
-import 'package:dlalat_quran/widgets/audio_recitation_player.dart';
-import 'package:dlalat_quran/widgets/ayat_spinner.dart';
-import 'package:dlalat_quran/widgets/custom_buttons.dart';
-import 'package:dlalat_quran/widgets/font_text.dart';
-import 'package:dlalat_quran/widgets/quran_toolbar.dart';
-import 'package:dlalat_quran/widgets/reciters_spinner.dart';
-import 'package:dlalat_quran/widgets/sura_spinner.dart';
+import 'package:dlalat_quaran_new/controllers/audio_recitation_controller.dart';
+import 'package:dlalat_quaran_new/utils/audio_download.dart';
+import 'package:dlalat_quaran_new/utils/audio_folders.dart';
+import 'package:dlalat_quaran_new/utils/colors.dart';
+import 'package:dlalat_quaran_new/utils/constants.dart';
+import 'package:dlalat_quaran_new/widgets/audio_recitation_player.dart';
+import 'package:dlalat_quaran_new/widgets/ayat_spinner.dart';
+import 'package:dlalat_quaran_new/widgets/custom_buttons.dart';
+import 'package:dlalat_quaran_new/widgets/font_text.dart';
+import 'package:dlalat_quaran_new/widgets/quran_toolbar.dart';
+import 'package:dlalat_quaran_new/widgets/reciters_spinner.dart';
+import 'package:dlalat_quaran_new/widgets/sura_spinner.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -27,7 +27,7 @@ class AudioRecitationsScreen extends StatelessWidget {
   var ayaNo = 0;
   var suraCount = 0;
 
-  AudioRecitationsScreen({Key? key}) : super(key: key);
+  AudioRecitationsScreen({super.key});
 
   void listener() {
     var conf = AudioContext(

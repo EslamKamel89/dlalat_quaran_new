@@ -25,20 +25,47 @@ class ArticlesScreen extends StatelessWidget {
           SearchWidget(_searchController, null, () {
             _articlesController.search(_searchController.text.toString().toLowerCase());
           }),
-          Obx(() => _articlesController.filteredList.isNotEmpty
-              ? Expanded(
-                  child: ListView.builder(
-                  itemBuilder: (context, index) {
-                    return ArticlesWidget(_articlesController.filteredList[index]);
-                  },
-                  itemCount: _articlesController.filteredList.length,
-                ))
-              : Expanded(
-                  child: Center(
-                      child: Text(
-                  'no_articles_found'.tr,
-                  textAlign: TextAlign.center,
-                ))))
+          GetBuilder<ArticlesController>(
+            builder: (context) {
+              return ArticlesData.filteredList.isNotEmpty
+                  ? Expanded(
+                      child: ListView.builder(
+                        itemBuilder: (context, index) {
+                          return ArticlesWidget(ArticlesData.filteredList[index]);
+                        },
+                        itemCount: ArticlesData.filteredList.length,
+                      ),
+                    )
+                  : Expanded(
+                      child: Center(
+                        child: Text(
+                          'no_articles_found'.tr,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    );
+            },
+          )
+
+          // Obx(
+          //   () => _articlesController.filteredList.isNotEmpty
+          //       ? Expanded(
+          //           child: ListView.builder(
+          //             itemBuilder: (context, index) {
+          //               return ArticlesWidget(_articlesController.filteredList[index]);
+          //             },
+          //             itemCount: _articlesController.filteredList.length,
+          //           ),
+          //         )
+          //       : Expanded(
+          //           child: Center(
+          //             child: Text(
+          //               'no_articles_found'.tr,
+          //               textAlign: TextAlign.center,
+          //             ),
+          //           ),
+          //         ),
+          // )
         ],
       ),
     );

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dlalat_quaran_new/controllers/settings_controller.dart';
+import 'package:dlalat_quaran_new/dialogs/custom_snack_bar.dart';
 import 'package:dlalat_quaran_new/models/language_model.dart';
 import 'package:dlalat_quaran_new/models/reciters_model.dart';
 import 'package:dlalat_quaran_new/network/sync_manager.dart';
@@ -157,6 +158,8 @@ class SettingScreen extends StatelessWidget {
                           onPressed: () {
                             final SyncManager syncManager = Get.find();
                             syncManager.insertedData(forceUpdate: true);
+                            showCustomSnackBar(title: "برجاء النتظار", body: "يتم تحميل البيانات من قاعدة البيانات");
+
                             pr('data updated ');
                           },
                           borderRadius: 0,

@@ -6,6 +6,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_logging_interceptor/dio_logging_interceptor.dart';
 import 'package:dlalat_quaran_new/db/database_helper.dart';
+import 'package:dlalat_quaran_new/dialogs/custom_snack_bar.dart';
 import 'package:dlalat_quaran_new/models/RelatedArticlesModel.dart';
 import 'package:dlalat_quaran_new/models/RelatedTagModel.dart';
 import 'package:dlalat_quaran_new/models/TagWordModel.dart';
@@ -28,7 +29,6 @@ class SyncManager extends GetxController {
   static const String _deviceKey = 'device_key';
   // Insert
   static const String _getInsert = "get-public-created";
-
   // Updated
   static const String _getUpdates = "get-public-updates";
 
@@ -51,6 +51,7 @@ class SyncManager extends GetxController {
   var dbInstance = DataBaseHelper.database;
 
   String? lastSync;
+  String loadingState = "";
 
   void setLoading(bool value) {
     isLoading.value = value;
@@ -107,7 +108,7 @@ class SyncManager extends GetxController {
     if (!await isInternetAvailable()) {
       return;
     }
-    print("syncStarted====================");
+    print("syncStarted==================== $syncStarted");
     if (!syncStarted) {
       syncStarted = true;
 
@@ -267,7 +268,6 @@ class SyncManager extends GetxController {
   // Updates
   void _getUpdated() async {
     print('$tag _getUpdated  $deviceId');
-
     if (!await AudioDownload().isInternetAvailable()) {
       return;
     }
@@ -533,6 +533,8 @@ class SyncManager extends GetxController {
     print('End Sync Status $hasUpdates');
     updateSyncDate();
     syncStarted = false;
+    showCustomSnackBar(title: "تم بنجاح", body: "المزامنة مع قاعدة البيانات");
+
     setLoading(false);
   }
 

@@ -19,6 +19,7 @@ class IntroScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // pr('Hello world');
     // deleteDatabase('dlalat_qurann.db');
     var itemSize = (MediaQuery.of(context).size.width - 80) / 3;
     var scHeight = Get.height;
@@ -209,3 +210,12 @@ class IntroScreen extends StatelessWidget {
     return path;
   }
 }
+
+const commentRequest = {
+  "model": "tags", // reciters , articles , tag_words ....
+  "modelId": "10",
+  "name": "Eslam Ahmed Kamel",
+  "phone": "01024510803",
+  "comment": "some comment",
+  "deviceLocale": "ar" // 'en' , 'es' , 'fr' ....
+};

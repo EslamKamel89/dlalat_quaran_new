@@ -25,13 +25,26 @@ class TagsScreen extends StatelessWidget {
           SearchWidget(_textEditingController, null, () {
             _tasController.search(_textEditingController.text.toString().toLowerCase());
           }),
-          Obx(() => Expanded(
-                  child: ListView.builder(
+          GetBuilder<TagsScreenController>(builder: (context) {
+            return Expanded(
+              child: ListView.builder(
                 itemBuilder: (context, index) {
-                  return TagItemWidget(_tasController.filteredList[index], TagDetailsScreen());
+                  return TagItemWidget(TagsScreenData.filteredList[index], TagDetailsScreen());
                 },
-                itemCount: _tasController.filteredList.length,
-              )))
+                itemCount: TagsScreenData.filteredList.length,
+              ),
+            );
+          }),
+          // Obx(
+          //   () => Expanded(
+          //     child: ListView.builder(
+          //       itemBuilder: (context, index) {
+          //         return TagItemWidget(_tasController.filteredList[index], TagDetailsScreen());
+          //       },
+          //       itemCount: _tasController.filteredList.length,
+          //     ),
+          //   ),
+          // )
         ],
       ),
     );

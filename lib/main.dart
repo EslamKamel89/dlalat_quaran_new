@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:audioplayers/audioplayers.dart';
-import 'package:dlalat_quaran_new/ui/select_language_screen.dart';
 // import 'package:device_preview/device_preview.dart';
 import 'package:dlalat_quaran_new/db/database_helper.dart';
 import 'package:dlalat_quaran_new/network/sync_manager.dart';
@@ -24,6 +23,7 @@ import 'package:dlalat_quaran_new/ui/video_player_screen.dart';
 import 'package:dlalat_quaran_new/utils/audio_folders.dart';
 import 'package:dlalat_quaran_new/utils/constants.dart';
 import 'package:dlalat_quaran_new/utils/current_locales.dart';
+import 'package:dlalat_quaran_new/utils/servicle_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -32,6 +32,8 @@ import 'package:get_storage/get_storage.dart';
 import 'ui/video_library_screen.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  initServiceLocator();
   await GetStorage.init();
   DataBaseHelper.dataBaseInstance();
   GetStorage().read(KpageBg);

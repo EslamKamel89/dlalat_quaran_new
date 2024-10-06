@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:audioplayers/audioplayers.dart';
+import 'package:dlalat_quaran_new/controllers/comment_controller.dart';
 // import 'package:device_preview/device_preview.dart';
 import 'package:dlalat_quaran_new/db/database_helper.dart';
 import 'package:dlalat_quaran_new/network/sync_manager.dart';
@@ -57,13 +58,8 @@ class DlalatQuran extends StatefulWidget {
 class _DlalatQuranState extends State<DlalatQuran> {
   @override
   void initState() {
-    Get.put(
-      SyncManager()..insertedData(),
-      permanent: true,
-    );
-    // SyncManager manager = Get.find();
-
-    // manager.insertedData();
+    Get.put(SyncManager()..insertedData(), permanent: true);
+    Get.put(CommentController(dioConsumer: serviceLocator()), permanent: true);
     super.initState();
   }
 

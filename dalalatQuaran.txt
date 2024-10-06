@@ -1,0 +1,27 @@
+Dallat el quaran 
+1- add button to add comment on the explnation of the sura and that button will navigate you to another screen where you could add a new comment and submit button 
+	* important files 
+	lib\ui\new_single_sura_screen.dart  {This is the ui for the sura and where you will find the ontap function}
+	lib\ui\dialog_word_tag.dart {this is the ui of the dialog box that contain the word tag explanation }
+	lib\widgets\explain_dialog.dart {this is the file that contain the ui for the sura explantion}
+2- there are proble with updating the list in getx controller 
+	* important files
+	lib\controllers\tags_screen_controller.dart
+
+4- i have to delete connectivty plus from the pubspec.yaml file because it won't build in release mode and it is used in
+lib\utils\audio_download.dart >> isInternetAvailable()
+
+5- kotlin version in graddle.settings
+    id "org.jetbrains.kotlin.android" version "1.7.10" apply false
+ 
+
+
+
+Localization not fininshed on the following pages
+lib\ui\add_research.dart
+lib\ui\add_comment.dart
+lib\widgets\explain_dialog.dart
+lib\ui\dialog_word_tag.dart
+lib\controllers\comment_controller.dart
+
+

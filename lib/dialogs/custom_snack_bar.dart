@@ -2,7 +2,11 @@ import 'package:dlalat_quaran_new/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-showCustomSnackBar({required String title, required String body}) {
+showCustomSnackBar({
+  required String title,
+  required String body,
+  bool isSuccess = true,
+}) {
   Get.showSnackbar(
     GetSnackBar(
       overlayColor: Colors.white,
@@ -24,9 +28,9 @@ showCustomSnackBar({required String title, required String body}) {
           fontFamily: 'Almarai',
         ),
       ),
-      icon: const Icon(Icons.check, color: Colors.white),
+      icon: Icon(isSuccess ? Icons.check : Icons.error, color: Colors.white),
       duration: const Duration(seconds: 3),
-      backgroundColor: primaryColor.withOpacity(0.8),
+      backgroundColor: isSuccess ? primaryColor.withOpacity(0.8) : Colors.red.withOpacity(0.8),
     ),
   );
 }

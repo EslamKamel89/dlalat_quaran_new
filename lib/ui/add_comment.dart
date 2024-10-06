@@ -1,7 +1,6 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:dlalat_quaran_new/controllers/comment_controller.dart';
 import 'package:dlalat_quaran_new/utils/colors.dart';
-import 'package:dlalat_quaran_new/utils/print_helper.dart';
 import 'package:dlalat_quaran_new/widgets/custom_buttons.dart';
 import 'package:dlalat_quaran_new/widgets/quran_toolbar.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +16,6 @@ class AddCommentView extends StatefulWidget {
 }
 
 class _AddCommentViewState extends State<AddCommentView> {
-  int? suraId;
   late GlobalKey<FormState> formKey;
   late CommentController commentController;
   String name = '';
@@ -25,17 +23,13 @@ class _AddCommentViewState extends State<AddCommentView> {
   String phone = '';
   String comment = '';
   String countryCode = '';
+  String commentType = Get.arguments['commentType'];
+  int? id = int.parse(Get.arguments['id'].toString());
   @override
   void initState() {
     formKey = GlobalKey<FormState>();
     commentController = Get.find<CommentController>();
-    try {
-      suraId = int.parse(Get.arguments['suraId']);
-    } on Exception catch (e) {
-      pr('Error when parsing suarId arguments passed by Getx routing', 'AddCommentView');
-      pr('Exception: $e', 'AddCommentView');
-    }
-    pr('suarId : $suraId', 'AddCommentView');
+
     super.initState();
   }
 
@@ -195,40 +189,18 @@ class _AddCommentViewState extends State<AddCommentView> {
                         return;
                       }
                       commentController.addComment(
-                        commentType: CommentType.ayah,
-                        id: suraId ?? 1,
+                        commentType: commentType == 'ayah'
+                            ? CommentType.ayah
+                            : commentType == 'tag'
+                                ? CommentType.tag
+                                : CommentType.article,
+                        id: id ?? 1,
                         name: name,
                         email: email,
                         phone: (countryCode == '' ? '+20' : countryCode) + phone,
                         comment: comment,
                       );
                       Get.back();
-                      Get.showSnackbar(
-                        GetSnackBar(
-                          overlayColor: Colors.white,
-                          titleText: const Text(
-                            'شكرا',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontFamily: 'Almarai',
-                            ),
-                          ),
-                          messageText: const Text(
-                            'تم أضافة تعليقكم بنجاح',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontFamily: 'Almarai',
-                            ),
-                          ),
-                          icon: const Icon(Icons.check, color: Colors.white),
-                          duration: const Duration(seconds: 3),
-                          backgroundColor: primaryColor.withOpacity(0.8),
-                        ),
-                      );
                     },
                     borderRadius: 5,
                     child: Text(

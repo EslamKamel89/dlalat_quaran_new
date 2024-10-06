@@ -125,7 +125,7 @@ class DialogWordTag extends StatelessWidget {
                 children: [
                   PrimaryButton(
                     onPressed: () {
-                      Get.toNamed(AddCommentView.id);
+                      Get.toNamed(AddCommentView.id, arguments: {"id": tagId, 'commentType': 'tag'});
                     },
                     borderRadius: 5,
                     child: Text(

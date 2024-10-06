@@ -153,7 +153,7 @@ class ExplainDialog extends StatelessWidget {
                   children: [
                     PrimaryButton(
                       onPressed: () {
-                        Get.toNamed(AddCommentView.id, arguments: {"suraId": ayaKey});
+                        Get.toNamed(AddCommentView.id, arguments: {"id": ayaKey, 'commentType': 'ayah'});
                       },
                       borderRadius: 5,
                       child: Text(

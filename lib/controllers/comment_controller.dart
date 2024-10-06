@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dlalat_quaran_new/dialogs/custom_snack_bar.dart';
 import 'package:dlalat_quaran_new/utils/api_service/dio_consumer.dart';
 import 'package:dlalat_quaran_new/utils/print_helper.dart';
@@ -43,8 +45,9 @@ class CommentController extends GetxController {
         "comment": comment,
         "devicelocal": Get.locale?.languageCode ?? 'ar',
       });
-      pr(response, t);
-      if (response['status']) {
+
+      if (jsonDecode(response)['status'] == 'true') {
+        pr(response, t);
         responseState = ResponseState.success;
         showCustomSnackBar(title: "شكرا", body: "تم أضافة تعليقكم بنجاح");
         return true;

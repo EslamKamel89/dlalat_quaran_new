@@ -30,11 +30,9 @@ environment:
 dependencies:
   audioplayers: ^1.0.1
   collection: null
-  # connectivity: null
+  country_code_picker: ^3.0.0
   cupertino_icons: null
-  # device_info_plus: null
-  # device_preview: ^1.2.0
-  device_info_plus:
+  device_info_plus: null
   dio: null
   dio_logging_interceptor: null
   flutter:

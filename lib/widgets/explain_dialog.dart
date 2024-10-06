@@ -23,6 +23,7 @@ class ExplainDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // pr('Ayah id: $ayaKey', 'Explain Dialog widget');
     log('Video Id => ${_dialogController.videoUrl.value} }');
     _dialogController.getAyaExplain(ayaKey);
     return WillPopScope(
@@ -152,11 +153,12 @@ class ExplainDialog extends StatelessWidget {
                   children: [
                     PrimaryButton(
                       onPressed: () {
-                        Get.toNamed(AddCommentView.id);
+                        Get.toNamed(AddCommentView.id, arguments: {"suraId": ayaKey});
                       },
                       borderRadius: 5,
                       child: Text(
                         'addComment'.tr,
+                        // 'Hello world',
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.white,

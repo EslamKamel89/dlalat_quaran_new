@@ -58,7 +58,7 @@ class DlalatQuran extends StatefulWidget {
 class _DlalatQuranState extends State<DlalatQuran> {
   @override
   void initState() {
-    Get.put(SyncManager()..insertedData(), permanent: true);
+    Get.put(SyncManager()..insertedData(forceUpdate: true), permanent: true);
     Get.put(CommentController(dioConsumer: serviceLocator()), permanent: true);
     super.initState();
   }

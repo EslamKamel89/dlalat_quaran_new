@@ -13,4 +13,5 @@ const List<Color> colors = [
   Colors.blue,
   Colors.green,
   Colors.red,
-  Color(0xffFFFDE7)];
+  Color(0xffFFFDE7)
+];

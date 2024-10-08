@@ -6,7 +6,11 @@ class WhiteContainer extends StatelessWidget {
   Widget child;
 
   WhiteContainer(
-      {Key? key, required this.height, required this.radius, required this.child}) : super(key: key);
+      {Key? key,
+      required this.height,
+      required this.radius,
+      required this.child})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

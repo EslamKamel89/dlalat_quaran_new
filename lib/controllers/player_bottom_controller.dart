@@ -32,7 +32,8 @@ class PlayerBottomController extends GetxController {
   void getCurrentReciter() async {
     var sharedPref = await SharedPreferences.getInstance();
     var x = sharedPref.getString(reciterKey) ?? "1";
-    currentReciter.value = await DataBaseHelper.dataBaseInstance().getCurrentReciter(x.toString());
+    currentReciter.value =
+        await DataBaseHelper.dataBaseInstance().getCurrentReciter(x.toString());
     update();
   }
 
@@ -66,7 +67,9 @@ class PlayerBottomController extends GetxController {
 
   void internetSnack() {
     Get.snackbar('دلالات القرآن', "تأكد من اتصالك بالانترنت",
-            colorText: Colors.white, backgroundColor: primaryColor, snackPosition: SnackPosition.BOTTOM)
+            colorText: Colors.white,
+            backgroundColor: primaryColor,
+            snackPosition: SnackPosition.BOTTOM)
         .show();
   }
 

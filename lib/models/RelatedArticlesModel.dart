@@ -6,17 +6,18 @@
 
 class RelatedArticlesModel {
   RelatedArticlesModel({
-      int? id,
-      String? createdAt, 
-      String? updatedAt, 
-      int? articleId,
-      int? relatedArticleId,}){
+    int? id,
+    String? createdAt,
+    String? updatedAt,
+    int? articleId,
+    int? relatedArticleId,
+  }) {
     _id = id;
     _createdAt = createdAt;
     _updatedAt = updatedAt;
     _articleId = articleId;
     _relatedArticleId = relatedArticleId;
-}
+  }
 
   RelatedArticlesModel.fromJson(dynamic json) {
     _id = json['id'];
@@ -30,17 +31,20 @@ class RelatedArticlesModel {
   String? _updatedAt;
   int? _articleId;
   int? _relatedArticleId;
-RelatedArticlesModel copyWith({  int? id,
-  String? createdAt,
-  String? updatedAt,
-  int? articleId,
-  int? relatedArticleId,
-}) => RelatedArticlesModel(  id: id ?? _id,
-  createdAt: createdAt ?? _createdAt,
-  updatedAt: updatedAt ?? _updatedAt,
-  articleId: articleId ?? _articleId,
-  relatedArticleId: relatedArticleId ?? _relatedArticleId,
-);
+  RelatedArticlesModel copyWith({
+    int? id,
+    String? createdAt,
+    String? updatedAt,
+    int? articleId,
+    int? relatedArticleId,
+  }) =>
+      RelatedArticlesModel(
+        id: id ?? _id,
+        createdAt: createdAt ?? _createdAt,
+        updatedAt: updatedAt ?? _updatedAt,
+        articleId: articleId ?? _articleId,
+        relatedArticleId: relatedArticleId ?? _relatedArticleId,
+      );
   int? get id => _id;
   String? get createdAt => _createdAt;
   String? get updatedAt => _updatedAt;
@@ -56,5 +60,4 @@ RelatedArticlesModel copyWith({  int? id,
     map['related_article_id'] = _relatedArticleId;
     return map;
   }
-
 }

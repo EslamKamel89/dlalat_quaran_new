@@ -39,7 +39,9 @@ class AudioRecitationController extends GetxController {
     var sharedPref = await SharedPreferences.getInstance();
     var selectedReciterId = sharedPref.getString(reciterKey) ?? "1";
     try {
-      selectedReciter.value = recitersList.where(((x) => x.id!.toString() == selectedReciterId)).first;
+      selectedReciter.value = recitersList
+          .where(((x) => x.id!.toString() == selectedReciterId))
+          .first;
     } catch (e) {
       selectedReciter.value = recitersList[0];
     }
@@ -57,7 +59,8 @@ class AudioRecitationController extends GetxController {
   }
 
   void getSuraAyat(int suraId) async {
-    selectedSuraAyatCount.value = await DataBaseHelper.dataBaseInstance().suraCount(suraId);
+    selectedSuraAyatCount.value =
+        await DataBaseHelper.dataBaseInstance().suraCount(suraId);
     _ayatListFun();
     update();
   }

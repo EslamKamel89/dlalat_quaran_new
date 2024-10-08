@@ -32,7 +32,8 @@ class SuraEnScreen extends StatelessWidget {
     playerSuraCount.value = suraModel.ayah!;
     enScrollController = suraEnController.scrollController;
     autoScrollController = AutoScrollController(
-        viewportBoundaryGetter: () => Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
+        viewportBoundaryGetter: () =>
+            Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
         axis: Axis.vertical,
         suggestedRowHeight: 300);
     suraEnController.scrollController = autoScrollController!;
@@ -57,7 +58,8 @@ class SuraEnScreen extends StatelessWidget {
                     Obx(() => ListView.builder(
                           controller: autoScrollController,
                           itemBuilder: (BuildContext context, int index) {
-                            if (suraEnController.suraAyat[index][0].ayaId == selectedAyaId.value) {}
+                            if (suraEnController.suraAyat[index][0].ayaId ==
+                                selectedAyaId.value) {}
 
                             return AutoScrollTag(
                               key: ValueKey(index),
@@ -83,7 +85,9 @@ class SuraEnScreen extends StatelessWidget {
             Expanded(
               flex: 1,
               child: Obx(
-                () => PlayerBottomWidget(ayaId: int.parse(selectedAyaId.value), ayaNo: int.parse(selectAyaNo.value)),
+                () => PlayerBottomWidget(
+                    ayaId: int.parse(selectedAyaId.value),
+                    ayaNo: int.parse(selectAyaNo.value)),
               ),
             )
           ],

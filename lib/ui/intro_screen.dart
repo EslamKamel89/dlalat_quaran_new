@@ -1,6 +1,7 @@
 import 'package:dlalat_quaran_new/ui/add_research.dart';
 import 'package:dlalat_quaran_new/ui/articles_screen.dart';
 import 'package:dlalat_quaran_new/ui/audio_recitations_screen.dart';
+import 'package:dlalat_quaran_new/ui/competition_screen.dart';
 import 'package:dlalat_quaran_new/ui/home_sura_screen.dart';
 import 'package:dlalat_quaran_new/ui/setting_screen.dart';
 import 'package:dlalat_quaran_new/ui/tags_screen.dart';
@@ -38,7 +39,10 @@ class IntroScreen extends StatelessWidget {
               Text(
                 'app_name'.tr,
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white, fontSize: scHeight / 40, fontFamily: 'Almarai'),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: scHeight / 40,
+                    fontFamily: 'Almarai'),
               ),
               const SizedBox(
                 height: 8,
@@ -71,7 +75,9 @@ class IntroScreen extends StatelessWidget {
                       child: GestureDetector(
                         onTap: () {
                           int page =
-                              GetStorage().read(savedPage).toString() == 'null' ? 0 : GetStorage().read(savedPage);
+                              GetStorage().read(savedPage).toString() == 'null'
+                                  ? 0
+                                  : GetStorage().read(savedPage);
                           Locale loca = Get.locale!;
                           Widget destination;
                           if (loca.languageCode == 'ar') {
@@ -91,7 +97,8 @@ class IntroScreen extends StatelessWidget {
                     child: SizedBox(
                       width: itemSize - 20,
                       height: itemSize - 20,
-                      child: GestureDetector(onTap: () => Get.to(ArticlesScreen())),
+                      child: GestureDetector(
+                          onTap: () => Get.to(ArticlesScreen())),
                     ),
                   ),
                   Positioned(
@@ -123,7 +130,8 @@ class IntroScreen extends StatelessWidget {
                       width: itemSize - 20,
                       height: itemSize - 20,
                       child: GestureDetector(
-                        onTap: () => Get.to(AudioRecitationsScreen(), transition: Transition.fade),
+                        onTap: () => Get.to(AudioRecitationsScreen(),
+                            transition: Transition.fade),
                       ),
                     ),
                   ),
@@ -134,7 +142,8 @@ class IntroScreen extends StatelessWidget {
                       width: itemSize - 20,
                       height: itemSize - 20,
                       child: GestureDetector(
-                        onTap: () => Get.to(VideoCategoriesScreen(), transition: Transition.fade),
+                        onTap: () => Get.to(VideoCategoriesScreen(),
+                            transition: Transition.fade),
                       ),
                     ),
                   ),
@@ -156,35 +165,71 @@ class IntroScreen extends StatelessWidget {
           ),
         )),
         Positioned(
-            // bottom: itemSize / 3,
-            // bottom: itemSize * 4.5,
-            right: itemSize / 3,
-            // right: itemSize / 1.4,
-            bottom: itemSize / 1.5,
-            // right: (MediaQuery.of(context).size.width / 2) - ((itemSize / 1.8) / 2),
-            child: GestureDetector(
-              onTap: () {
-                Get.toNamed(AddResearchView.id);
-              },
-              child: Container(
-                height: itemSize / 1.8,
-                width: itemSize / 1.8,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: primaryColor.withOpacity(0.4),
-                  boxShadow: [
-                    BoxShadow(offset: const Offset(3, 3), color: primaryColor.withOpacity(0.2)),
-                  ],
-                ),
-                child: Image.asset(
-                  "assets/images/quran.png",
-                  // fit: BoxFit.cover,
-                  height: itemSize / 2.5,
-                  width: itemSize / 2.5,
-                ),
+          // bottom: itemSize / 3,
+          // bottom: itemSize * 4.5,
+          right: itemSize / 3,
+          // right: itemSize / 1.4,
+          bottom: itemSize / 1.5,
+          // right: (MediaQuery.of(context).size.width / 2) - ((itemSize / 1.8) / 2),
+          child: GestureDetector(
+            onTap: () {
+              Get.toNamed(AddResearchView.id);
+            },
+            child: Container(
+              height: itemSize / 1.8,
+              width: itemSize / 1.8,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: mediumGray.withOpacity(0.5),
+                boxShadow: [
+                  BoxShadow(
+                      offset: const Offset(3, 3),
+                      color: mediumGray.withOpacity(0.1)),
+                ],
               ),
-            ))
+              child: Image.asset(
+                "assets/images/quran.png",
+                // fit: BoxFit.cover,
+                height: itemSize / 2.5,
+                width: itemSize / 2.5,
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          // bottom: itemSize / 3,
+          // bottom: itemSize * 4.5,
+          left: itemSize / 3,
+          // right: itemSize / 1.4,
+          bottom: itemSize / 1.5,
+          // right: (MediaQuery.of(context).size.width / 2) - ((itemSize / 1.8) / 2),
+          child: GestureDetector(
+            onTap: () {
+              Get.toNamed(CompetitionsScreen.id);
+            },
+            child: Container(
+              height: itemSize / 1.8,
+              width: itemSize / 1.8,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: mediumGray.withOpacity(0.5),
+                boxShadow: [
+                  BoxShadow(
+                      offset: const Offset(3, 3),
+                      color: mediumGray.withOpacity(0.5)),
+                ],
+              ),
+              child: Image.asset(
+                "assets/images/competition.png",
+                // fit: BoxFit.cover,
+                height: itemSize / 2.3,
+                width: itemSize / 2.3,
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }

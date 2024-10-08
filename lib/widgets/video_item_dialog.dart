@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -8,11 +7,12 @@ import '../models/video_model.dart';
 import '../ui/video_player_screen.dart';
 
 class VideoItemDialog extends StatelessWidget {
-  final  VideoModel? videoModel;
+  final VideoModel? videoModel;
 
-  String _thumbnailLink(){
-    return "https://img.youtube.com/vi/${videoModel!.url!.substring(videoModel!.url!.length-11)}/0.jpg";
+  String _thumbnailLink() {
+    return "https://img.youtube.com/vi/${videoModel!.url!.substring(videoModel!.url!.length - 11)}/0.jpg";
   }
+
   const VideoItemDialog({Key? key, this.videoModel}) : super(key: key);
 
   @override
@@ -31,8 +31,8 @@ class VideoItemDialog extends StatelessWidget {
                   child: Image.network(
                     _thumbnailLink(),
                     fit: BoxFit.contain,
-                    width:120,
-                    height:120,
+                    width: 120,
+                    height: 120,
                   ),
                   color: Colors.black,
                 ),
@@ -54,7 +54,10 @@ class VideoItemDialog extends StatelessWidget {
               )
             ],
           ),
-          Text(videoModel!.name!,overflow: TextOverflow.ellipsis,)
+          Text(
+            videoModel!.name!,
+            overflow: TextOverflow.ellipsis,
+          )
         ],
       ),
     );

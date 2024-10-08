@@ -27,9 +27,13 @@ class DialogTagVideos extends StatelessWidget {
         color: const Color(0x5dffffff),
         borderRadius: const BorderRadius.all(Radius.circular(15)),
         child: Container(
-          padding: const EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 15),
-          decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(15))),
-          margin: const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
+          padding:
+              const EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 15),
+          decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(15))),
+          margin:
+              const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
           child: Column(
             children: [
               Row(
@@ -46,7 +50,10 @@ class DialogTagVideos extends StatelessWidget {
                     tagModel.name(),
                     textAlign: TextAlign.center,
                     style: const TextStyle(
-                        fontFamily: 'Almarai', color: primaryColor, fontSize: 15, fontWeight: FontWeight.bold),
+                        fontFamily: 'Almarai',
+                        color: primaryColor,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold),
                   )),
                   const Icon(null),
                 ],

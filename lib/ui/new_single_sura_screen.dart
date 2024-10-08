@@ -35,7 +35,8 @@ class NewSingleSuraScreen extends StatefulWidget {
   // ignore: use_key_in_widget_constructors
   NewSingleSuraScreen(this.page);
   @override
-  final GlobalKey<NewSingleSuraScreenState> key = GlobalKey<NewSingleSuraScreenState>();
+  final GlobalKey<NewSingleSuraScreenState> key =
+      GlobalKey<NewSingleSuraScreenState>();
 
   @override
   NewSingleSuraScreenState createState() => NewSingleSuraScreenState();
@@ -51,9 +52,12 @@ class NewSingleSuraScreenState extends State<NewSingleSuraScreen> {
 
   void getColors() async {
     // if (normalFontColor == null) {
-    normalFontColor = colors[await DataBaseHelper.dataBaseInstance().getColor(KnormalFontColor)];
-    tagWordsColor = colors[await DataBaseHelper.dataBaseInstance().getColor(KtagWordsColor)];
-    readWordsColor = colors[await DataBaseHelper.dataBaseInstance().getColor(KreadWordsColor)];
+    normalFontColor = colors[
+        await DataBaseHelper.dataBaseInstance().getColor(KnormalFontColor)];
+    tagWordsColor = colors[
+        await DataBaseHelper.dataBaseInstance().getColor(KtagWordsColor)];
+    readWordsColor = colors[
+        await DataBaseHelper.dataBaseInstance().getColor(KreadWordsColor)];
     bgColor = colors[await DataBaseHelper.dataBaseInstance().getColor(KpageBg)];
     // }
   }
@@ -79,12 +83,16 @@ class NewSingleSuraScreenState extends State<NewSingleSuraScreen> {
     if (read == 'null') {
       pageLines = await DataBaseHelper.dataBaseInstance().getFull(widget.page);
       GetStorage().write('${widget.page}Full', pageLines);
-      juz = await DataBaseHelper.dataBaseInstance().getJuz(pageLines[0][0].ayaNo!, int.parse(pageLines[0][0].sura!));
-      suraName = await DataBaseHelper.dataBaseInstance().getSuraByPage(int.parse(pageLines[0][0].sura!));
+      juz = await DataBaseHelper.dataBaseInstance()
+          .getJuz(pageLines[0][0].ayaNo!, int.parse(pageLines[0][0].sura!));
+      suraName = await DataBaseHelper.dataBaseInstance()
+          .getSuraByPage(int.parse(pageLines[0][0].sura!));
     } else {
       pageLines = GetStorage().read('${widget.page}Full');
-      suraName = await DataBaseHelper.dataBaseInstance().getSuraByPage(int.parse(pageLines[0][0].sura!));
-      juz = await DataBaseHelper.dataBaseInstance().getJuz(pageLines[0][0].ayaNo!, int.parse(pageLines[0][0].sura!));
+      suraName = await DataBaseHelper.dataBaseInstance()
+          .getSuraByPage(int.parse(pageLines[0][0].sura!));
+      juz = await DataBaseHelper.dataBaseInstance()
+          .getJuz(pageLines[0][0].ayaNo!, int.parse(pageLines[0][0].sura!));
     }
     log('JJuze name ${juzArName(juz)}');
     Future.delayed(Duration.zero, () async {
@@ -139,7 +147,9 @@ class NewSingleSuraScreenState extends State<NewSingleSuraScreen> {
             ));
           }
         }
-        var fontSize = widget.page == 1 || widget.page == 2 ? containerHeight / 24 : containerHeight / 26;
+        var fontSize = widget.page == 1 || widget.page == 2
+            ? containerHeight / 24
+            : containerHeight / 26;
         if (pageLines[x][j].word_ar! != ' ') {
           // if (isNumeric(pageLines[x][j].word_ar!)) {
           //   children.add(AyaNo(pageLines[x][j].word_ar!));
@@ -158,14 +168,17 @@ class NewSingleSuraScreenState extends State<NewSingleSuraScreen> {
                     // backgroundColor: selectedAyaId == pageLines[x][j].aya!
                     //     ? Colors.transparent
                     //     : Colors.transparent,
-                    color: pageLines[x][j].ayaId == searchResultId.value.toString()
-                        ? Colors.blue
-                        : pageLines[x][j].tagId == 'null'
-                            ? selectedAyaId.value == pageLines[x][j].ayaId!
-                                ? readWordsColor
-                                : normalFontColor
-                            : tagWordsColor,
-                    fontWeight: fontWeight == 'bold' ? FontWeight.bold : FontWeight.normal,
+                    color:
+                        pageLines[x][j].ayaId == searchResultId.value.toString()
+                            ? Colors.blue
+                            : pageLines[x][j].tagId == 'null'
+                                ? selectedAyaId.value == pageLines[x][j].ayaId!
+                                    ? readWordsColor
+                                    : normalFontColor
+                                : tagWordsColor,
+                    fontWeight: fontWeight == 'bold'
+                        ? FontWeight.bold
+                        : FontWeight.normal,
                     // backgroundColor: pageLines[x][j].ayaId == searchResultId.value.toString() ? Colors.yellow[500] : Colors.transparent,
                     fontStyle: FontStyle.normal),
               ),
@@ -174,7 +187,9 @@ class NewSingleSuraScreenState extends State<NewSingleSuraScreen> {
               log('videos \nWordVideo ${pageLines[x][j].wordVideo}\n Tag ${pageLines[x][j].tagId}');
 
               if (pageLines[x][j].tagId != 'null') {
-                Get.dialog(DialogWordTag(tagId: pageLines[x][j].tagId!, wordId: pageLines[x][j].word_id!));
+                Get.dialog(DialogWordTag(
+                    tagId: pageLines[x][j].tagId!,
+                    wordId: pageLines[x][j].word_id!));
               }
               // else if(pageLines[x][j].wordVideo != 'null'){
               //   Get.to(() => VideoPlayerScreen(videoId: pageLines[x][j].wordVideo!));
@@ -188,8 +203,11 @@ class NewSingleSuraScreenState extends State<NewSingleSuraScreen> {
               }
             },
             onLongPress: () async {
-              var ayaText = await DataBaseHelper.dataBaseInstance().getAyaTextAr(
-                  int.parse(pageLines[x][j].sura!), pageLines[x][j].ayaNo ?? 0, int.parse(pageLines[x][j].ayaId!));
+              var ayaText = await DataBaseHelper.dataBaseInstance()
+                  .getAyaTextAr(
+                      int.parse(pageLines[x][j].sura!),
+                      pageLines[x][j].ayaNo ?? 0,
+                      int.parse(pageLines[x][j].ayaId!));
               Get.dialog(DialogListenShowAya(
                 x: x,
                 j: j,
@@ -205,14 +223,17 @@ class NewSingleSuraScreenState extends State<NewSingleSuraScreen> {
       }
 
       widgets.add(Row(
-        mainAxisAlignment: pageLines.length > 9 ? MainAxisAlignment.spaceEvenly : MainAxisAlignment.center,
+        mainAxisAlignment: pageLines.length > 9
+            ? MainAxisAlignment.spaceEvenly
+            : MainAxisAlignment.center,
         children: children,
       ));
     }
 
     return Column(
-      mainAxisAlignment:
-          widget.page == 1 || widget.page == 2 ? MainAxisAlignment.center : MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: widget.page == 1 || widget.page == 2
+          ? MainAxisAlignment.center
+          : MainAxisAlignment.spaceEvenly,
       // crossAxisAlignment: CrossAxisAlignment.,
       children: widgets,
     );
@@ -221,17 +242,23 @@ class NewSingleSuraScreenState extends State<NewSingleSuraScreen> {
   void listenSound(int x, int j) async {
     await audioPlayer.stop();
     playerSuraId.value = int.parse(pageLines[x][j].sura!);
-    playerSuraCount.value = await DataBaseHelper.dataBaseInstance().suraCount(int.parse(pageLines[x][j].sura!));
+    playerSuraCount.value = await DataBaseHelper.dataBaseInstance()
+        .suraCount(int.parse(pageLines[x][j].sura!));
     // playerSuraId.value = int.parse(pageLines[x][j].sura!);
 
-    selectAyaNo.value =
-        selectAyaNo.value == pageLines[x][j].ayaNo!.toString() ? "0" : pageLines[x][j].ayaNo!.toString();
+    selectAyaNo.value = selectAyaNo.value == pageLines[x][j].ayaNo!.toString()
+        ? "0"
+        : pageLines[x][j].ayaNo!.toString();
 
-    selectedAyaId.value = selectedAyaId.value == pageLines[x][j].ayaId! ? "0" : pageLines[x][j].ayaId!;
+    selectedAyaId.value = selectedAyaId.value == pageLines[x][j].ayaId!
+        ? "0"
+        : pageLines[x][j].ayaId!;
     var sharedPref = await SharedPreferences.getInstance();
     var selectedReciterId = sharedPref.getString(reciterKey) ?? "1";
-    String fullPath = await AudioFolders()
-        .generatePath(selectedReciterId.toString(), playerSuraId.value.toString(), selectAyaNo.value);
+    String fullPath = await AudioFolders().generatePath(
+        selectedReciterId.toString(),
+        playerSuraId.value.toString(),
+        selectAyaNo.value);
     setState(() {});
     if (parentWidget!.mounted) {
       parentWidget!.setState(() {});
@@ -275,7 +302,9 @@ class NewSingleSuraScreenState extends State<NewSingleSuraScreen> {
                             textScaleFactor: 1.0,
                             style: TextStyle(
                                 fontFamily: 'kitab',
-                                fontSize: isSmallScreen ? Get.width / 25 : Get.width / 22,
+                                fontSize: isSmallScreen
+                                    ? Get.width / 25
+                                    : Get.width / 22,
                                 fontStyle: FontStyle.normal))),
                     Expanded(
                       flex: 1,
@@ -293,7 +322,9 @@ class NewSingleSuraScreenState extends State<NewSingleSuraScreen> {
                             _convertToArabicNumber(widget.page),
                             style: TextStyle(
                                 fontFamily: 'kitab',
-                                fontSize: isSmallScreen ? Get.width / 25 : Get.width / 22,
+                                fontSize: isSmallScreen
+                                    ? Get.width / 25
+                                    : Get.width / 22,
                                 fontStyle: FontStyle.normal),
                             textScaleFactor: 1.0,
                           ))
@@ -307,7 +338,9 @@ class NewSingleSuraScreenState extends State<NewSingleSuraScreen> {
                           juzArName(juz),
                           style: TextStyle(
                               fontFamily: 'kitab',
-                              fontSize: isSmallScreen ? Get.width / 25 : Get.width / 22,
+                              fontSize: isSmallScreen
+                                  ? Get.width / 25
+                                  : Get.width / 22,
                               fontStyle: FontStyle.normal),
 
                           textAlign: TextAlign.end,
@@ -329,8 +362,12 @@ class NewSingleSuraScreenState extends State<NewSingleSuraScreen> {
                   margin: const EdgeInsets.only(left: 10, right: 10),
                   decoration: BoxDecoration(
                       color: bgColor,
-                      border: Border.all(color: isSmallPage() ? Colors.transparent : Colors.black, width: 1),
-                      borderRadius: const BorderRadius.all(Radius.circular(10))),
+                      border: Border.all(
+                          color:
+                              isSmallPage() ? Colors.transparent : Colors.black,
+                          width: 1),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(10))),
                   child: Stack(
                     children: [
                       Visibility(
@@ -398,7 +435,8 @@ class NewSingleSuraScreenState extends State<NewSingleSuraScreen> {
     var sharedPef = await SharedPreferences.getInstance();
     var x = sharedPef.getString(reciterKey) ?? "1";
 
-    ReciterModel reciter = await DataBaseHelper.dataBaseInstance().getCurrentReciter(x.toString());
+    ReciterModel reciter =
+        await DataBaseHelper.dataBaseInstance().getCurrentReciter(x.toString());
     reciterId = reciter.id!.toString();
   }
 }

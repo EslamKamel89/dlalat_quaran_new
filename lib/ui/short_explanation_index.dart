@@ -20,14 +20,16 @@ var currentReciter = '1'.obs;
 
 class ShortExplanationIndex extends StatelessWidget {
   static String id = '/ShortExplanationIndex';
-  final ShortExplainIndexController _controller = Get.put(ShortExplainIndexController());
+  final ShortExplainIndexController _controller =
+      Get.put(ShortExplainIndexController());
   final TextEditingController _searchController = TextEditingController();
 
   ShortExplanationIndex({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final Widget suraScreen = GetStorage().read(language) == "ar" ? SuraScreen() : SuraEnScreen();
+    final Widget suraScreen =
+        GetStorage().read(language) == "ar" ? SuraScreen() : SuraEnScreen();
     _searchController.addListener(() {
       _controller.search(_searchController.text.toString().toLowerCase());
     });
@@ -41,7 +43,8 @@ class ShortExplanationIndex extends StatelessWidget {
           Expanded(
             child: Obx(() => ListView.builder(
                   itemBuilder: (context, index) {
-                    return SingleSura(_controller.filteredList[index], suraScreen);
+                    return SingleSura(
+                        _controller.filteredList[index], suraScreen);
                   },
                   itemCount: _controller.filteredList.length,
                 )),

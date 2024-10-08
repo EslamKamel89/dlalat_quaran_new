@@ -13,7 +13,8 @@ class VideoLibraryScreen extends StatelessWidget {
   static String id = '/VideoLibraryScreen';
   final TextEditingController _textController = TextEditingController();
   String? catId;
-  final VideoScreenController _videoScreenController = Get.put(VideoScreenController());
+  final VideoScreenController _videoScreenController =
+      Get.put(VideoScreenController());
 
   VideoLibraryScreen({super.key});
 
@@ -22,7 +23,8 @@ class VideoLibraryScreen extends StatelessWidget {
     catId = Get.arguments["videoCatId"].toString();
     _videoScreenController.getVideos(catId!);
     _textController.addListener(() {
-      _videoScreenController.search(_textController.text.toString().toLowerCase());
+      _videoScreenController
+          .search(_textController.text.toString().toLowerCase());
     });
     return WillPopScope(
       child: Scaffold(
@@ -32,7 +34,8 @@ class VideoLibraryScreen extends StatelessWidget {
           children: [
             AlMaraiText(18, Get.arguments["tagName"].toString()),
             SearchWidget(_textController, null, () {
-              _videoScreenController.search(_textController.text.toString().toLowerCase());
+              _videoScreenController
+                  .search(_textController.text.toString().toLowerCase());
             }),
             Expanded(
                 child: Container(

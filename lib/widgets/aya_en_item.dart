@@ -25,14 +25,17 @@ class AyaEnItem extends StatelessWidget {
   ButtonStyle _customStyle(Color color) {
     return ElevatedButton.styleFrom(
         backgroundColor: color,
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5))));
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(5))));
   }
 
   List<TextSpan> _fullAyaAr() {
     List<TextSpan> spanList = [];
 
     for (var x = 0; x < ayaModel.length; x++) {
-      var text = ayaModel[x].word_ar.toString() == 'null' ? '(${ayaModel[x].ayaNo})' : '${ayaModel[x].word_ar} ';
+      var text = ayaModel[x].word_ar.toString() == 'null'
+          ? '(${ayaModel[x].ayaNo})'
+          : '${ayaModel[x].word_ar} ';
       spanList.add(TextSpan(
         text: x != ayaModel.length - 1 ? text : text,
         style: ayaModel[x].ayaId! != selectedAyaId.value
@@ -48,7 +51,8 @@ class AyaEnItem extends StatelessWidget {
                 videoId: ayaModel[x].videoId.toString(),
               ));
             } else {
-              Get.dialog(DialogWordTag(tagId: ayaModel[x].tagId!, wordId: ayaModel[x].word_id!));
+              Get.dialog(DialogWordTag(
+                  tagId: ayaModel[x].tagId!, wordId: ayaModel[x].word_id!));
             }
           },
       ));
@@ -60,7 +64,8 @@ class AyaEnItem extends StatelessWidget {
     List<TextSpan> spanList = [];
 
     for (var x = 0; x < ayaModel.length; x++) {
-      var text = ayaModel[x].word_en.toString() == 'null' && ayaModel[x].char_type == 'end'
+      var text = ayaModel[x].word_en.toString() == 'null' &&
+              ayaModel[x].char_type == 'end'
           ? '(${ayaModel[x].ayaNo})'
           : ayaModel[x].word_en!.toLowerCase() != 'null'
               ? '${ayaModel[x].word_en}'
@@ -80,7 +85,8 @@ class AyaEnItem extends StatelessWidget {
                 videoId: ayaModel[x].videoId.toString(),
               ));
             } else {
-              Get.dialog(DialogWordTag(tagId: ayaModel[x].tagId!, wordId: ayaModel[x].word_id!));
+              Get.dialog(DialogWordTag(
+                  tagId: ayaModel[x].tagId!, wordId: ayaModel[x].word_id!));
             }
           },
       ));
@@ -91,8 +97,9 @@ class AyaEnItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration:
-          BoxDecoration(color: suraEnController.bgColor!, borderRadius: const BorderRadius.all(Radius.circular(8))),
+      decoration: BoxDecoration(
+          color: suraEnController.bgColor!,
+          borderRadius: const BorderRadius.all(Radius.circular(8))),
       margin: const EdgeInsets.all(5),
       padding: const EdgeInsets.all(8),
       child: Column(
@@ -103,15 +110,17 @@ class AyaEnItem extends StatelessWidget {
                 child: GestureDetector(
                   child: RichText(
                     textAlign: TextAlign.center,
-                    text: TextSpan(children: _fullAyaAr(), style: DefaultTextStyle.of(context).style),
+                    text: TextSpan(
+                        children: _fullAyaAr(),
+                        style: DefaultTextStyle.of(context).style),
                   ),
                   onLongPress: () {
                     selectedAyaId.value = ayaModel[0].ayaId!;
                     selectAyaNo.value = ayaModel[0].ayaNo!.toString();
                     playerSuraId.value = int.parse(ayaModel[0].sura!);
 
-                    AudioDownload()
-                        .suraDownload(int.parse(ayaModel[0].sura!), ayaModel[0].ayaNo!, playerSuraCount.value);
+                    AudioDownload().suraDownload(int.parse(ayaModel[0].sura!),
+                        ayaModel[0].ayaNo!, playerSuraCount.value);
                     suraEnController.update();
                   },
                 ),
@@ -120,7 +129,9 @@ class AyaEnItem extends StatelessWidget {
                 child: GestureDetector(
                   child: RichText(
                     textAlign: TextAlign.center,
-                    text: TextSpan(children: _fullAyaEn(), style: DefaultTextStyle.of(context).style),
+                    text: TextSpan(
+                        children: _fullAyaEn(),
+                        style: DefaultTextStyle.of(context).style),
                   ),
                   onLongPress: () {
                     selectedAyaId.value = ayaModel[0].ayaId!;
@@ -129,7 +140,10 @@ class AyaEnItem extends StatelessWidget {
                     suraEnController.update();
 
                     AudioDownload().suraDownloadPlay(
-                        int.parse(ayaModel[0].sura!), ayaModel[0].ayaNo!, playerSuraCount.value, audioPlayer);
+                        int.parse(ayaModel[0].sura!),
+                        ayaModel[0].ayaNo!,
+                        playerSuraCount.value,
+                        audioPlayer);
                   },
                 ),
               )),
@@ -148,7 +162,10 @@ class AyaEnItem extends StatelessWidget {
                       suraEnController.update();
 
                       AudioDownload().suraDownloadPlay(
-                          int.parse(ayaModel[0].sura!), ayaModel[0].ayaNo!, playerSuraCount.value, audioPlayer);
+                          int.parse(ayaModel[0].sura!),
+                          ayaModel[0].ayaNo!,
+                          playerSuraCount.value,
+                          audioPlayer);
                     },
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -160,7 +177,8 @@ class AyaEnItem extends StatelessWidget {
                         ),
                         Text(
                           'Sound',
-                          style: TextStyle(color: Colors.blueGrey, fontSize: 10),
+                          style:
+                              TextStyle(color: Colors.blueGrey, fontSize: 10),
                         )
                       ],
                     )),
@@ -189,7 +207,9 @@ class AyaEnItem extends StatelessWidget {
                         const SizedBox(
                           width: 5,
                         ),
-                        const Text('Explanation', style: TextStyle(color: Color(0xff2680EB), fontSize: 10))
+                        const Text('Explanation',
+                            style: TextStyle(
+                                color: Color(0xff2680EB), fontSize: 10))
                       ],
                     )),
               ),

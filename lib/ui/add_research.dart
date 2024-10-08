@@ -39,7 +39,8 @@ class _AddResearchViewState extends State<AddResearchView> {
                 // minLines: 5,
                 // maxLines: 6,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10)),
                   labelText: '',
                   isDense: true, // Added this
                   contentPadding: const EdgeInsets.all(8), // Added this
@@ -60,7 +61,8 @@ class _AddResearchViewState extends State<AddResearchView> {
                 // minLines: 5,
                 // maxLines: 6,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10)),
                   labelText: '',
                   isDense: true, // Added this
                   contentPadding: const EdgeInsets.all(8), // Added this
@@ -81,7 +83,8 @@ class _AddResearchViewState extends State<AddResearchView> {
                 // minLines: 5,
                 // maxLines: 6,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10)),
                   labelText: '',
                   isDense: true, // Added this
                   contentPadding: const EdgeInsets.all(8), // Added this

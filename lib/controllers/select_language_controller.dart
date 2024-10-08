@@ -37,6 +37,4 @@ class SelectLanguageController extends GetxController {
     selectLanguageId.value = langId;
     update();
   }
-
-
 }

@@ -1,5 +1,4 @@
-class DbWordModel{
-
+class DbWordModel {
   DbWordModel({
     required this.id,
     required this.position,
@@ -53,7 +52,7 @@ class DbWordModel{
   late final String? updatedAt;
   late final String? translation;
 
-  DbWordModel.fromJson(Map<String, dynamic> json){
+  DbWordModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     position = json['position'];
     // textIndopak = json['text_indopak'];
@@ -110,4 +109,4 @@ class DbWordModel{
     _data['translation'] = translation;
     return _data;
   }
-} 
+}

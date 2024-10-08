@@ -1,14 +1,19 @@
 import 'dart:convert';
-SuraSearchResultModel suraSearchResultModelFromJson(String str) => SuraSearchResultModel.fromJson(json.decode(str));
-String suraSearchResultModelToJson(SuraSearchResultModel data) => json.encode(data.toJson());
+
+SuraSearchResultModel suraSearchResultModelFromJson(String str) =>
+    SuraSearchResultModel.fromJson(json.decode(str));
+String suraSearchResultModelToJson(SuraSearchResultModel data) =>
+    json.encode(data.toJson());
+
 class SuraSearchResultModel {
   SuraSearchResultModel({
-      this.textAr, 
-      this.simple,
-      this.suraAr, 
-      this.page,
-      this.ayaId,
-      this.searchKey,});
+    this.textAr,
+    this.simple,
+    this.suraAr,
+    this.page,
+    this.ayaId,
+    this.searchKey,
+  });
 
   SuraSearchResultModel.fromJson(dynamic json) {
     textAr = json['text_ar'];
@@ -34,5 +39,4 @@ class SuraSearchResultModel {
     map['searchKey'] = searchKey;
     return map;
   }
-
 }

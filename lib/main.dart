@@ -11,8 +11,10 @@ import 'package:dlalat_quaran_new/ui/add_research.dart';
 import 'package:dlalat_quaran_new/ui/artice_details_screen.dart';
 import 'package:dlalat_quaran_new/ui/articles_screen.dart';
 import 'package:dlalat_quaran_new/ui/audio_recitations_screen.dart';
+import 'package:dlalat_quaran_new/ui/competition_screen.dart';
 import 'package:dlalat_quaran_new/ui/home_sura_screen.dart';
 import 'package:dlalat_quaran_new/ui/intro_screen.dart';
+import 'package:dlalat_quaran_new/ui/join_competition_screen.dart';
 import 'package:dlalat_quaran_new/ui/search_result_screen.dart';
 import 'package:dlalat_quaran_new/ui/select_language_screen.dart';
 import 'package:dlalat_quaran_new/ui/setting_screen.dart';
@@ -156,6 +158,14 @@ class _DlalatQuranState extends State<DlalatQuran> {
         GetPage(
           name: AddResearchView.id,
           page: () => const AddResearchView(),
+        ),
+        GetPage(
+          name: CompetitionsScreen.id,
+          page: () => const CompetitionsScreen(),
+        ),
+        GetPage(
+          name: JoinCompetitonView.id,
+          page: () => JoinCompetitonView(),
         ),
       ],
     );

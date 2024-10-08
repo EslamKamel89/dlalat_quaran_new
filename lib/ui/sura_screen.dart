@@ -77,7 +77,8 @@ class LinearProgressPageIndicatorDemo extends StatefulWidget {
 
 late PageController pageController;
 
-class _LinearProgressPageIndicatorDemoState extends State<LinearProgressPageIndicatorDemo> {
+class _LinearProgressPageIndicatorDemoState
+    extends State<LinearProgressPageIndicatorDemo> {
   int length = 604;
 
   @override
@@ -93,7 +94,9 @@ class _LinearProgressPageIndicatorDemoState extends State<LinearProgressPageIndi
         SizedBox(
           height: 20,
           child: SliderTheme(
-            data: const SliderThemeData(trackHeight: 2, thumbShape: RoundSliderThumbShape(enabledThumbRadius: 5)),
+            data: const SliderThemeData(
+                trackHeight: 2,
+                thumbShape: RoundSliderThumbShape(enabledThumbRadius: 5)),
             child: SliderWidget(
               value: currentPageNotifier.value.toDouble(),
             ),
@@ -101,8 +104,9 @@ class _LinearProgressPageIndicatorDemoState extends State<LinearProgressPageIndi
         ),
         Visibility(
           visible: true,
-          child:
-              Obx(() => PlayerBottomWidget(ayaId: int.parse(selectedAyaId.value), ayaNo: int.parse(selectAyaNo.value))),
+          child: Obx(() => PlayerBottomWidget(
+              ayaId: int.parse(selectedAyaId.value),
+              ayaNo: int.parse(selectAyaNo.value))),
         )
       ],
     );
@@ -122,7 +126,9 @@ class _LinearProgressPageIndicatorDemoState extends State<LinearProgressPageIndi
               maxScale: 2.5,
               child: PageView.builder(
                 itemCount: length,
-                physics: _controller.canSwipe.value ? null : const NeverScrollableScrollPhysics(),
+                physics: _controller.canSwipe.value
+                    ? null
+                    : const NeverScrollableScrollPhysics(),
                 // scrollDirection: Axis.vertical,
                 controller: pageController,
                 itemBuilder: (BuildContext context, int index) {
@@ -137,7 +143,8 @@ class _LinearProgressPageIndicatorDemoState extends State<LinearProgressPageIndi
                     _state.widget.value = index + 1;
                     _state.setState(() {});
 
-                    var sharedPreferences = await SharedPreferences.getInstance();
+                    var sharedPreferences =
+                        await SharedPreferences.getInstance();
                     await sharedPreferences.setInt(savedPage, index + 1);
                     // ReadWriteValue(savedPage, 0).val = index+1;
                     // await  GetStorage().write(savedPage, index+1);
@@ -154,7 +161,8 @@ class _LinearProgressPageIndicatorDemoState extends State<LinearProgressPageIndi
 late _SliderWidgetState _state;
 
 void changePosition(bool increase) {
-  int newPosition = increase ? currentPageNotifier.value + 1 : currentPageNotifier.value - 1;
+  int newPosition =
+      increase ? currentPageNotifier.value + 1 : currentPageNotifier.value - 1;
   if (_state.mounted) {
     currentPageNotifier.value = newPosition;
     currentPage.value = newPosition;

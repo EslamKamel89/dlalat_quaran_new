@@ -1,13 +1,18 @@
 import 'dart:convert';
-SuraSearchModel suraSearchModelFromJson(String str) => SuraSearchModel.fromJson(json.decode(str));
-String suraSearchModelToJson(SuraSearchModel data) => json.encode(data.toJson());
+
+SuraSearchModel suraSearchModelFromJson(String str) =>
+    SuraSearchModel.fromJson(json.decode(str));
+String suraSearchModelToJson(SuraSearchModel data) =>
+    json.encode(data.toJson());
+
 class SuraSearchModel {
   SuraSearchModel({
-      this.count, 
-      this.suraId, 
-      this.suraAr, 
-      this.suraEn,
-      this.searchKey,});
+    this.count,
+    this.suraId,
+    this.suraAr,
+    this.suraEn,
+    this.searchKey,
+  });
 
   SuraSearchModel.fromJson(dynamic json) {
     count = json['count'];
@@ -31,6 +36,4 @@ class SuraSearchModel {
     map['searchKey'] = searchKey;
     return map;
   }
-
-
 }

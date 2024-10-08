@@ -36,10 +36,13 @@ class SelectRecitationsDialog extends StatelessWidget {
           child: Wrap(
             children: [
               Container(
-                padding: const EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 15),
-                decoration:
-                    const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(15))),
-                margin: const EdgeInsets.only(top: 60, bottom: 30, left: 20, right: 20),
+                padding: const EdgeInsets.only(
+                    top: 15, left: 15, right: 15, bottom: 15),
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(15))),
+                margin: const EdgeInsets.only(
+                    top: 60, bottom: 30, left: 20, right: 20),
                 child: Column(
                   children: [
                     Row(
@@ -53,7 +56,10 @@ class SelectRecitationsDialog extends StatelessWidget {
                           'reciterName'.tr,
                           textAlign: TextAlign.center,
                           style: const TextStyle(
-                              fontFamily: 'Almarai', color: primaryColor, fontSize: 15, fontWeight: FontWeight.bold),
+                              fontFamily: 'Almarai',
+                              color: primaryColor,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold),
                         )),
                         const Icon(null),
                       ],
@@ -77,30 +83,44 @@ class SelectRecitationsDialog extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 return GestureDetector(
                                   child: Container(
-                                    margin: const EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 5),
+                                    margin: const EdgeInsets.only(
+                                        left: 15, right: 15, top: 5, bottom: 5),
                                     child: Text(
-                                      settingsController.recitersList[index].toString(),
-                                      style: const TextStyle(fontFamily: "Almarai", fontSize: 15),
+                                      settingsController.recitersList[index]
+                                          .toString(),
+                                      style: const TextStyle(
+                                          fontFamily: "Almarai", fontSize: 15),
                                     ),
                                   ),
                                   onTap: () async {
-                                    var preferences = await SharedPreferences.getInstance();
+                                    var preferences =
+                                        await SharedPreferences.getInstance();
                                     await preferences.setString(
-                                        reciterKey, settingsController.recitersList[index].id.toString());
+                                        reciterKey,
+                                        settingsController
+                                            .recitersList[index].id
+                                            .toString());
 
-                                    playerBottomController.currentReciter.value =
+                                    playerBottomController
+                                            .currentReciter.value =
                                         await DataBaseHelper.dataBaseInstance()
-                                            .getCurrentReciter(settingsController.recitersList[index].id);
+                                            .getCurrentReciter(
+                                                settingsController
+                                                    .recitersList[index].id);
 
-                                    currentReciter.value = settingsController.recitersList[index].id.toString();
-                                    AudioDownload().downloadPage(currentPage.value);
+                                    currentReciter.value = settingsController
+                                        .recitersList[index].id
+                                        .toString();
+                                    AudioDownload()
+                                        .downloadPage(currentPage.value);
                                     await audioPlayer.stop();
                                     playerBottomController.update();
                                     Get.back();
                                   },
                                 );
                               },
-                              separatorBuilder: (BuildContext context, int index) {
+                              separatorBuilder:
+                                  (BuildContext context, int index) {
                                 return const Divider();
                               },
                             )),

@@ -21,13 +21,15 @@ class AudioFolders {
 
   AudioFolders._internal();
 
-  Future<String> generatePath(String? reciter, String? suraId, String ayaNo) async {
+  Future<String> generatePath(
+      String? reciter, String? suraId, String ayaNo) async {
     var preferences = await SharedPreferences.getInstance();
     reciter = reciter ?? preferences.getString(reciterKey) ?? "1";
     suraId = suraId ?? suraId!;
     var fixedSura = suraId.padLeft(3, '0');
     var fixedAyaNo = ayaNo.padLeft(3, '0');
-    String fullPath = '${await AudioFolders().createReciterFolder(reciter)}$fixedSura$fixedAyaNo.mp3';
+    String fullPath =
+        '${await AudioFolders().createReciterFolder(reciter)}$fixedSura$fixedAyaNo.mp3';
     return fullPath;
   }
 
@@ -46,13 +48,15 @@ class AudioFolders {
   Future<String> createMainFolder() async {
     final Directory appDocDir = await getApplicationDocumentsDirectory();
 
-    final Directory appDocDirFolder = Directory('${appDocDir.path}/dlalatAudio/');
+    final Directory appDocDirFolder =
+        Directory('${appDocDir.path}/dlalatAudio/');
     if (await appDocDirFolder.exists()) {
       //if folder already exists return path
       return appDocDirFolder.path;
     } else {
       //if folder not exists create folder and then return its path
-      final Directory appDocDirNewFolder = await appDocDirFolder.create(recursive: true);
+      final Directory appDocDirNewFolder =
+          await appDocDirFolder.create(recursive: true);
       GetStorage().write(audioPath, appDocDirFolder.path);
       return appDocDirNewFolder.path;
     }
@@ -67,7 +71,8 @@ class AudioFolders {
       return appDocDirFolder.path;
     } else {
       //if folder not exists create folder and then return its path
-      final Directory appDocDirNewFolder = await appDocDirFolder.create(recursive: true);
+      final Directory appDocDirNewFolder =
+          await appDocDirFolder.create(recursive: true);
       GetStorage().write(iconsPath, appDocDirFolder.path);
       return appDocDirNewFolder.path;
     }
@@ -78,7 +83,8 @@ class AudioFolders {
     String iconsFolder = await createIconsFolder();
     log('ISDSD $iconUrl');
     try {
-      await _imagesDio!.download(iconUrl, '$iconsFolder/${iconUrl.split('/').last}');
+      await _imagesDio!
+          .download(iconUrl, '$iconsFolder/${iconUrl.split('/').last}');
     } catch (error) {
       print("error ------------- $error");
     }
@@ -87,13 +93,15 @@ class AudioFolders {
   Future<String> createReciterFolder(String reciterId) async {
     final Directory appDocDir = await getApplicationDocumentsDirectory();
 
-    final Directory appDocDirFolder = Directory('${appDocDir.path}/dlalatAudio/$reciterId/');
+    final Directory appDocDirFolder =
+        Directory('${appDocDir.path}/dlalatAudio/$reciterId/');
     if (await appDocDirFolder.exists()) {
       //if folder already exists return path
       return appDocDirFolder.path;
     } else {
       //if folder not exists create folder and then return its path
-      final Directory appDocDirNewFolder = await appDocDirFolder.create(recursive: true);
+      final Directory appDocDirNewFolder =
+          await appDocDirFolder.create(recursive: true);
       GetStorage().write(audioPath, appDocDirFolder.path);
       return appDocDirNewFolder.path;
     }

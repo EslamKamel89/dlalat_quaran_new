@@ -13,7 +13,8 @@ class VideoScreenController extends GetxController {
   }
 
   void search(String key) {
-    filteredList.value = videosList.where(((x) => x.toString().contains(key))).toList();
+    filteredList.value =
+        videosList.where(((x) => x.toString().contains(key))).toList();
     update();
   }
 }

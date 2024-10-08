@@ -3,11 +3,10 @@ import 'dart:convert';
 import 'package:dlalat_quaran_new/dialogs/custom_snack_bar.dart';
 import 'package:dlalat_quaran_new/utils/api_service/dio_consumer.dart';
 import 'package:dlalat_quaran_new/utils/print_helper.dart';
+import 'package:dlalat_quaran_new/utils/response_state_enum.dart';
 import 'package:get/get.dart';
 
 enum CommentType { ayah, article, tag }
-
-enum ResponseState { initial, loading, failed, success }
 
 class CommentController extends GetxController {
   static const String _domainLink = "https://ioqs.org/control-panel/api/v1/";

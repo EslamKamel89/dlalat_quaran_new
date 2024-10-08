@@ -31,7 +31,9 @@ class ShortExplainIndexController extends GetxController {
 
   void search(String key) {
     print("0000000000000000000000000000000000 $key");
-    filteredList.value = allSuras.value.where(((x) => x.toString().toLowerCase().contains(key.toLowerCase()))).toList();
+    filteredList.value = allSuras.value
+        .where(((x) => x.toString().toLowerCase().contains(key.toLowerCase())))
+        .toList();
     update();
   }
 

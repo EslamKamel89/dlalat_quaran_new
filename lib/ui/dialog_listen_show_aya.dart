@@ -37,15 +37,18 @@ class DialogListenShowAya extends StatefulWidget {
   State<DialogListenShowAya> createState() => _DialogListenShowAyaState();
 }
 
-class _DialogListenShowAyaState extends State<DialogListenShowAya> with SingleTickerProviderStateMixin {
+class _DialogListenShowAyaState extends State<DialogListenShowAya>
+    with SingleTickerProviderStateMixin {
   late AnimationController controller;
   late Animation<double> scaleAnimation;
 
   @override
   void initState() {
     super.initState();
-    controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 450));
-    scaleAnimation = CurvedAnimation(parent: controller, curve: Curves.elasticInOut);
+    controller = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 450));
+    scaleAnimation =
+        CurvedAnimation(parent: controller, curve: Curves.elasticInOut);
     controller.addListener(() {
       setState(() {});
     });
@@ -69,7 +72,8 @@ class _DialogListenShowAyaState extends State<DialogListenShowAya> with SingleTi
             ),
             child: ConstrainedBox(
               constraints: BoxConstraints(
-                maxHeight: Get.height * 0.7, // Limit the height to 70% of the screen height
+                maxHeight: Get.height *
+                    0.7, // Limit the height to 70% of the screen height
               ),
               child: SingleChildScrollView(
                 child: Column(
@@ -78,7 +82,8 @@ class _DialogListenShowAyaState extends State<DialogListenShowAya> with SingleTi
                     Row(
                       children: [
                         GestureDetector(
-                          child: const Icon(Icons.close_sharp, color: Colors.red),
+                          child:
+                              const Icon(Icons.close_sharp, color: Colors.red),
                           onTap: () {
                             Get.back();
                           },
@@ -102,7 +107,8 @@ class _DialogListenShowAyaState extends State<DialogListenShowAya> with SingleTi
                           height: 50,
                           child: ElevatedButton(
                             onPressed: () async {
-                              widget.newSingleSuraScreenState?.currentState?.listenSound(widget.x, widget.j);
+                              widget.newSingleSuraScreenState?.currentState
+                                  ?.listenSound(widget.x, widget.j);
                               Get.back();
                             },
                             style: ElevatedButton.styleFrom(
@@ -124,7 +130,8 @@ class _DialogListenShowAyaState extends State<DialogListenShowAya> with SingleTi
                           height: 50,
                           child: ElevatedButton(
                             onPressed: () async {
-                              var shareText = ' ${"Application : ".tr} ${"app_name".tr} \n'
+                              var shareText =
+                                  ' ${"Application : ".tr} ${"app_name".tr} \n'
                                   '${widget.ayaText}\n'
                                   '${"aya".tr} ${widget.ayaNum}  ${"from".tr}  ${widget.suraText}\n';
                               Share.share(shareText);
@@ -132,7 +139,8 @@ class _DialogListenShowAyaState extends State<DialogListenShowAya> with SingleTi
                             style: ElevatedButton.styleFrom(
                               foregroundColor: Colors.white,
                               backgroundColor: Colors.blue,
-                              padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 12.0),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 32.0, vertical: 12.0),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30.0),
                               ),

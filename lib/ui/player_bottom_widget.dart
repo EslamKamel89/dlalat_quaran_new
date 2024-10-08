@@ -103,8 +103,8 @@ class PlayerBottomWidget extends StatelessWidget {
 
         reciterId = playerBottomController.currentReciter.value.id.toString();
 
-        String fullPath =
-            await AudioFolders().generatePath(reciterId, playerSuraId.value.toString(), selectAyaNo.value);
+        String fullPath = await AudioFolders().generatePath(
+            reciterId, playerSuraId.value.toString(), selectAyaNo.value);
         await audioPlayer.play(DeviceFileSource(fullPath));
 
         if (autoScrollController != null) {
@@ -149,8 +149,9 @@ class PlayerBottomWidget extends StatelessWidget {
               children: [
                 Container(
                   padding: const EdgeInsets.all(5),
-                  decoration:
-                      const BoxDecoration(color: lightGray2, borderRadius: BorderRadius.all(Radius.circular(4))),
+                  decoration: const BoxDecoration(
+                      color: lightGray2,
+                      borderRadius: BorderRadius.all(Radius.circular(4))),
                   height: 25,
                   width: 25,
                   child: Image.asset(logoSmall),
@@ -174,39 +175,51 @@ class PlayerBottomWidget extends StatelessWidget {
                     const SizedBox(
                       width: 5,
                     ),
-                    Obx(() => playerBottomController.currentReciter.value.id != null
-                        ? Center(
-                            child: AlMaraiTextBottom(
-                                isSmallScreen ? 10 : 13,
-                                playerBottomController.currentReciter.value.id != 0
-                                    ? playerBottomController.currentReciter.value.toString()
-                                    : '1'),
-                          )
-                        : const SizedBox()),
+                    Obx(() =>
+                        playerBottomController.currentReciter.value.id != null
+                            ? Center(
+                                child: AlMaraiTextBottom(
+                                    isSmallScreen ? 10 : 13,
+                                    playerBottomController
+                                                .currentReciter.value.id !=
+                                            0
+                                        ? playerBottomController
+                                            .currentReciter.value
+                                            .toString()
+                                        : '1'),
+                              )
+                            : const SizedBox()),
                     const SizedBox(
                       width: 10,
                     ),
                     SizedBox(
                         height: isSmallScreen ? 15 : 25,
                         child: ElevatedButton(
-                            onPressed: () => Get.dialog(SelectRecitationsDialog(playerBottomController)),
+                            onPressed: () => Get.dialog(SelectRecitationsDialog(
+                                playerBottomController)),
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xffF1F2F5),
                                 padding: const EdgeInsets.all(0),
-                                shape:
-                                    const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5)))),
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(5)))),
                             child: Padding(
                               padding: const EdgeInsets.all(3.0),
                               child: Text(
                                 'changeReciter'.tr,
                                 textScaleFactor: 1.0,
-                                style: const TextStyle(fontSize: 10, fontFamily: 'Almarai', color: primaryColor),
+                                style: const TextStyle(
+                                    fontSize: 10,
+                                    fontFamily: 'Almarai',
+                                    color: primaryColor),
                               ),
                             ))),
                     const SizedBox(
                       width: 10,
                     ),
-                    Obx(() => playerBottomController.isLoading.value ? const LoadingWidget() : const SizedBox()),
+                    Obx(() => playerBottomController.isLoading.value
+                        ? const LoadingWidget()
+                        : const SizedBox()),
                   ],
                 )
               ],
@@ -234,7 +247,9 @@ class PlayerBottomWidget extends StatelessWidget {
                   },
                   customBorder: const CircleBorder(),
                   child: Image.asset(
-                    _locale == 'ar' ? 'assets/icons/ic_rewind_forward.png' : 'assets/icons/ic_rewind_back.png',
+                    _locale == 'ar'
+                        ? 'assets/icons/ic_rewind_forward.png'
+                        : 'assets/icons/ic_rewind_back.png',
                     height: isSmallScreen ? 15 : 20,
                     width: isSmallScreen ? 15 : 20,
                   ),
@@ -245,7 +260,8 @@ class PlayerBottomWidget extends StatelessWidget {
                 InkWell(
                   onTap: () async {
                     if (!playerBottomController.isLoading.value) {
-                      var isNetAvailable = await AudioDownload().isInternetAvailable();
+                      var isNetAvailable =
+                          await AudioDownload().isInternetAvailable();
 
                       switch (_playerState!) {
                         case PlayerState.stopped:
@@ -259,7 +275,8 @@ class PlayerBottomWidget extends StatelessWidget {
                           // }
 
                           String fullPath = await AudioFolders().generatePath(
-                              playerBottomController.currentReciter.value.id.toString(),
+                              playerBottomController.currentReciter.value.id
+                                  .toString(),
                               playerSuraId.value.toString(),
                               selectAyaNo.value);
 
@@ -309,7 +326,9 @@ class PlayerBottomWidget extends StatelessWidget {
                   },
                   customBorder: const CircleBorder(),
                   child: Image.asset(
-                    _locale == 'ar' ? 'assets/icons/ic_rewind_back.png' : 'assets/icons/ic_rewind_forward.png',
+                    _locale == 'ar'
+                        ? 'assets/icons/ic_rewind_back.png'
+                        : 'assets/icons/ic_rewind_forward.png',
                     height: isSmallScreen ? 15 : 20,
                     width: isSmallScreen ? 15 : 20,
                   ),
@@ -327,7 +346,8 @@ class PlayerBottomWidget extends StatelessWidget {
       selectedAyaId.value = (int.parse(selectedAyaId.value) + 1).toString();
       selectAyaNo.value = (int.parse(selectAyaNo.value) + 1).toString();
       initPlayer();
-      currentPage.value = await DataBaseHelper.dataBaseInstance().getAyaPage(selectedAyaId.value);
+      currentPage.value = await DataBaseHelper.dataBaseInstance()
+          .getAyaPage(selectedAyaId.value);
 
       if (currentPage.value != currentPageNotifier.value) {
         pageController.jumpToPage(currentPage.value - 1);
@@ -348,7 +368,8 @@ class PlayerBottomWidget extends StatelessWidget {
       initPlayer();
       reciterId = playerBottomController.currentReciter.value.id.toString();
 
-      String fullPath = await AudioFolders().generatePath(reciterId, playerSuraId.value.toString(), selectAyaNo.value);
+      String fullPath = await AudioFolders().generatePath(
+          reciterId, playerSuraId.value.toString(), selectAyaNo.value);
       await audioPlayer.play(DeviceFileSource(fullPath));
     }
   }
@@ -359,7 +380,8 @@ class PlayerBottomWidget extends StatelessWidget {
       selectedAyaId.value = (int.parse(selectedAyaId.value) - 1).toString();
       selectAyaNo.value = (int.parse(selectAyaNo.value) - 1).toString();
       initPlayer();
-      currentPage.value = await DataBaseHelper.dataBaseInstance().getAyaPage(selectedAyaId.value);
+      currentPage.value = await DataBaseHelper.dataBaseInstance()
+          .getAyaPage(selectedAyaId.value);
 
       if (currentPage.value != currentPageNotifier.value) {
         pageController.jumpToPage(currentPage.value - 1);
@@ -380,7 +402,8 @@ class PlayerBottomWidget extends StatelessWidget {
       initPlayer();
       reciterId = playerBottomController.currentReciter.value.id.toString();
 
-      String fullPath = await AudioFolders().generatePath(reciterId, playerSuraId.value.toString(), selectAyaNo.value);
+      String fullPath = await AudioFolders().generatePath(
+          reciterId, playerSuraId.value.toString(), selectAyaNo.value);
       await audioPlayer.play(DeviceFileSource(fullPath));
     }
   }

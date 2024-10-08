@@ -93,14 +93,17 @@ class SuraModel {
         name = ' $sura_en - $sura_ar';
         break;
       case 'fr':
-        name = ' ${sura_fr.toString().toUpperCase() == 'NULL' ? "" : " $sura_fr -"}  $sura_ar';
+        name =
+            ' ${sura_fr.toString().toUpperCase() == 'NULL' ? "" : " $sura_fr -"}  $sura_ar';
         break;
       case 'es':
-        name = ' ${sura_fr.toString().toUpperCase() == 'NULL' ? "" : " $sura_sp -"} $sura_ar';
+        name =
+            ' ${sura_fr.toString().toUpperCase() == 'NULL' ? "" : " $sura_sp -"} $sura_ar';
 
         break;
       case 'it':
-        name = ' ${sura_fr.toString().toUpperCase() == 'NULL' ? "" : " $sura_sp -"} $sura_ar';
+        name =
+            ' ${sura_fr.toString().toUpperCase() == 'NULL' ? "" : " $sura_sp -"} $sura_ar';
 
         break;
       default:

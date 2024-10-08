@@ -8,7 +8,8 @@ class SearchWidget extends StatelessWidget {
   VoidCallback? function;
   FocusNode? focusNode;
   VoidCallback? onSubmittedfunction;
-  SearchWidget(this._editingController, this.function, this.onSubmittedfunction, {super.key});
+  SearchWidget(this._editingController, this.function, this.onSubmittedfunction,
+      {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,9 @@ class SearchWidget extends StatelessWidget {
             style: const TextStyle(fontFamily: 'Almarai'),
             controller: _editingController,
             decoration: InputDecoration(
-                hintText: 'search'.tr, border: InputBorder.none, contentPadding: const EdgeInsets.all(0)),
+                hintText: 'search'.tr,
+                border: InputBorder.none,
+                contentPadding: const EdgeInsets.all(0)),
             onSubmitted: (value) {
               print("value   -------------------------- $value");
               onSubmittedfunction;

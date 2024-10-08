@@ -8,7 +8,8 @@ class SearchResultController extends GetxController {
   var ayatList = <List<SuraSearchResultModel>>[].obs;
 
   void getDetails(int suraId, String key) async {
-    ayatList.value = await DataBaseHelper.dataBaseInstance().getDetails(suraId, key);
+    ayatList.value =
+        await DataBaseHelper.dataBaseInstance().getDetails(suraId, key);
     log('Full Sura $ayatList');
     update();
   }

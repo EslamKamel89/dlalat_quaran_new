@@ -17,7 +17,8 @@ class _SuraSpinnerState extends State<SuraSpinner> {
   Widget build(BuildContext context) {
     return DropdownButton<SuraModel?>(
       value: widget.controller.selectedSura.value,
-      items: widget.controller.surasList.value.map<DropdownMenuItem<SuraModel?>>((SuraModel? value) {
+      items: widget.controller.surasList.value
+          .map<DropdownMenuItem<SuraModel?>>((SuraModel? value) {
         return DropdownMenuItem<SuraModel?>(
           value: value,
           child: Padding(
@@ -32,8 +33,10 @@ class _SuraSpinnerState extends State<SuraSpinner> {
             widget.controller.audioPlayer!.release();
             widget.controller.selectedSura.value = value!;
             widget.controller.selectAya.value = '1';
-            widget.controller.suraId.value = widget.controller.selectedSura.value.id!;
-            widget.controller.getSuraAyat(widget.controller.selectedSura.value.id!);
+            widget.controller.suraId.value =
+                widget.controller.selectedSura.value.id!;
+            widget.controller
+                .getSuraAyat(widget.controller.selectedSura.value.id!);
             widget.controller.update();
           });
         });

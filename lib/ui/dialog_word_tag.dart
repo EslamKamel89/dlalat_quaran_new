@@ -16,7 +16,8 @@ class DialogWordTag extends StatelessWidget {
 
   DialogWordTag({super.key, required this.tagId, required this.wordId});
 
-  final DialogWordTagController _dialogController = Get.put(DialogWordTagController());
+  final DialogWordTagController _dialogController =
+      Get.put(DialogWordTagController());
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +29,13 @@ class DialogWordTag extends StatelessWidget {
         color: const Color(0x5dffffff),
         borderRadius: const BorderRadius.all(Radius.circular(15)),
         child: Container(
-          padding: const EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 15),
-          decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(15))),
-          margin: const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
+          padding:
+              const EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 15),
+          decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(15))),
+          margin:
+              const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
           child: Column(
             children: [
               Row(
@@ -47,7 +52,10 @@ class DialogWordTag extends StatelessWidget {
                             _dialogController.wordName.value,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
-                                fontFamily: 'Almarai', color: primaryColor, fontSize: 15, fontWeight: FontWeight.bold),
+                                fontFamily: 'Almarai',
+                                color: primaryColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold),
                           ))),
                   const Icon(null),
                 ],
@@ -67,7 +75,8 @@ class DialogWordTag extends StatelessWidget {
                       fontWeight: FontWeight.bold),
                 },
               ),
-              Obx(() => _dialogController.description.value != 'null' && _dialogController.description.value != ''
+              Obx(() => _dialogController.description.value != 'null' &&
+                      _dialogController.description.value != ''
                   ? Expanded(
                       flex: 1,
                       child: Scrollbar(
@@ -110,7 +119,8 @@ class DialogWordTag extends StatelessWidget {
                       height: 170,
                       child: ListView.builder(
                         itemBuilder: (context, index) {
-                          _dialogController.videoModels[index].name = _dialogController.wordName.value;
+                          _dialogController.videoModels[index].name =
+                              _dialogController.wordName.value;
                           return VideoItemDialog(
                             videoModel: _dialogController.videoModels[index],
                           );
@@ -125,7 +135,8 @@ class DialogWordTag extends StatelessWidget {
                 children: [
                   PrimaryButton(
                     onPressed: () {
-                      Get.toNamed(AddCommentView.id, arguments: {"id": tagId, 'commentType': 'tag'});
+                      Get.toNamed(AddCommentView.id,
+                          arguments: {"id": tagId, 'commentType': 'tag'});
                     },
                     borderRadius: 5,
                     child: Text(

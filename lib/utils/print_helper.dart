@@ -2,7 +2,8 @@ import 'package:flutter/foundation.dart';
 
 T pr<T>(T variable, [String? title]) {
   if (kDebugMode) {
-    String message = '< eslam dev ${title == null ? "" : " - $title"}> ' '$variable';
+    String message =
+        '< eslam dev ${title == null ? "" : " - $title"}> ' '$variable';
     print(message);
   }
   return variable;

@@ -11,7 +11,8 @@ import 'package:get/get.dart';
 class SearchResultScreen extends StatelessWidget {
   static var id = '/SearchResultScreen';
   late SuraSearchModel suraModel;
-  final SearchResultController _resultController = Get.put(SearchResultController());
+  final SearchResultController _resultController =
+      Get.put(SearchResultController());
 
   SearchResultScreen({super.key});
 
@@ -34,11 +35,13 @@ class SearchResultScreen extends StatelessWidget {
                 children: [
                   const Text(
                     'نتائج البحث عن كلمة : ',
-                    style: TextStyle(color: Colors.blueGrey, fontFamily: 'Almarai'),
+                    style: TextStyle(
+                        color: Colors.blueGrey, fontFamily: 'Almarai'),
                   ),
                   Text(
                     suraModel.searchKey!,
-                    style: const TextStyle(color: primaryColor2, fontFamily: 'Almarai'),
+                    style: const TextStyle(
+                        color: primaryColor2, fontFamily: 'Almarai'),
                   ),
                 ],
               ),

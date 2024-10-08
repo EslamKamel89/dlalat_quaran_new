@@ -13,7 +13,8 @@ class DialogWordTagController extends GetxController {
 
   void getTagVideo(String tagId, int wordId) async {
     var values = await DataBaseHelper.dataBaseInstance().getTagVideo(tagId);
-    videoUrl.value = await DataBaseHelper.dataBaseInstance().videoUrlWord(wordId);
+    videoUrl.value =
+        await DataBaseHelper.dataBaseInstance().videoUrlWord(wordId);
     wordName.value = values['name'].toString();
     description.value = _parseHtmlString(values['desc'].toString());
     log('values = ${description.value}');
@@ -21,13 +22,15 @@ class DialogWordTagController extends GetxController {
   }
 
   void getTagVideos(int tagId) async {
-    videoModels.value = await DataBaseHelper.dataBaseInstance().tagsVideos(tagId);
+    videoModels.value =
+        await DataBaseHelper.dataBaseInstance().tagsVideos(tagId);
     update();
   }
 
   String _parseHtmlString(String htmlString) {
     final document = parse(htmlString);
-    final String parsedString = parse(document.body!.text).documentElement!.text;
+    final String parsedString =
+        parse(document.body!.text).documentElement!.text;
     return parsedString;
   }
 }

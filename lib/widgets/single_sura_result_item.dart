@@ -20,7 +20,8 @@ class SingleSuraResultItem extends StatelessWidget {
           backgroundColor: Colors.white,
           padding: EdgeInsets.zero,
         ),
-        onPressed: () => Get.to(SearchResultScreen(), transition: Transition.fade, arguments: suraModel.toJson()),
+        onPressed: () => Get.to(SearchResultScreen(),
+            transition: Transition.fade, arguments: suraModel.toJson()),
         child: Container(
           padding: const EdgeInsets.all(8),
           height: 50,

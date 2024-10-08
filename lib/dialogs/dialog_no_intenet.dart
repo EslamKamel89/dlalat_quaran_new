@@ -14,7 +14,9 @@ class DialogNoInternet extends StatelessWidget {
           width: Get.width - 70,
           height: 130,
           alignment: Alignment.bottomCenter,
-          decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(8))),
+          decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(8))),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -22,7 +24,8 @@ class DialogNoInternet extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              ElevatedButton(onPressed: () => Get.back(), child: AlMaraiText(13, "عودة"))
+              ElevatedButton(
+                  onPressed: () => Get.back(), child: AlMaraiText(13, "عودة"))
             ],
           ),
         ),

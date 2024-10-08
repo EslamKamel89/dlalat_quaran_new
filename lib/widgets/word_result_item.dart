@@ -24,7 +24,9 @@ class WordResultItem extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(5),
         margin: const EdgeInsets.all(5),
-        decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(4))),
+        decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(4))),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -34,7 +36,9 @@ class WordResultItem extends StatelessWidget {
             ),
             RichText(
               textAlign: TextAlign.start,
-              text: TextSpan(children: ayaTest(), style: DefaultTextStyle.of(context).style),
+              text: TextSpan(
+                  children: ayaTest(),
+                  style: DefaultTextStyle.of(context).style),
             ),
           ],
         ),
@@ -51,12 +55,17 @@ class WordResultItem extends StatelessWidget {
     // log('WordResultItem Ayat length = ${ayats.length}');
 
     for (var x = 0; x < _resultModel.length; x++) {
-      var colored = _resultModel[x].simple!.contains(_resultModel[x].searchKey!) ? Colors.red : Colors.black;
+      var colored = _resultModel[x].simple!.contains(_resultModel[x].searchKey!)
+          ? Colors.red
+          : Colors.black;
 
       log('pagesd sd p${_resultModel[x].page}');
       widgets.add(TextSpan(
           text: HtmlUnescape().convert(_resultModel[x].textAr!),
-          style: TextStyle(color: colored, fontSize: 25, fontFamily: 'p${_resultModel[x].page}')));
+          style: TextStyle(
+              color: colored,
+              fontSize: 25,
+              fontFamily: 'p${_resultModel[x].page}')));
     }
     return widgets;
   }

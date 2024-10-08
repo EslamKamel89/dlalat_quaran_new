@@ -9,7 +9,6 @@ class VideoModel {
   String? created_at;
   String? updated_at;
 
-
   VideoModel(
       {this.id,
       this.url,
@@ -33,16 +32,16 @@ class VideoModel {
       updated_at: json["updated_at"]);
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "url": url,
-    "name": name,
-    "type": type,
-    "word_id": word_id,
-    "ayat_id": ayat_id,
-    "enabled": enabled,
-    "created_at": created_at,
-    "updated_at": updated_at,
-  };
+        "id": id,
+        "url": url,
+        "name": name,
+        "type": type,
+        "word_id": word_id,
+        "ayat_id": ayat_id,
+        "enabled": enabled,
+        "created_at": created_at,
+        "updated_at": updated_at,
+      };
 
   @override
   String toString() {

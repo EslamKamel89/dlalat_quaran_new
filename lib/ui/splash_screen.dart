@@ -38,8 +38,10 @@ class SplashScreen extends StatelessWidget {
                     child: Text(
                       'app_name'.tr,
                       textAlign: TextAlign.center,
-                      style:
-                          const TextStyle(color: Colors.white, fontFamily: "Almarai", decoration: TextDecoration.none),
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontFamily: "Almarai",
+                          decoration: TextDecoration.none),
                     ),
                   ),
                 )
@@ -57,7 +59,9 @@ class SplashScreen extends StatelessWidget {
 
   void _startApp() {
     Future.delayed(const Duration(seconds: 3), () {
-      Widget nextPage = GetStorage().read(language) != null ? const IntroScreen() : SelectLanguageScreen();
+      Widget nextPage = GetStorage().read(language) != null
+          ? const IntroScreen()
+          : SelectLanguageScreen();
       Get.offAll(nextPage);
     });
   }

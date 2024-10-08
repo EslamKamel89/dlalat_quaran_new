@@ -6,7 +6,7 @@ import '../utils/colors.dart';
 class AlMaraiText extends StatelessWidget {
   double fontSize = 14;
 
-  String contentBody ;
+  String contentBody;
 
   AlMaraiText(this.fontSize, this.contentBody, {Key? key}) : super(key: key);
 
@@ -21,13 +21,15 @@ class AlMaraiText extends StatelessWidget {
           fontSize: fontSize == 0.0 ? 14 : fontSize),
     );
   }
-}// ignore: must_be_immutable
+} // ignore: must_be_immutable
+
 class AlMaraiTextBottom extends StatelessWidget {
   double fontSize = 14;
 
-  String contentBody ;
+  String contentBody;
 
-  AlMaraiTextBottom(this.fontSize, this.contentBody, {Key? key}) : super(key: key);
+  AlMaraiTextBottom(this.fontSize, this.contentBody, {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

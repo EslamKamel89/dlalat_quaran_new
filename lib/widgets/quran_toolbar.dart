@@ -18,7 +18,9 @@ class QuranBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       shape: const ContinuousRectangleBorder(
-          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30))),
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(30),
+              bottomRight: Radius.circular(30))),
       title: Text(
         title,
         style: const TextStyle(color: Colors.white, fontFamily: 'Almarai'),
@@ -30,7 +32,9 @@ class QuranBar extends StatelessWidget implements PreferredSizeWidget {
             width: Get.width,
             decoration: const BoxDecoration(
                 color: primaryColor,
-                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15))),
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(15),
+                    bottomRight: Radius.circular(15))),
             height: 120,
             child: Padding(
               padding: const EdgeInsets.only(left: 8.0, right: 8.0),

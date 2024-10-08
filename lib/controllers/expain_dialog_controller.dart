@@ -9,9 +9,11 @@ class ExplainDialogController extends GetxController {
   var videoUrl = 'null'.obs;
 
   void getAyaExplain(String aya) async {
-    var explanation = await DataBaseHelper.dataBaseInstance().getExplanation(aya);
-    explain.value =
-        explanation['explainText'].toString() == "NULL" ? 'not_available'.tr : explanation['explainText'].toString();
+    var explanation =
+        await DataBaseHelper.dataBaseInstance().getExplanation(aya);
+    explain.value = explanation['explainText'].toString() == "NULL"
+        ? 'not_available'.tr
+        : explanation['explainText'].toString();
     ayaText.value = explanation['ayaText'].toString();
     if (explanation['videoUrl'].toString().startsWith('http')) {
       videoUrl.value = explanation['videoUrl'].toString();

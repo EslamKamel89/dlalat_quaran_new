@@ -3,22 +3,26 @@ import 'dart:convert';
 import 'package:get_storage/get_storage.dart';
 
 import '../utils/constants.dart';
-VideoCategory videoCategoryFromJson(String str) => VideoCategory.fromJson(json.decode(str));
+
+VideoCategory videoCategoryFromJson(String str) =>
+    VideoCategory.fromJson(json.decode(str));
 String videoCategoryToJson(VideoCategory data) => json.encode(data.toJson());
+
 class VideoCategory {
   VideoCategory({
-      this.id, 
-      this.icon, 
-      this.nameAr, 
-      this.nameEn, 
-      this.nameFr, 
-      this.nameSp, 
-      this.enabled, 
-      this.deletedAt, 
-      this.createdAt, 
-      this.updatedAt, 
-      this.nameIt,
-      this.iconUrl,});
+    this.id,
+    this.icon,
+    this.nameAr,
+    this.nameEn,
+    this.nameFr,
+    this.nameSp,
+    this.enabled,
+    this.deletedAt,
+    this.createdAt,
+    this.updatedAt,
+    this.nameIt,
+    this.iconUrl,
+  });
 
   VideoCategory.fromJson(dynamic json) {
     id = json['id'].toString();
@@ -63,15 +67,15 @@ class VideoCategory {
     map['icon_url'] = iconUrl;
     return map;
   }
+
   @override
   String toString() {
     var lang = GetStorage().read(language).toString();
-    var name ;
-    if(lang == 'ar') name =  nameAr;
-    if(lang == 'en') name =  nameEn;
-    if(lang == 'fr') name =  nameFr;
-    if(lang == 'es') name =  nameSp;
+    var name;
+    if (lang == 'ar') name = nameAr;
+    if (lang == 'en') name = nameEn;
+    if (lang == 'fr') name = nameFr;
+    if (lang == 'es') name = nameSp;
     return name;
   }
-
 }

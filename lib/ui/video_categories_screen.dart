@@ -16,7 +16,8 @@ import '../widgets/quran_toolbar.dart';
 
 class VideoCategoriesScreen extends StatelessWidget {
   static String id = '/VideoCategoriesScreen';
-  final VideoCategoriesController _controller = Get.put(VideoCategoriesController());
+  final VideoCategoriesController _controller =
+      Get.put(VideoCategoriesController());
 
   VideoCategoriesScreen({super.key});
 
@@ -41,9 +42,12 @@ class VideoCategoriesScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(5),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.transparent, padding: const EdgeInsets.all(0)),
-                        onPressed: () => Get.to(VideoLibraryScreen(), arguments: {
-                          "videoCatId": _controller.catList[index].id.toString(),
+                            backgroundColor: Colors.transparent,
+                            padding: const EdgeInsets.all(0)),
+                        onPressed: () =>
+                            Get.to(VideoLibraryScreen(), arguments: {
+                          "videoCatId":
+                              _controller.catList[index].id.toString(),
                           "tagName": _controller.catList[index].toString()
                         }),
                         child: WhiteContainer(
@@ -81,9 +85,11 @@ class VideoCategoriesController extends GetxController {
   void getCats() async {
     catList.value = await DataBaseHelper.dataBaseInstance().videosCategories();
     for (var element in catList.value) {
-      File? file = File('${GetStorage().read(iconsPath)}/${element.icon!.replaceAll('icon/', '')}');
+      File? file = File(
+          '${GetStorage().read(iconsPath)}/${element.icon!.replaceAll('icon/', '')}');
       if (!await file.exists()) {
-        await AudioFolders().downloadIcon("https://qurantoall.com/control-panel/storage/${element.icon}");
+        await AudioFolders().downloadIcon(
+            "https://qurantoall.com/control-panel/storage/${element.icon}");
       }
     }
     update();

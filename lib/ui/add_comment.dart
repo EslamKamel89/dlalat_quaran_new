@@ -68,7 +68,8 @@ class _AddCommentViewState extends State<AddCommentView> {
                     return null;
                   },
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10)),
                     labelText: '',
                     isDense: true,
                     contentPadding: const EdgeInsets.all(8),
@@ -96,7 +97,8 @@ class _AddCommentViewState extends State<AddCommentView> {
                     return null;
                   },
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10)),
                     labelText: '',
                     isDense: true,
                     contentPadding: const EdgeInsets.all(8),
@@ -132,7 +134,8 @@ class _AddCommentViewState extends State<AddCommentView> {
                           },
                           decoration: InputDecoration(
                             prefixIcon: const SizedBox(width: 110),
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10)),
                             labelText: '',
                             isDense: true,
                             contentPadding: const EdgeInsets.all(8),
@@ -175,7 +178,8 @@ class _AddCommentViewState extends State<AddCommentView> {
                     return null;
                   },
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10)),
                     isDense: true,
                     contentPadding: const EdgeInsets.all(8),
                   ),
@@ -197,7 +201,8 @@ class _AddCommentViewState extends State<AddCommentView> {
                         id: id ?? 1,
                         name: name,
                         email: email,
-                        phone: (countryCode == '' ? '+20' : countryCode) + phone,
+                        phone:
+                            (countryCode == '' ? '+20' : countryCode) + phone,
                         comment: comment,
                       );
                       Get.back();

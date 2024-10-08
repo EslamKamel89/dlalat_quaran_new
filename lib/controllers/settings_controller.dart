@@ -30,17 +30,22 @@ class SettingsController extends GetxController {
   void onInit() async {
     super.onInit();
     pageBg.value = await DataBaseHelper.dataBaseInstance().getColor(KpageBg);
-    normalFontColor.value = await DataBaseHelper.dataBaseInstance().getColor(KnormalFontColor);
-    tagWordsColor.value = await DataBaseHelper.dataBaseInstance().getColor(KtagWordsColor);
-    readWordsColor.value = await DataBaseHelper.dataBaseInstance().getColor(KreadWordsColor);
+    normalFontColor.value =
+        await DataBaseHelper.dataBaseInstance().getColor(KnormalFontColor);
+    tagWordsColor.value =
+        await DataBaseHelper.dataBaseInstance().getColor(KtagWordsColor);
+    readWordsColor.value =
+        await DataBaseHelper.dataBaseInstance().getColor(KreadWordsColor);
 
     colorLoading.value = false;
-    langPosition.value = _getPositionFromCode(await GetStorage().read(language));
+    langPosition.value =
+        _getPositionFromCode(await GetStorage().read(language));
 
     var sharedPref = await SharedPreferences.getInstance();
     selectedReciterId = sharedPref.getString(reciterKey) ?? "1";
-    mFontType.value =
-        GetStorage().read(fontTypeKey).toString() == 'null' ? FontType.normal.name : GetStorage().read(fontTypeKey);
+    mFontType.value = GetStorage().read(fontTypeKey).toString() == 'null'
+        ? FontType.normal.name
+        : GetStorage().read(fontTypeKey);
     fontType = mFontType.value == normal ? FontType.normal : FontType.bold;
     log('Language = ${_getPositionFromCode(GetStorage().read(language))} Storage = ${GetStorage().read(language)}');
     update();
@@ -82,7 +87,8 @@ class SettingsController extends GetxController {
   }
 
   void getReciters() async {
-    lastSyncDate.value = await DataBaseHelper.dataBaseInstance().getLastSyncDate();
+    lastSyncDate.value =
+        await DataBaseHelper.dataBaseInstance().getLastSyncDate();
     recitersList.value = await DataBaseHelper.dataBaseInstance().getReciters();
     for (var x = 0; x < recitersList.length; x++) {
       recitersIds.add(recitersList[x].id.toString());
@@ -95,7 +101,9 @@ class SettingsController extends GetxController {
 
   void getSelectedReciter() {
     try {
-      selectedReciter.value = recitersList.where(((x) => x.id!.toString() == selectedReciterId)).first;
+      selectedReciter.value = recitersList
+          .where(((x) => x.id!.toString() == selectedReciterId))
+          .first;
       log('getSelectedReciter Inside Try $selectedReciterId ');
     } catch (e) {
       selectedReciter.value = recitersList[0];
@@ -111,17 +119,20 @@ class SettingsController extends GetxController {
 
   void setNormalFont(int index) {
     normalFontColor.value = index;
-    DataBaseHelper.dataBaseInstance().updateColor(KnormalFontColor, normalFontColor.value);
+    DataBaseHelper.dataBaseInstance()
+        .updateColor(KnormalFontColor, normalFontColor.value);
   }
 
   void setTagWordsColor(int index) {
     tagWordsColor.value = index;
-    DataBaseHelper.dataBaseInstance().updateColor(KtagWordsColor, tagWordsColor.value);
+    DataBaseHelper.dataBaseInstance()
+        .updateColor(KtagWordsColor, tagWordsColor.value);
   }
 
   void setReadingColor(int index) {
     readWordsColor.value = index;
-    DataBaseHelper.dataBaseInstance().updateColor(KreadWordsColor, readWordsColor.value);
+    DataBaseHelper.dataBaseInstance()
+        .updateColor(KreadWordsColor, readWordsColor.value);
   }
 
   void saveSetting() {

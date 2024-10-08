@@ -4,7 +4,8 @@ import 'package:get/get.dart';
 const String logoSmall = "assets/images/logo_small.png";
 const String logoMedium = "assets/images/logo_medium.png";
 
-const googlePlayLink = 'https://play.google.com/store/apps/details?id=com.example.yourapp';
+const googlePlayLink =
+    'https://play.google.com/store/apps/details?id=com.example.yourapp';
 const appStoreLink = 'https://apps.apple.com/us/app/your-app-name/idXXXXXXXXX';
 
 const String soundMedium = "assets/images/sound_medium.png";

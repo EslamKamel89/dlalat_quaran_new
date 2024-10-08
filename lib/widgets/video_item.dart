@@ -39,7 +39,8 @@ class VideoItem extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
                   customBorder: const CircleBorder(),
-                  onTap: () => Get.to(VideoPlayerScreen(videoId: videoModel!.url!)),
+                  onTap: () =>
+                      Get.to(VideoPlayerScreen(videoId: videoModel!.url!)),
                   child: Icon(
                     Icons.play_circle_fill,
                     color: const Color(0xff9dffffff),

@@ -25,7 +25,8 @@ class AboutAppScreen extends StatelessWidget {
                 margin: const EdgeInsets.only(top: 20),
                 width: Get.width / 3.5,
                 height: Get.width / 3.5,
-                decoration: const BoxDecoration(shape: BoxShape.circle, color: primaryColor),
+                decoration: const BoxDecoration(
+                    shape: BoxShape.circle, color: primaryColor),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -38,7 +39,9 @@ class AboutAppScreen extends StatelessWidget {
                       height: 5,
                     ),
                     FittedBox(
-                        child: Text('app_name'.tr, style: const TextStyle(color: Colors.white, fontFamily: 'Almarai')))
+                        child: Text('app_name'.tr,
+                            style: const TextStyle(
+                                color: Colors.white, fontFamily: 'Almarai')))
                   ],
                 ),
               ),
@@ -50,7 +53,8 @@ class AboutAppScreen extends StatelessWidget {
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                     boxShadow: [BoxShadow(color: mediumGray, blurRadius: 10)]),
-                margin: const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 15),
+                margin: const EdgeInsets.only(
+                    left: 15, right: 15, top: 10, bottom: 15),
                 child: SingleChildScrollView(
                   child: AlMaraiText(0, randomText),
                 ),

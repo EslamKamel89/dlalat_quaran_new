@@ -12,7 +12,8 @@ class ArticlesWidget extends StatelessWidget {
 
   String _parseHtmlString(String htmlString) {
     final document = parse(htmlString);
-    final String parsedString = parse(document.body!.text).documentElement!.text;
+    final String parsedString =
+        parse(document.body!.text).documentElement!.text;
 
     return parsedString;
   }
@@ -23,12 +24,16 @@ class ArticlesWidget extends StatelessWidget {
       margin: const EdgeInsets.only(left: 15, right: 15, top: 10),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.grey, backgroundColor: Colors.white, padding: EdgeInsets.zero, elevation: 2),
-        onPressed: () =>
-            Get.to(ArticleDetailsScreen(), transition: Transition.fadeIn, arguments: articleModel.toJson()),
+            foregroundColor: Colors.grey,
+            backgroundColor: Colors.white,
+            padding: EdgeInsets.zero,
+            elevation: 2),
+        onPressed: () => Get.to(ArticleDetailsScreen(),
+            transition: Transition.fadeIn, arguments: articleModel.toJson()),
         child: Center(
           child: Container(
-              padding: const EdgeInsets.only(left: 8, right: 8, top: 10, bottom: 10),
+              padding:
+                  const EdgeInsets.only(left: 8, right: 8, top: 10, bottom: 10),
               alignment: Alignment.centerRight,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,7 +42,10 @@ class ArticlesWidget extends StatelessWidget {
                   Text(
                     articleModel.name!,
                     textAlign: TextAlign.start,
-                    style: const TextStyle(color: primaryColor, fontSize: 18, fontFamily: 'Almarai'),
+                    style: const TextStyle(
+                        color: primaryColor,
+                        fontSize: 18,
+                        fontFamily: 'Almarai'),
                   ),
                   const SizedBox(
                     height: 5,

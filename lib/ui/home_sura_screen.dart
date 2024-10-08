@@ -15,7 +15,8 @@ class HomeSuraScreen extends StatefulWidget {
   State<HomeSuraScreen> createState() => _HomeSuraScreenState();
 }
 
-class _HomeSuraScreenState extends State<HomeSuraScreen> with SingleTickerProviderStateMixin {
+class _HomeSuraScreenState extends State<HomeSuraScreen>
+    with SingleTickerProviderStateMixin {
   int currentIndex = 0;
   TabController? _tabController;
 
@@ -43,7 +44,8 @@ class _HomeSuraScreenState extends State<HomeSuraScreen> with SingleTickerProvid
             TabBar(
               indicatorColor: Colors.transparent,
               tabs: [
-                TabButton(title: 'التفسير المختصر', selected: currentIndex == 0),
+                TabButton(
+                    title: 'التفسير المختصر', selected: currentIndex == 0),
                 TabButton(title: 'بحث بالكلمات', selected: currentIndex == 1),
               ],
               controller: _tabController!,
@@ -56,7 +58,10 @@ class _HomeSuraScreenState extends State<HomeSuraScreen> with SingleTickerProvid
             const SizedBox(
               height: 5,
             ),
-            Expanded(child: currentIndex == 0 ? ShortExplanationIndex() : SearchScreen())
+            Expanded(
+                child: currentIndex == 0
+                    ? ShortExplanationIndex()
+                    : SearchScreen())
           ],
         ));
   }
@@ -73,7 +78,9 @@ class TabButton extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       height: 45,
-      decoration: BoxDecoration(color: selected ? primaryColor2 : Colors.white, borderRadius: BorderRadius.circular(6)),
+      decoration: BoxDecoration(
+          color: selected ? primaryColor2 : Colors.white,
+          borderRadius: BorderRadius.circular(6)),
       child: Text(
         title,
         style: TextStyle(color: selected ? Colors.white : Colors.blueGrey),

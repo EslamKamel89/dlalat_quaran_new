@@ -21,7 +21,8 @@ class SuraScreenController extends GetxController {
     getSuraName(int.parse(currentPage.value[list.length - 1][0].sura));
     update();
 
-    getJuz(int.parse(currentPage.value[0][0].aya), int.parse(currentPage.value[0][0].sura));
+    getJuz(int.parse(currentPage.value[0][0].aya),
+        int.parse(currentPage.value[0][0].sura));
   }
 
   void getJuz(int aya, int sura) async {

@@ -20,7 +20,8 @@ class _RecitersSpinnerState extends State<RecitersSpinner> {
   Widget build(BuildContext context) {
     return DropdownButton<ReciterModel?>(
       value: widget.controller.selectedReciter.value,
-      items: widget.controller.recitersList.map<DropdownMenuItem<ReciterModel?>>((ReciterModel? value) {
+      items: widget.controller.recitersList
+          .map<DropdownMenuItem<ReciterModel?>>((ReciterModel? value) {
         return DropdownMenuItem<ReciterModel?>(
           value: value,
           child: Padding(

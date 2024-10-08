@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 String juzArName(String no) {
-  if(no != '') {
+  if (no != '') {
     int juzNo = int.parse(no);
     if (juzNo == 1) {
       no = 'الجزء الأول';
@@ -70,7 +70,6 @@ String juzArName(String no) {
   }
   return no;
 }
-
 
 String arabicNumber(int number) {
   String res = '';

@@ -19,7 +19,8 @@ class WordSearchController extends GetxController {
     wordCount.value = sum.toString();
     loading.value = true;
     update();
-    resultList.value = await DataBaseHelper.dataBaseInstance().searchByWord(key);
+    resultList.value =
+        await DataBaseHelper.dataBaseInstance().searchByWord(key);
     for (var e in resultList) {
       sum += e.count!;
     }

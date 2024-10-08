@@ -40,7 +40,8 @@ class AudioDownload {
     var preferences = await SharedPreferences.getInstance();
     _reciterId = preferences.getString(reciterKey) ?? "1";
     //print('_reciter ID  $_reciterId');
-    List<PageAyatSuraModel> models = await DataBaseHelper.dataBaseInstance().pageAyatSura(page);
+    List<PageAyatSuraModel> models =
+        await DataBaseHelper.dataBaseInstance().pageAyatSura(page);
     var generateDownloadLink = _generateDownloadLink(models);
     downloadFiles(generateDownloadLink);
   }
@@ -51,14 +52,17 @@ class AudioDownload {
     var preferences = await SharedPreferences.getInstance();
     _reciterId = preferences.getString(reciterKey) ?? "1";
     // //print('_reciter ID  $_reciterId');
-    List<PageAyatSuraModel> models = await DataBaseHelper.dataBaseInstance().pageAyatSura(page);
+    List<PageAyatSuraModel> models =
+        await DataBaseHelper.dataBaseInstance().pageAyatSura(page);
     var generateDownloadLink = _generateDownloadLink(models);
     downloadFilesWithoutDialog(generateDownloadLink);
   }
 
   void downloadFiles(List<String> downloadLinks) async {
-    String reciterPath = await AudioFolders().createReciterFolder(_reciterId.toString());
-    print('Reciter Path = $reciterPath ----------------------------- $downloadLinks');
+    String reciterPath =
+        await AudioFolders().createReciterFolder(_reciterId.toString());
+    print(
+        'Reciter Path = $reciterPath ----------------------------- $downloadLinks');
     Dio dio = Dio();
 
     // if (!Get.isDialogOpen!) {
@@ -72,7 +76,8 @@ class AudioDownload {
     controllerObject.setLoading(true);
 
     for (var i = 0; i < downloadLinks.length; i++) {
-      if (!await File('$reciterPath/${downloadLinks[i].split('/').last}').exists()) {
+      if (!await File('$reciterPath/${downloadLinks[i].split('/').last}')
+          .exists()) {
         await dio.download(
           downloadLinks[i],
           '$reciterPath/${downloadLinks[i].split('/').last}',
@@ -91,13 +96,15 @@ class AudioDownload {
   void downloadFilesWithoutDialog(List<String> downloadLinks) async {
     print("reciterPath ------------ $downloadLinks");
 
-    String reciterPath = await AudioFolders().createReciterFolder(_reciterId.toString());
+    String reciterPath =
+        await AudioFolders().createReciterFolder(_reciterId.toString());
     // //print('Reciter Path = $reciterPath');
     Dio dio = Dio();
 
     isDownloading.value = true;
     for (var i = 0; i < downloadLinks.length; i++) {
-      if (!await File('$reciterPath/${downloadLinks[i].split('/').last}').exists()) {
+      if (!await File('$reciterPath/${downloadLinks[i].split('/').last}')
+          .exists()) {
         await dio.download(
           downloadLinks[i],
           '$reciterPath/${downloadLinks[i].split('/').last}',
@@ -106,7 +113,8 @@ class AudioDownload {
       }
       if (!isPlaying) {
         if (i == 0 && recitersPlayer != null) {
-          recitersPlayer!.play(DeviceFileSource('$reciterPath/${downloadLinks[i].split('/').last}'));
+          recitersPlayer!.play(DeviceFileSource(
+              '$reciterPath/${downloadLinks[i].split('/').last}'));
           recitersPlayer = null;
           isPlaying = true;
         }
@@ -165,7 +173,8 @@ class AudioDownload {
     downloadFilesWithoutDialog(downloadLinks);
   }
 
-  void suraDownloadPlay(int suraId, int ayaId, int suraCount, AudioPlayer player) async {
+  void suraDownloadPlay(
+      int suraId, int ayaId, int suraCount, AudioPlayer player) async {
     var preferences = await SharedPreferences.getInstance();
     _reciterId = preferences.getString(reciterKey) ?? "1";
     log('reciter Id =>> $_reciterId');

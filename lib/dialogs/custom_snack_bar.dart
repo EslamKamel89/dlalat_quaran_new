@@ -30,7 +30,9 @@ showCustomSnackBar({
       ),
       icon: Icon(isSuccess ? Icons.check : Icons.error, color: Colors.white),
       duration: const Duration(seconds: 3),
-      backgroundColor: isSuccess ? primaryColor.withOpacity(0.8) : Colors.red.withOpacity(0.8),
+      backgroundColor: isSuccess
+          ? primaryColor.withOpacity(0.8)
+          : Colors.red.withOpacity(0.8),
     ),
   );
 }

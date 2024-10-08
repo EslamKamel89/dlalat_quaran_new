@@ -10,26 +10,30 @@ class TagsScreen extends StatelessWidget {
   TagsScreen({super.key});
 
   static String id = '/TagsScreen';
-  final TagsScreenController _tasController = Get.put(TagsScreenController()..getTags());
+  final TagsScreenController _tasController =
+      Get.put(TagsScreenController()..getTags());
   final TextEditingController _textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     _textEditingController.addListener(() {
-      _tasController.search(_textEditingController.text.toString().toLowerCase());
+      _tasController
+          .search(_textEditingController.text.toString().toLowerCase());
     });
     return Scaffold(
       appBar: QuranBar('semantics'.tr),
       body: Column(
         children: [
           SearchWidget(_textEditingController, null, () {
-            _tasController.search(_textEditingController.text.toString().toLowerCase());
+            _tasController
+                .search(_textEditingController.text.toString().toLowerCase());
           }),
           GetBuilder<TagsScreenController>(builder: (context) {
             return Expanded(
               child: ListView.builder(
                 itemBuilder: (context, index) {
-                  return TagItemWidget(TagsScreenData.filteredList[index], TagDetailsScreen());
+                  return TagItemWidget(
+                      TagsScreenData.filteredList[index], TagDetailsScreen());
                 },
                 itemCount: TagsScreenData.filteredList.length,
               ),

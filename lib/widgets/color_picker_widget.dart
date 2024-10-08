@@ -12,7 +12,8 @@ class ColorPickerWidget extends StatelessWidget {
   final SettingsController controller;
   final String type;
 
-  const ColorPickerWidget({required this.tilte, required this.type, required this.controller});
+  const ColorPickerWidget(
+      {required this.tilte, required this.type, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,9 @@ class ColorPickerWidget extends StatelessWidget {
             child: Container(
               margin: const EdgeInsets.only(left: 8, right: 8),
               height: 35,
-              decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8)), color: Colors.white),
+              decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                  color: Colors.white),
               child: ColorsSpinner(controller, type),
             ),
           )

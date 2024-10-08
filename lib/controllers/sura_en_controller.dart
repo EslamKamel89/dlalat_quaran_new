@@ -52,7 +52,8 @@ class SuraEnController extends GetxController {
     if (scrollController != null) {
       scrollController!.addListener(() {
         log("scroll COntroller Listener ");
-        if (scrollController!.position.maxScrollExtent == scrollController!.position.pixels) {
+        if (scrollController!.position.maxScrollExtent ==
+            scrollController!.position.pixels) {
           if (firstAya + 11 < suraAyatCount) {
             firstAya = firstAya + 11;
             getSuraAyat();
@@ -72,9 +73,12 @@ class SuraEnController extends GetxController {
 
   void _getColors() async {
     // if (normalFontColor == null) {
-    normalFontColor = colors[await DataBaseHelper.dataBaseInstance().getColor(KnormalFontColor)];
-    tagWordsColor = colors[await DataBaseHelper.dataBaseInstance().getColor(KtagWordsColor)];
-    readWordsColor = colors[await DataBaseHelper.dataBaseInstance().getColor(KreadWordsColor)];
+    normalFontColor = colors[
+        await DataBaseHelper.dataBaseInstance().getColor(KnormalFontColor)];
+    tagWordsColor = colors[
+        await DataBaseHelper.dataBaseInstance().getColor(KtagWordsColor)];
+    readWordsColor = colors[
+        await DataBaseHelper.dataBaseInstance().getColor(KreadWordsColor)];
     bgColor = colors[await DataBaseHelper.dataBaseInstance().getColor(KpageBg)];
 
     redStyle = TextStyle(color: tagWordsColor, fontFamily: 'Mcs', fontSize: 20);

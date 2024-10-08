@@ -17,7 +17,8 @@ class _AyatSpinnerState extends State<AyatSpinner> {
   Widget build(BuildContext context) {
     return DropdownButton<String?>(
       value: widget.controller.selectAya.value,
-      items: widget.controller.ayatList.map<DropdownMenuItem<String?>>((String? value) {
+      items: widget.controller.ayatList
+          .map<DropdownMenuItem<String?>>((String? value) {
         return DropdownMenuItem<String?>(
           value: value,
           child: Padding(

@@ -1,13 +1,14 @@
 class TagWordModel {
   TagWordModel({
-      this.id, 
-      this.createdAt, 
-      this.updatedAt, 
-      this.tagId, 
-      this.wordId, 
-      this.suraId, 
-      this.ayahId, 
-      this.enabled,});
+    this.id,
+    this.createdAt,
+    this.updatedAt,
+    this.tagId,
+    this.wordId,
+    this.suraId,
+    this.ayahId,
+    this.enabled,
+  });
 
   TagWordModel.fromJson(dynamic json) {
     id = json['id'];
@@ -28,7 +29,6 @@ class TagWordModel {
   int? ayahId;
   int? enabled;
 
-
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = id;
@@ -41,5 +41,4 @@ class TagWordModel {
     map['enabled'] = enabled;
     return map;
   }
-
 }

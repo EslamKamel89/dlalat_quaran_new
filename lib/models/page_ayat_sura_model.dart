@@ -1,4 +1,4 @@
-class PageAyatSuraModel{
+class PageAyatSuraModel {
   String _ayaId;
 
   PageAyatSuraModel(this._ayaId, this._suraId);

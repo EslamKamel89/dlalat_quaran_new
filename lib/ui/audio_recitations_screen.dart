@@ -59,12 +59,15 @@ class AudioRecitationsScreen extends StatelessWidget {
 
       _recitationPlayer.onPlayerComplete.listen((event) async {
         log('Oplya Next ${controller.selectAya.value}');
-        if (int.parse(controller.selectAya.value) <= controller.selectedSuraAyatCount.value) {
+        if (int.parse(controller.selectAya.value) <=
+            controller.selectedSuraAyatCount.value) {
           var next = int.parse(controller.selectAya.value) + 1;
           controller.selectAya.value = next.toString();
           controller.update();
-          var ayaPath = await AudioFolders().generatePath(controller.selectedReciter.value.id.toString(),
-              controller.suraId.value.toString(), controller.selectAya.value);
+          var ayaPath = await AudioFolders().generatePath(
+              controller.selectedReciter.value.id.toString(),
+              controller.suraId.value.toString(),
+              controller.selectAya.value);
           // await _recitationPlayer.stop();
 
           _recitationPlayer.play(DeviceFileSource(ayaPath));
@@ -116,10 +119,12 @@ class AudioRecitationsScreen extends StatelessWidget {
                     child: Container(
                       margin: const EdgeInsets.only(left: 8, right: 8),
                       height: 50,
-                      decoration:
-                          const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8)), color: Colors.white),
-                      child: Obx(() =>
-                          controller.recitersList.value.isNotEmpty ? RecitersSpinner(controller) : const Text('')),
+                      decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          color: Colors.white),
+                      child: Obx(() => controller.recitersList.value.isNotEmpty
+                          ? RecitersSpinner(controller)
+                          : const Text('')),
                     ),
                   )
                 ],
@@ -141,10 +146,12 @@ class AudioRecitationsScreen extends StatelessWidget {
                     child: Container(
                       margin: const EdgeInsets.only(left: 8, right: 8),
                       height: 50,
-                      decoration:
-                          const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8)), color: Colors.white),
-                      child:
-                          Obx(() => controller.surasList.value.isNotEmpty ? SuraSpinner(controller) : const SizedBox()),
+                      decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          color: Colors.white),
+                      child: Obx(() => controller.surasList.value.isNotEmpty
+                          ? SuraSpinner(controller)
+                          : const SizedBox()),
                     ),
                   )
                 ],
@@ -166,9 +173,12 @@ class AudioRecitationsScreen extends StatelessWidget {
                     child: Container(
                       margin: const EdgeInsets.only(left: 8, right: 8),
                       height: 50,
-                      decoration:
-                          const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8)), color: Colors.white),
-                      child: Obx(() => controller.ayatList.value.isNotEmpty ? AyatSpinner(controller) : const Text('')),
+                      decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          color: Colors.white),
+                      child: Obx(() => controller.ayatList.value.isNotEmpty
+                          ? AyatSpinner(controller)
+                          : const Text('')),
                     ),
                   )
                 ],
@@ -184,7 +194,8 @@ class AudioRecitationsScreen extends StatelessWidget {
                           controller.playerVisibleState(true);
 
                           await _recitationPlayer.stop();
-                          AudioDownload().reciterId = controller.selectedReciter.value.id.toString();
+                          AudioDownload().reciterId =
+                              controller.selectedReciter.value.id.toString();
                           AudioDownload().suraDownloadPlay(
                               controller.suraId.value,
                               int.parse(controller.selectAya.value),
@@ -210,7 +221,9 @@ class AudioRecitationsScreen extends StatelessWidget {
                 ],
               ),
               const Expanded(child: SizedBox()),
-              Obx(() => controller.showPlayer.value ? AudioRecitationPlayer(controller) : const SizedBox())
+              Obx(() => controller.showPlayer.value
+                  ? AudioRecitationPlayer(controller)
+                  : const SizedBox())
             ],
           ),
         ),

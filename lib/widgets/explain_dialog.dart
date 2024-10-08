@@ -17,9 +17,14 @@ class ExplainDialog extends StatelessWidget {
   final String ayaKey, videoId;
   VoidCallback? playerFunction;
 
-  ExplainDialog({super.key, this.playerFunction, required this.ayaKey, required this.videoId});
+  ExplainDialog(
+      {super.key,
+      this.playerFunction,
+      required this.ayaKey,
+      required this.videoId});
 
-  final ExplainDialogController _dialogController = Get.put(ExplainDialogController());
+  final ExplainDialogController _dialogController =
+      Get.put(ExplainDialogController());
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +43,13 @@ class ExplainDialog extends StatelessWidget {
           color: const Color(0x5dffffff),
           borderRadius: const BorderRadius.all(Radius.circular(15)),
           child: Container(
-            padding: const EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 15),
-            decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(15))),
-            margin: const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
+            padding:
+                const EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 15),
+            decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(15))),
+            margin:
+                const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
             child: Column(
               children: [
                 Row(
@@ -54,7 +63,10 @@ class ExplainDialog extends StatelessWidget {
                       'aya_explanation'.tr,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
-                          fontFamily: 'Almarai', color: primaryColor, fontSize: 15, fontWeight: FontWeight.bold),
+                          fontFamily: 'Almarai',
+                          color: primaryColor,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold),
                     )),
                     const Icon(null),
                   ],
@@ -67,9 +79,14 @@ class ExplainDialog extends StatelessWidget {
                 Obx(() => SizedBox(
                       width: double.infinity,
                       child: Text(
-                        _dialogController.ayaText.value.toLowerCase() != 'null' ? _dialogController.ayaText.value : '',
+                        _dialogController.ayaText.value.toLowerCase() != 'null'
+                            ? _dialogController.ayaText.value
+                            : '',
                         textAlign: TextAlign.justify,
-                        style: const TextStyle(fontFamily: "me_quran", color: primaryColor, fontSize: 15),
+                        style: const TextStyle(
+                            fontFamily: "me_quran",
+                            color: primaryColor,
+                            fontSize: 15),
                       ),
                     )),
                 Expanded(
@@ -103,7 +120,9 @@ class ExplainDialog extends StatelessWidget {
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blueGrey,
-                              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)))),
                           onPressed: playerFunction,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -129,10 +148,12 @@ class ExplainDialog extends StatelessWidget {
                         child: SizedBox(
                       height: 55,
                       child: Obx(() => Visibility(
-                            visible: _dialogController.videoUrl.value.toLowerCase() != 'null',
+                            visible: _dialogController.videoUrl.value
+                                    .toLowerCase() !=
+                                'null',
                             child: PrimaryButton(
-                                onPressed: () =>
-                                    Get.to(() => VideoPlayerScreen(videoId: _dialogController.videoUrl.value)),
+                                onPressed: () => Get.to(() => VideoPlayerScreen(
+                                    videoId: _dialogController.videoUrl.value)),
                                 borderRadius: 10,
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -153,7 +174,8 @@ class ExplainDialog extends StatelessWidget {
                   children: [
                     PrimaryButton(
                       onPressed: () {
-                        Get.toNamed(AddCommentView.id, arguments: {"id": ayaKey, 'commentType': 'ayah'});
+                        Get.toNamed(AddCommentView.id,
+                            arguments: {"id": ayaKey, 'commentType': 'ayah'});
                       },
                       borderRadius: 5,
                       child: Text(
@@ -193,7 +215,8 @@ class ExplainDialog extends StatelessWidget {
 
   String _parseHtmlString(String htmlString) {
     final document = parse(htmlString);
-    final String parsedString = parse(document.body!.text).documentElement!.text;
+    final String parsedString =
+        parse(document.body!.text).documentElement!.text;
     return parsedString;
   }
 }

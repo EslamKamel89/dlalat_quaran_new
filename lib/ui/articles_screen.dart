@@ -16,14 +16,16 @@ class ArticlesScreen extends StatelessWidget {
     _articlesController.allArticles();
     // _articlesController.allArticles();
     _searchController.addListener(() {
-      _articlesController.search(_searchController.text.toString().toLowerCase());
+      _articlesController
+          .search(_searchController.text.toString().toLowerCase());
     });
     return Scaffold(
       appBar: QuranBar("articles".tr),
       body: Column(
         children: [
           SearchWidget(_searchController, null, () {
-            _articlesController.search(_searchController.text.toString().toLowerCase());
+            _articlesController
+                .search(_searchController.text.toString().toLowerCase());
           }),
           GetBuilder<ArticlesController>(
             builder: (context) {
@@ -31,7 +33,8 @@ class ArticlesScreen extends StatelessWidget {
                   ? Expanded(
                       child: ListView.builder(
                         itemBuilder: (context, index) {
-                          return ArticlesWidget(ArticlesData.filteredList[index]);
+                          return ArticlesWidget(
+                              ArticlesData.filteredList[index]);
                         },
                         itemCount: ArticlesData.filteredList.length,
                       ),

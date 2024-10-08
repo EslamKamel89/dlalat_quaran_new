@@ -97,7 +97,8 @@ class CurrentLocales extends Translations {
           "not_available": "Explanation is not currently available.",
           "aya_explanation": "Aya Explanation",
           "read_also": "Read also",
-          "introText": "Whoever reflects on the Qur’an\nseeking guidance from it\nShow him the right way",
+          "introText":
+              "Whoever reflects on the Qur’an\nseeking guidance from it\nShow him the right way",
           "update": "Update",
           "addComment": "Add Comment",
           "phoneNumber": "Phone Number",
@@ -147,7 +148,8 @@ class CurrentLocales extends Translations {
           "not_available": "L'explication n'est pas disponible actuellement.",
           "aya_explanation": "Aya Explication",
           "read_also": "Lire aussi",
-          "introText": "Whoever reflects on the Qur’an\nseeking guidance from it\nShow him the right way",
+          "introText":
+              "Whoever reflects on the Qur’an\nseeking guidance from it\nShow him the right way",
           "update": "mise à jour",
           "addComment": "Ajouter un commentaire",
           "phoneNumber": "Numéro de téléphone",
@@ -197,7 +199,8 @@ class CurrentLocales extends Translations {
           "not_available": "La explicación no está disponible actualmente.",
           "aya_explanation": "Explicación de Aya",
           "read_also": "Leer también",
-          "introText": "Whoever reflects on the Qur’an\nseeking guidance from it\nShow him the right way",
+          "introText":
+              "Whoever reflects on the Qur’an\nseeking guidance from it\nShow him the right way",
           "update": "actualizar",
           "addComment": "Añadir comentario",
           "phoneNumber": "número de teléfono",

@@ -16,7 +16,7 @@ lib\utils\audio_download.dart >> isInternetAvailable()
 5- kotlin version in graddle.settings
     id "org.jetbrains.kotlin.android" version "1.7.10" apply false
  
-6 - i added force update to the inserted data in the main
+
 
 
 Localization not fininshed on the following pages

@@ -18,7 +18,8 @@ late TagModel model;
 //ignore: must_be_immutable
 class TagDetailsScreen extends StatelessWidget {
   static String id = '/TagDetailsScreen';
-  final TagDetailsController _detailsController = Get.put(TagDetailsController());
+  final TagDetailsController _detailsController =
+      Get.put(TagDetailsController());
 
   TagDetailsScreen({super.key});
 
@@ -45,7 +46,10 @@ class TagDetailsScreen extends StatelessWidget {
                           _detailsController.selectedTagModel.value.name(),
                           textAlign: TextAlign.start,
                           style: const TextStyle(
-                              fontWeight: FontWeight.bold, color: primaryColor, fontSize: 18, fontFamily: 'Almarai'),
+                              fontWeight: FontWeight.bold,
+                              color: primaryColor,
+                              fontSize: 18,
+                              fontFamily: 'Almarai'),
                         )),
                     Obx(() => _detailsController.tagVideos.isNotEmpty
                         ? GestureDetector(
@@ -55,7 +59,8 @@ class TagDetailsScreen extends StatelessWidget {
                               color: primaryColor2,
                             ),
                             onTap: () {
-                              Get.dialog(DialogTagVideos(_detailsController.selectedTagModel.value));
+                              Get.dialog(DialogTagVideos(
+                                  _detailsController.selectedTagModel.value));
                             },
                           )
                         : const SizedBox())
@@ -69,7 +74,8 @@ class TagDetailsScreen extends StatelessWidget {
                     color: Colors.white,
                     borderRadius: const BorderRadius.all(Radius.circular(15)),
                     border: Border.all(color: lightGray2, width: 1)),
-                margin: const EdgeInsets.only(top: 20, bottom: 20, right: 10, left: 10),
+                margin: const EdgeInsets.only(
+                    top: 20, bottom: 20, right: 10, left: 10),
                 child: Scrollbar(
                   trackVisibility: true,
                   // hoverThickness: 50,
@@ -81,7 +87,8 @@ class TagDetailsScreen extends StatelessWidget {
                     child: Obx(() => SizedBox(
                           width: double.infinity,
                           child: Text(
-                            _detailsController.selectedTagModel.value.description(),
+                            _detailsController.selectedTagModel.value
+                                .description(),
                             textAlign: TextAlign.justify,
                           ),
                         )),
@@ -98,7 +105,8 @@ class TagDetailsScreen extends StatelessWidget {
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                             'read_also'.tr,
-                            style: const TextStyle(color: primaryColor, fontFamily: "Almarai"),
+                            style: const TextStyle(
+                                color: primaryColor, fontFamily: "Almarai"),
                           ),
                         ),
                         Container(
@@ -111,7 +119,8 @@ class TagDetailsScreen extends StatelessWidget {
                             itemBuilder: (context, index) {
                               return ElevatedButton(
                                 onPressed: () {
-                                  _detailsController.updateTagModel(_detailsController.relatedTags[index]);
+                                  _detailsController.updateTagModel(
+                                      _detailsController.relatedTags[index]);
                                 },
                                 style: ElevatedButton.styleFrom(
                                     foregroundColor: Colors.blueGrey,
@@ -142,7 +151,8 @@ class TagDetailsController extends GetxController {
   var tagVideos = <VideoModel>[].obs;
 
   void getRelatedTags() async {
-    relatedTags.value = await DataBaseHelper.dataBaseInstance().relatedTags(tagId);
+    relatedTags.value =
+        await DataBaseHelper.dataBaseInstance().relatedTags(tagId);
     update();
   }
 
@@ -170,7 +180,9 @@ class EvidenceDetailsBody extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(8),
       margin: const EdgeInsets.all(8),
-      decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(15))),
+      decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(15))),
       child: Column(
         children: [
           Expanded(

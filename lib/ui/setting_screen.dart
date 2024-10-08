@@ -60,7 +60,9 @@ class SettingScreen extends StatelessWidget {
                             margin: const EdgeInsets.only(left: 8, right: 8),
                             height: 50,
                             decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(8)), color: Colors.white),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(8)),
+                                color: Colors.white),
                             child: LanguageSpinner(controller),
                           ),
                         )
@@ -84,9 +86,12 @@ class SettingScreen extends StatelessWidget {
                             margin: const EdgeInsets.only(left: 8, right: 8),
                             height: 50,
                             decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(8)), color: Colors.white),
-                            child: Obx(() =>
-                                controller.recitersList.isNotEmpty ? RecitersSpinner(controller) : const SizedBox()),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(8)),
+                                color: Colors.white),
+                            child: Obx(() => controller.recitersList.isNotEmpty
+                                ? RecitersSpinner(controller)
+                                : const SizedBox()),
                             // child: LanguageSpinner(),
                           ),
                         )
@@ -109,7 +114,9 @@ class SettingScreen extends StatelessWidget {
                           child: Container(
                             margin: const EdgeInsets.only(left: 8, right: 8),
                             decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(8)), color: Colors.white),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(8)),
+                                color: Colors.white),
                             child: Obx(() => controller.mFontType.value != null
                                 ? FontTypeRadio(controller)
                                 : FontTypeRadio(controller)),
@@ -153,12 +160,15 @@ class SettingScreen extends StatelessWidget {
                     Container(
                       height: 60,
                       width: Get.width / 1.5,
-                      margin: const EdgeInsets.only(top: 15, left: 50, right: 50),
+                      margin:
+                          const EdgeInsets.only(top: 15, left: 50, right: 50),
                       child: PrimaryButton(
                           onPressed: () {
                             final SyncManager syncManager = Get.find();
                             syncManager.syncData(forceUpdate: true);
-                            showCustomSnackBar(title: "برجاء النتظار", body: "يتم تحميل البيانات من قاعدة البيانات");
+                            showCustomSnackBar(
+                                title: "برجاء النتظار",
+                                body: "يتم تحميل البيانات من قاعدة البيانات");
 
                             pr('data updated ');
                           },
@@ -175,7 +185,10 @@ class SettingScreen extends StatelessWidget {
                                 'update'.tr,
                                 textScaleFactor: 1.0,
                                 style: const TextStyle(
-                                    color: Colors.white, fontFamily: 'Almarai', height: 1.5, fontSize: 15),
+                                    color: Colors.white,
+                                    fontFamily: 'Almarai',
+                                    height: 1.5,
+                                    fontSize: 15),
                               )
                             ],
                           )),
@@ -183,7 +196,8 @@ class SettingScreen extends StatelessWidget {
                     Container(
                       height: 60,
                       width: Get.width / 1.5,
-                      margin: const EdgeInsets.only(top: 15, left: 50, right: 50),
+                      margin:
+                          const EdgeInsets.only(top: 15, left: 50, right: 50),
                       child: PrimaryButton(
                           onPressed: () {
                             controller.saveSetting();
@@ -203,7 +217,10 @@ class SettingScreen extends StatelessWidget {
                                 'save'.tr,
                                 textScaleFactor: 1.0,
                                 style: const TextStyle(
-                                    color: Colors.white, fontFamily: 'Almarai', height: 1.5, fontSize: 15),
+                                    color: Colors.white,
+                                    fontFamily: 'Almarai',
+                                    height: 1.5,
+                                    fontSize: 15),
                               )
                             ],
                           )),
@@ -219,7 +236,8 @@ class SettingScreen extends StatelessWidget {
                       height: 60,
                       width: Get.width / 1.5,
                       child: PrimaryButton(
-                        onPressed: () => Get.to(const AboutAppScreen(), transition: Transition.fadeIn),
+                        onPressed: () => Get.to(const AboutAppScreen(),
+                            transition: Transition.fadeIn),
                         borderRadius: 15,
                         child: Stack(
                           children: [
@@ -244,7 +262,10 @@ class SettingScreen extends StatelessWidget {
                                       'app_name'.tr,
                                       textScaleFactor: 1.0,
                                       style: const TextStyle(
-                                          color: Colors.white, fontFamily: 'Almarai', height: 1.5, fontSize: 10),
+                                          color: Colors.white,
+                                          fontFamily: 'Almarai',
+                                          height: 1.5,
+                                          fontSize: 10),
                                     ))
                                   ],
                                 ),
@@ -256,7 +277,10 @@ class SettingScreen extends StatelessWidget {
                                   'about_app'.tr,
                                   textScaleFactor: 1.0,
                                   style: const TextStyle(
-                                      color: Colors.white, fontFamily: 'Almarai', height: 1.5, fontSize: 15),
+                                      color: Colors.white,
+                                      fontFamily: 'Almarai',
+                                      height: 1.5,
+                                      fontSize: 15),
                                 ))
                               ],
                             )
@@ -265,7 +289,8 @@ class SettingScreen extends StatelessWidget {
                       ),
                     ),
                     Obx(
-                      () => AlMaraiText(12, 'آخر تحديث ${controller.lastSyncDate.value}'),
+                      () => AlMaraiText(
+                          12, 'آخر تحديث ${controller.lastSyncDate.value}'),
                     )
                   ],
                 )
@@ -293,7 +318,8 @@ class _LanguageSpinnerState extends State<LanguageSpinner> {
         "Current Value ${modes[widget.controller.langPosition.value]} & Position => ${widget.controller.langPosition.value}");
     return DropdownButton<LanguageModel?>(
       value: modes[widget.controller.lanIndex()],
-      items: modes.map<DropdownMenuItem<LanguageModel?>>((LanguageModel? value) {
+      items:
+          modes.map<DropdownMenuItem<LanguageModel?>>((LanguageModel? value) {
         return DropdownMenuItem<LanguageModel?>(
           value: value,
           child: Padding(
@@ -339,7 +365,8 @@ class _RecitersSpinnerState extends State<RecitersSpinner> {
   Widget build(BuildContext context) {
     return DropdownButton<ReciterModel?>(
       value: widget.controller.selectedReciter.value,
-      items: widget.controller.recitersList.map<DropdownMenuItem<ReciterModel?>>((ReciterModel? value) {
+      items: widget.controller.recitersList
+          .map<DropdownMenuItem<ReciterModel?>>((ReciterModel? value) {
         return DropdownMenuItem<ReciterModel?>(
           value: value,
           child: Padding(
@@ -390,7 +417,8 @@ class _FontTypeRadioState extends State<FontTypeRadio> {
                     onChanged: (FontType? value) {
                       setState(() {
                         widget.controller.fontType = FontType.normal;
-                        widget.controller.mFontType.value = FontType.normal.name;
+                        widget.controller.mFontType.value =
+                            FontType.normal.name;
                       });
                       widget.controller.update();
                     },
@@ -405,8 +433,11 @@ class _FontTypeRadioState extends State<FontTypeRadio> {
                 child: ListTile(
                   title: Text(
                     'bold'.tr,
-                    style:
-                        const TextStyle(fontFamily: 'Almarai', height: 1.5, fontWeight: FontWeight.bold, fontSize: 14),
+                    style: const TextStyle(
+                        fontFamily: 'Almarai',
+                        height: 1.5,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14),
                   ),
                   leading: Radio<FontType>(
                     value: FontType.bold,

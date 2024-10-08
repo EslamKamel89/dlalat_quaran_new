@@ -25,9 +25,8 @@ class CompetitionsWidget extends StatelessWidget {
         style: ElevatedButton.styleFrom(
             foregroundColor: Colors.grey, backgroundColor: Colors.white, padding: EdgeInsets.zero, elevation: 2),
         onPressed: () {
-          Get.to(
-            JoinCompetitonView(),
-            transition: Transition.fadeIn,
+          Get.toNamed(
+            JoinCompetitonView.id,
             arguments: {'competitionModel': competitionModel},
           );
         },

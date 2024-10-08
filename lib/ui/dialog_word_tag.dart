@@ -1,27 +1,46 @@
 import 'dart:ui';
 
 import 'package:dlalat_quaran_new/controllers/dialog_word_tag_controller.dart';
+import 'package:dlalat_quaran_new/controllers/download_link_controller.dart';
 import 'package:dlalat_quaran_new/ui/add_comment.dart';
 import 'package:dlalat_quaran_new/utils/colors.dart';
+import 'package:dlalat_quaran_new/utils/servicle_locator.dart';
 import 'package:dlalat_quaran_new/widgets/custom_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../widgets/video_item_dialog.dart';
 
-class DialogWordTag extends StatelessWidget {
+class DialogWordTag extends StatefulWidget {
   final String tagId;
   final String wordId;
 
-  DialogWordTag({super.key, required this.tagId, required this.wordId});
+  const DialogWordTag({super.key, required this.tagId, required this.wordId});
 
-  final DialogWordTagController _dialogController =
-      Get.put(DialogWordTagController());
+  @override
+  State<DialogWordTag> createState() => _DialogWordTagState();
+}
+
+class _DialogWordTagState extends State<DialogWordTag> {
+  final DialogWordTagController _dialogController = Get.put(DialogWordTagController());
+
+  final GetDownloadLinkController _downloadLinkController = Get.put(
+    GetDownloadLinkController(dioConsumer: serviceLocator()),
+  );
+  String? downloadLink;
+  @override
+  void initState() {
+    _downloadLinkController.getDownloadlink(downloadLinkType: DownloadLinkType.tag, id: widget.tagId).then(
+          (value) => downloadLink = value,
+        );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    _dialogController.getTagVideo(tagId, int.parse(wordId));
+    _dialogController.getTagVideo(widget.tagId, int.parse(widget.wordId));
     return BackdropFilter(
       filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
       child: Material(
@@ -29,13 +48,9 @@ class DialogWordTag extends StatelessWidget {
         color: const Color(0x5dffffff),
         borderRadius: const BorderRadius.all(Radius.circular(15)),
         child: Container(
-          padding:
-              const EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 15),
-          decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(15))),
-          margin:
-              const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
+          padding: const EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 15),
+          decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(15))),
+          margin: const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
           child: Column(
             children: [
               Row(
@@ -52,10 +67,7 @@ class DialogWordTag extends StatelessWidget {
                             _dialogController.wordName.value,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
-                                fontFamily: 'Almarai',
-                                color: primaryColor,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold),
+                                fontFamily: 'Almarai', color: primaryColor, fontSize: 15, fontWeight: FontWeight.bold),
                           ))),
                   const Icon(null),
                 ],
@@ -75,8 +87,7 @@ class DialogWordTag extends StatelessWidget {
                       fontWeight: FontWeight.bold),
                 },
               ),
-              Obx(() => _dialogController.description.value != 'null' &&
-                      _dialogController.description.value != ''
+              Obx(() => _dialogController.description.value != 'null' && _dialogController.description.value != ''
                   ? Expanded(
                       flex: 1,
                       child: Scrollbar(
@@ -119,8 +130,7 @@ class DialogWordTag extends StatelessWidget {
                       height: 170,
                       child: ListView.builder(
                         itemBuilder: (context, index) {
-                          _dialogController.videoModels[index].name =
-                              _dialogController.wordName.value;
+                          _dialogController.videoModels[index].name = _dialogController.wordName.value;
                           return VideoItemDialog(
                             videoModel: _dialogController.videoModels[index],
                           );
@@ -133,10 +143,10 @@ class DialogWordTag extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  const Spacer(),
                   PrimaryButton(
                     onPressed: () {
-                      Get.toNamed(AddCommentView.id,
-                          arguments: {"id": tagId, 'commentType': 'tag'});
+                      Get.toNamed(AddCommentView.id, arguments: {"id": widget.tagId, 'commentType': 'tag'});
                     },
                     borderRadius: 5,
                     child: Text(
@@ -150,19 +160,30 @@ class DialogWordTag extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 5),
-                  PrimaryButton(
-                    onPressed: () {},
-                    borderRadius: 5,
-                    child: Text(
-                      'تحميل'.tr,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontFamily: 'Almarai',
-                      ),
-                    ),
+                  GetBuilder<GetDownloadLinkController>(
+                    builder: (_) {
+                      if (downloadLink != null) {
+                        return PrimaryButton(
+                          onPressed: () {
+                            launchUrl(Uri.parse(downloadLink!));
+                          },
+                          borderRadius: 5,
+                          child: Text(
+                            'تحميل'.tr,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontFamily: 'Almarai',
+                            ),
+                          ),
+                        );
+                      } else {
+                        return const SizedBox();
+                      }
+                    },
                   ),
+                  const Spacer(),
                 ],
               ),
             ],

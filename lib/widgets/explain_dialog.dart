@@ -1,36 +1,51 @@
 import 'dart:developer';
 import 'dart:ui';
 
+import 'package:dlalat_quaran_new/controllers/download_link_controller.dart';
 import 'package:dlalat_quaran_new/controllers/expain_dialog_controller.dart';
 import 'package:dlalat_quaran_new/ui/add_comment.dart';
 import 'package:dlalat_quaran_new/ui/video_player_screen.dart';
 import 'package:dlalat_quaran_new/utils/colors.dart';
 import 'package:dlalat_quaran_new/utils/constants.dart';
+import 'package:dlalat_quaran_new/utils/servicle_locator.dart';
 import 'package:dlalat_quaran_new/widgets/custom_buttons.dart';
 import 'package:dlalat_quaran_new/widgets/font_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:html/parser.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // ignore: must_be_immutable
-class ExplainDialog extends StatelessWidget {
+class ExplainDialog extends StatefulWidget {
   final String ayaKey, videoId;
   VoidCallback? playerFunction;
 
-  ExplainDialog(
-      {super.key,
-      this.playerFunction,
-      required this.ayaKey,
-      required this.videoId});
+  ExplainDialog({super.key, this.playerFunction, required this.ayaKey, required this.videoId});
 
-  final ExplainDialogController _dialogController =
-      Get.put(ExplainDialogController());
+  @override
+  State<ExplainDialog> createState() => _ExplainDialogState();
+}
+
+class _ExplainDialogState extends State<ExplainDialog> {
+  final ExplainDialogController _dialogController = Get.put(ExplainDialogController());
+
+  final GetDownloadLinkController _downloadLinkController = Get.put(
+    GetDownloadLinkController(dioConsumer: serviceLocator()),
+  );
+  String? downloadLink;
+  @override
+  void initState() {
+    _downloadLinkController.getDownloadlink(downloadLinkType: DownloadLinkType.ayah, id: widget.ayaKey).then(
+          (value) => downloadLink = value,
+        );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     // pr('Ayah id: $ayaKey', 'Explain Dialog widget');
     log('Video Id => ${_dialogController.videoUrl.value} }');
-    _dialogController.getAyaExplain(ayaKey);
+    _dialogController.getAyaExplain(widget.ayaKey);
     return WillPopScope(
       onWillPop: () async {
         await Get.delete<ExplainDialogController>();
@@ -43,13 +58,9 @@ class ExplainDialog extends StatelessWidget {
           color: const Color(0x5dffffff),
           borderRadius: const BorderRadius.all(Radius.circular(15)),
           child: Container(
-            padding:
-                const EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 15),
-            decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(15))),
-            margin:
-                const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
+            padding: const EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 15),
+            decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(15))),
+            margin: const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
             child: Column(
               children: [
                 Row(
@@ -63,10 +74,7 @@ class ExplainDialog extends StatelessWidget {
                       'aya_explanation'.tr,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
-                          fontFamily: 'Almarai',
-                          color: primaryColor,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold),
+                          fontFamily: 'Almarai', color: primaryColor, fontSize: 15, fontWeight: FontWeight.bold),
                     )),
                     const Icon(null),
                   ],
@@ -79,14 +87,9 @@ class ExplainDialog extends StatelessWidget {
                 Obx(() => SizedBox(
                       width: double.infinity,
                       child: Text(
-                        _dialogController.ayaText.value.toLowerCase() != 'null'
-                            ? _dialogController.ayaText.value
-                            : '',
+                        _dialogController.ayaText.value.toLowerCase() != 'null' ? _dialogController.ayaText.value : '',
                         textAlign: TextAlign.justify,
-                        style: const TextStyle(
-                            fontFamily: "me_quran",
-                            color: primaryColor,
-                            fontSize: 15),
+                        style: const TextStyle(fontFamily: "me_quran", color: primaryColor, fontSize: 15),
                       ),
                     )),
                 Expanded(
@@ -120,10 +123,8 @@ class ExplainDialog extends StatelessWidget {
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blueGrey,
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10)))),
-                          onPressed: playerFunction,
+                              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),
+                          onPressed: widget.playerFunction,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -148,12 +149,10 @@ class ExplainDialog extends StatelessWidget {
                         child: SizedBox(
                       height: 55,
                       child: Obx(() => Visibility(
-                            visible: _dialogController.videoUrl.value
-                                    .toLowerCase() !=
-                                'null',
+                            visible: _dialogController.videoUrl.value.toLowerCase() != 'null',
                             child: PrimaryButton(
-                                onPressed: () => Get.to(() => VideoPlayerScreen(
-                                    videoId: _dialogController.videoUrl.value)),
+                                onPressed: () =>
+                                    Get.to(() => VideoPlayerScreen(videoId: _dialogController.videoUrl.value)),
                                 borderRadius: 10,
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -172,10 +171,10 @@ class ExplainDialog extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    const Spacer(),
                     PrimaryButton(
                       onPressed: () {
-                        Get.toNamed(AddCommentView.id,
-                            arguments: {"id": ayaKey, 'commentType': 'ayah'});
+                        Get.toNamed(AddCommentView.id, arguments: {"id": widget.ayaKey, 'commentType': 'ayah'});
                       },
                       borderRadius: 5,
                       child: Text(
@@ -190,19 +189,30 @@ class ExplainDialog extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 5),
-                    PrimaryButton(
-                      onPressed: () {},
-                      borderRadius: 5,
-                      child: Text(
-                        'تحميل'.tr,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontFamily: 'Almarai',
-                        ),
-                      ),
+                    GetBuilder<GetDownloadLinkController>(
+                      builder: (_) {
+                        if (downloadLink != null) {
+                          return PrimaryButton(
+                            onPressed: () {
+                              launchUrl(Uri.parse(downloadLink!));
+                            },
+                            borderRadius: 5,
+                            child: Text(
+                              'تحميل'.tr,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontFamily: 'Almarai',
+                              ),
+                            ),
+                          );
+                        } else {
+                          return const SizedBox();
+                        }
+                      },
                     ),
+                    const Spacer(),
                   ],
                 ),
               ],
@@ -215,8 +225,7 @@ class ExplainDialog extends StatelessWidget {
 
   String _parseHtmlString(String htmlString) {
     final document = parse(htmlString);
-    final String parsedString =
-        parse(document.body!.text).documentElement!.text;
+    final String parsedString = parse(document.body!.text).documentElement!.text;
     return parsedString;
   }
 }

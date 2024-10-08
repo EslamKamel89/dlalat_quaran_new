@@ -15,7 +15,10 @@ abstract class CompetitionsData {
 class CompetitionsController extends GetxController {
   static const String _domainLink = "https://ioqs.org/control-panel/api/v1/";
   static const String _getAllQuestions = "allquestions";
-  ResponseState responseState = ResponseState.initial;
+
+  ResponseState getAllQuestionsResponseState = ResponseState.initial;
+  ResponseState joinCompetitionResponseState = ResponseState.initial;
+
   final DioConsumer dioConsumer;
   CompetitionsController({required this.dioConsumer});
 
@@ -23,19 +26,19 @@ class CompetitionsController extends GetxController {
     const t = 'allQuestions - CompetitionsController ';
     pr('fetching data started', t);
     const path = _domainLink + _getAllQuestions;
-    responseState = ResponseState.loading;
+    getAllQuestionsResponseState = ResponseState.loading;
     try {
       final response = await dioConsumer.get(path);
       pr(response, t);
       CompetitionsData.competitionsList =
           jsonDecode(response).map<CompetitionModel>((json) => CompetitionModel.fromJson(json)).toList();
       CompetitionsData.filteredList = CompetitionsData.competitionsList;
-      responseState = ResponseState.success;
+      getAllQuestionsResponseState = ResponseState.success;
       update();
       return true;
     } on Exception catch (e) {
       pr('Exeption occured: $e', t);
-      responseState = ResponseState.failed;
+      getAllQuestionsResponseState = ResponseState.failed;
       showCustomSnackBar(title: "خطأ", body: "نأسف لحدوث خطا و برجاء المحاولة مرة أخري", isSuccess: false);
       update();
       return false;

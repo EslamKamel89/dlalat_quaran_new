@@ -54,7 +54,7 @@ class _CompetitionsScreenState extends State<CompetitionsScreen> {
                         itemCount: pr(CompetitionsData.filteredList.length, 'competion list data'),
                       ),
                     )
-                  : _competitionsController.responseState == ResponseState.loading
+                  : _competitionsController.getAllQuestionsResponseState == ResponseState.loading
                       ? SizedBox(
                           width: double.infinity,
                           height: context.height * 0.6,
@@ -62,7 +62,7 @@ class _CompetitionsScreenState extends State<CompetitionsScreen> {
                       : Expanded(
                           child: Center(
                             child: Text(
-                              'no_competitions_found'.tr,
+                              'لا يوجد أي مسابقات حاليا'.tr,
                               textAlign: TextAlign.center,
                             ),
                           ),

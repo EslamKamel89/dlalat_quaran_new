@@ -19,7 +19,7 @@ class IntroScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // pr('Hello world');
+    // pr('database deleted');
     // deleteDatabase('dlalat_qurann.db');
     var itemSize = (MediaQuery.of(context).size.width - 80) / 3;
     var scHeight = Get.height;

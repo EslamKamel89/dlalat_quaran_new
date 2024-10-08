@@ -157,7 +157,7 @@ class SettingScreen extends StatelessWidget {
                       child: PrimaryButton(
                           onPressed: () {
                             final SyncManager syncManager = Get.find();
-                            syncManager.insertedData(forceUpdate: true);
+                            syncManager.syncData(forceUpdate: true);
                             showCustomSnackBar(title: "برجاء النتظار", body: "يتم تحميل البيانات من قاعدة البيانات");
 
                             pr('data updated ');

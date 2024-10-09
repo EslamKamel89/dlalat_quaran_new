@@ -4,7 +4,6 @@ import 'dart:io';
 // import 'package:connectivity/connectivity.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
-import 'package:dio_logging_interceptor/dio_logging_interceptor.dart';
 import 'package:dlalat_quaran_new/db/database_helper.dart';
 import 'package:dlalat_quaran_new/dialogs/custom_snack_bar.dart';
 import 'package:dlalat_quaran_new/models/RelatedArticlesModel.dart';
@@ -64,6 +63,8 @@ class SyncManager extends GetxController {
   var dbInstance = DataBaseHelper.database;
 
   String? lastSync;
+  String? lastSyncInserted;
+  String? lastSyncUpdated;
   String loadingState = "";
   bool hasMorePages = false;
 
@@ -197,7 +198,7 @@ class SyncManager extends GetxController {
     final now = DateTime.now();
     String currentDate = DateFormat(_dateFormat).format(now); // 28/03/2020
     lastSync = await DataBaseHelper.dataBaseInstance().getLastSyncDate();
-    pr('cached last lastSync: $lastSync', t);
+    // pr('cached last lastSync: $lastSync', t);
 
     DateTime lastSyncDate = DateFormat(_dateFormat).parse(lastSync ?? '');
     DateTime timeNow = DateTime.now();
@@ -207,11 +208,11 @@ class SyncManager extends GetxController {
     //   lastSync = DateTime(2024, 10, 8).toString();
     // }
 
-    pr('forceUpdate: $forceUpdate', t);
+    // pr('forceUpdate: $forceUpdate', t);
     if (forceUpdate) {
       lastSync = DateFormat(_dateFormat).parse(lastSync ?? '').subtract(const Duration(days: 1)).toString();
     }
-    pr('lastSync: $lastSync', t);
+    // pr('lastSync: $lastSync', t);
     if (lastSync == currentDate && !forceUpdate) {
       return;
     }
@@ -223,36 +224,36 @@ class SyncManager extends GetxController {
       return;
     }
     //----------------------------------------------------------------------------------------------
-    pr("step 1", t);
-    pr('syncStarted $syncStarted', t);
+    // pr("step 1", t);
+    // pr('syncStarted $syncStarted', t);
     // if (!syncStarted) {
     if (true) {
       //----------------------------------------------------------------------------------------------
-      pr("step 2", t);
+      // pr("step 2", t);
       // syncStarted = true;
       setLoading(true);
       deviceId = await _getId();
-      pr('deviceId: $deviceId', t);
+      // pr('deviceId: $deviceId', t);
       try {
-        _dio.interceptors.add(
-          DioLoggingInterceptor(
-            level: Level.body,
-            compact: false,
-          ),
-        );
+        // _dio.interceptors.add(
+        //   DioLoggingInterceptor(
+        //     level: Level.body,
+        //     compact: false,
+        //   ),
+        // );
         //----------------------------------------------------------------------------------------------
-        pr("step 3", t);
-        pr('_domainLink: $_domainLink', t);
-        pr('_getInsert: $_getInsert', t);
-        pr('deviceId: $deviceId', t);
-        pr('lastSync: $lastSync', t);
+        // pr("step 3", t);
+        // pr('_domainLink: $_domainLink', t);
+        // pr('_getInsert: $_getInsert', t);
+        // pr('deviceId: $deviceId', t);
+        // pr('lastSync: $lastSync', t);
         var response = await _dio.get("$_domainLink$_getInsert/${page * limit}/$limit",
             queryParameters: {_deviceKey: deviceId, 'date': lastSync});
         //----------------------------------------------------------------------------------------------
-        pr("step 4", t);
+        // pr("step 4", t);
 
         bool hasUpdates = response.data['status'];
-        pr('hasUpdates: $hasUpdates', t);
+        // pr('hasUpdates: $hasUpdates', t);
         //----------------------------------------------------------------------------------------------
         if (hasUpdates) {
           pr("step 5", t);
@@ -288,7 +289,7 @@ class SyncManager extends GetxController {
           //     await DataBaseHelper.dataBaseInstance().insertWord(wordModel);
           //   }
           // }
-          pr("step 6", t);
+          // pr("step 6", t);
 
           // Articles
           if (articles.isNotEmpty) {
@@ -297,7 +298,7 @@ class SyncManager extends GetxController {
               await DataBaseHelper.dataBaseInstance().insertArticles(articleModel);
             }
           }
-          pr("step 7", t);
+          // pr("step 7", t);
           // Tags
           if (tags.isNotEmpty) {
             for (var x = 0; x < tags.length; x++) {
@@ -313,7 +314,7 @@ class SyncManager extends GetxController {
               await DataBaseHelper.dataBaseInstance().insertReciters(reciterModel);
             }
           }
-          pr("step 8", t);
+          // pr("step 8", t);
 
           // Languages
           if (languages.isNotEmpty) {
@@ -324,7 +325,7 @@ class SyncManager extends GetxController {
             //   print('updating Sura ${languageModel.id} $result}');
             // }
           }
-          pr("step 9", t);
+          // pr("step 9", t);
 
           //Videos Categories
           if (videoCats.isNotEmpty) {
@@ -336,7 +337,7 @@ class SyncManager extends GetxController {
               // print('updating Videos ${videoModel.id} $حresult}');
             }
           }
-          pr("step 10", t);
+          // pr("step 10", t);
 
           //Videos
           if (videos.isNotEmpty) {
@@ -346,7 +347,7 @@ class SyncManager extends GetxController {
               // print('updating Videos ${videoModel.id} $result}');
             }
           }
-          pr("step 11", t);
+          // pr("step 11", t);
 
           // TODO
           // RelatedArticles
@@ -356,7 +357,7 @@ class SyncManager extends GetxController {
               await DataBaseHelper.dataBaseInstance().insertRelatedArticles(relatedArticlesModel);
             }
           }
-          pr("step 12", t);
+          // pr("step 12", t);
           // tagWords
           if (tagWords.isNotEmpty) {
             for (var x = 0; x < tagWords.length; x++) {
@@ -364,7 +365,7 @@ class SyncManager extends GetxController {
               await DataBaseHelper.dataBaseInstance().insertTagWords(tagWordModel);
             }
           }
-          pr("step13", t);
+          // pr("step13", t);
           // relatedTags
           if (relatedTags.isNotEmpty) {
             for (var x = 0; x < relatedTags.length; x++) {
@@ -373,17 +374,17 @@ class SyncManager extends GetxController {
             }
           }
         }
-        pr("step 14", t);
+        // pr("step 14", t);
         // log length
-        pr('articles: ${articles.length}', t);
-        pr('tags: ${tags.length}', t);
-        pr('reciters: ${reciters.length}', t);
-        pr('languages: ${languages.length}', t);
-        pr('videos: ${videos.length}', t);
-        pr('videoCats: ${videoCats.length}', t);
-        pr('relatedArticles: ${relatedArticles.length}', t);
-        pr('tagWords: ${tagWords.length}', t);
-        pr('relatedTags: ${relatedTags.length}', t);
+        // pr('articles: ${articles.length}', t);
+        // pr('tags: ${tags.length}', t);
+        // pr('reciters: ${reciters.length}', t);
+        // pr('languages: ${languages.length}', t);
+        // pr('videos: ${videos.length}', t);
+        // pr('videoCats: ${videoCats.length}', t);
+        // pr('relatedArticles: ${relatedArticles.length}', t);
+        // pr('tagWords: ${tagWords.length}', t);
+        // pr('relatedTags: ${relatedTags.length}', t);
         if (tags.isNotEmpty) {
           pr('tagsId: ${tags.first["id"]}', t);
         }
@@ -392,7 +393,7 @@ class SyncManager extends GetxController {
         // syncStarted = false;
       } on Exception catch (e) {
         syncStarted = false;
-        pr('Exception occured: $e', t);
+        // pr('Exception occured: $e', t);
       }
       // _getDeleted();
     } else {
@@ -406,22 +407,24 @@ class SyncManager extends GetxController {
   // Updates
   Future<void> _getUpdated() async {
     const t = "_getUpdated - sync manager";
+    pr("updated data is called", t);
     try {
       if (!await AudioDownload().isInternetAvailable()) {
         return;
       }
-      log('$tag _getUpdated $deviceId');
+      // log('$tag _getUpdated $deviceId');
       // String deviceId = await _getId();
-      pr("step 1", t);
+      // pr("step 1", t);
+      pr('lastSync: $lastSync', t);
       var response = await _dio.get("$_domainLink$_getUpdates/${page * limit}/$limit",
           queryParameters: {_deviceKey: deviceId, 'date': lastSync});
       bool hasUpdates = response.data['status'];
-      pr("step 2", t);
+      // pr("step 2", t);
       if (!hasUpdates) {
         pr("You shouldn't see this message: hasUpdates = $hasUpdates", t);
         return;
       }
-      pr("step 3", t);
+      // pr("step 3", t);
 
       suras = response.data['sura'] ?? [];
       ayats = response.data['ayats'] ?? [];
@@ -435,7 +438,7 @@ class SyncManager extends GetxController {
       tagWords = response.data['tag_words'] ?? [];
       relatedTags = response.data['related_tags'] ?? [];
       videoCats = response.data['video_categories'] ?? [];
-      pr("step 4", t);
+      // pr("step 4", t);
 
       // Suras
       if (suras.isNotEmpty) {
@@ -444,7 +447,7 @@ class SyncManager extends GetxController {
           await DataBaseHelper.dataBaseInstance().updateSura(suraModel);
         }
       }
-      pr("step 5", t);
+      // pr("step 5", t);
 
       if (ayats.isNotEmpty) {
         for (var x = 0; x < ayats.length; x++) {
@@ -452,17 +455,17 @@ class SyncManager extends GetxController {
           await DataBaseHelper.dataBaseInstance().updateAya(ayaModel);
         }
       }
-      pr("step 6", t);
+      // pr("step 6", t);
 
       if (word.isNotEmpty) {
-        log('Words length ${word.length}');
+        // log('Words length ${word.length}');
         for (var x = 0; x < word.length; x++) {
           log('currenty ${word[x]}');
           DbWordModel wordModel = DbWordModel.fromJson(word[x]);
           await DataBaseHelper.dataBaseInstance().updateWord(wordModel);
         }
       }
-      pr("step 7", t);
+      // pr("step 7", t);
 
       // Articles
       if (articles.isNotEmpty) {
@@ -471,7 +474,7 @@ class SyncManager extends GetxController {
           await DataBaseHelper.dataBaseInstance().updateArticles(articleModel);
         }
       }
-      pr("step 8", t);
+      // pr("step 8", t);
       // Tags
       if (tags.isNotEmpty) {
         for (var x = 0; x < tags.length; x++) {
@@ -479,7 +482,7 @@ class SyncManager extends GetxController {
           await DataBaseHelper.dataBaseInstance().updateTags(tagModel);
         }
       }
-      pr("step 9", t);
+      // pr("step 9", t);
       // Reciters
       if (reciters.isNotEmpty) {
         for (var x = 0; x < reciters.length; x++) {
@@ -487,7 +490,7 @@ class SyncManager extends GetxController {
           await DataBaseHelper.dataBaseInstance().updateReciters(reciterModel);
         }
       }
-      pr("step 10", t);
+      // pr("step 10", t);
       // Languages
       if (languages.isNotEmpty) {
         // for (var x = 0; x < languages.length; x++) {
@@ -497,7 +500,7 @@ class SyncManager extends GetxController {
         //   print('updating Sura ${languageModel.id} $result}');
         // }
       }
-      pr("step 11", t);
+      // pr("step 11", t);
       //Videos Cats
       if (videos.isNotEmpty) {
         for (var x = 0; x < videos.length; x++) {
@@ -506,8 +509,8 @@ class SyncManager extends GetxController {
         }
       }
 
-      pr("step 12", t);
-      if (videoCats.isNotEmpty ?? false) {
+      // pr("step 12", t);
+      if (videoCats.isNotEmpty) {
         for (var x = 0; x < (videoCats.length ?? 0); x++) {
           VideoCategory videoCat = VideoCategory.fromJson(videoCats[x]);
           await DataBaseHelper.dataBaseInstance().updateVideoCats(videoCat);
@@ -516,7 +519,7 @@ class SyncManager extends GetxController {
         }
       }
 
-      pr("step 13", t);
+      // pr("step 13", t);
       //Videos
       if (videos.isNotEmpty) {
         for (var x = 0; x < videos.length; x++) {
@@ -524,45 +527,45 @@ class SyncManager extends GetxController {
           await DataBaseHelper.dataBaseInstance().updateVideos(videoModel);
         }
       }
-      pr("step 14", t);
+      // pr("step 14", t);
 
       // TODO
       // RelatedArticles
-      if (relatedArticles.isNotEmpty ?? false) {
+      if (relatedArticles.isNotEmpty) {
         for (var x = 0; x < (relatedArticles.length ?? 0); x++) {
           RelatedArticlesModel relatedArticlesModel = RelatedArticlesModel.fromJson(relatedArticles[x]);
           DataBaseHelper.dataBaseInstance().updateRelatedArticles(relatedArticlesModel);
         }
       }
-      pr("step 15", t);
+      // pr("step 15", t);
 
       // tagWords
-      if (tagWords.isNotEmpty ?? false) {
+      if (tagWords.isNotEmpty) {
         for (var x = 0; x < (tagWords.length ?? 0); x++) {
           TagWordModel tagWordModel = TagWordModel.fromJson(tagWords[x]);
           await DataBaseHelper.dataBaseInstance().updateTagWords(tagWordModel);
         }
       }
-      pr("step 16", t);
+      // pr("step 16", t);
       // relatedTags
-      if (relatedTags.isNotEmpty ?? false) {
+      if (relatedTags.isNotEmpty) {
         for (var x = 0; x < (relatedTags.length ?? 0); x++) {
           RelatedTagModel tagModel = RelatedTagModel.fromJson(relatedTags[x]);
           await DataBaseHelper.dataBaseInstance().updateRelatedTags(tagModel);
         }
       }
-      pr("step 17", t);
-      pr('articles: ${articles.length}', t);
-      pr('tags: ${tags.length}', t);
-      pr('reciters: ${reciters.length}', t);
-      pr('languages: ${languages.length}', t);
-      pr('videos: ${videos.length}', t);
-      pr('videoCats: ${videoCats.length}', t);
-      pr('relatedArticles: ${relatedArticles.length}', t);
-      pr('tagWords: ${tagWords.length}', t);
-      pr('relatedTags: ${relatedTags.length}', t);
+      // pr("step 17", t);
+      // pr('articles: ${articles.length}', t);
+      // pr('tags: ${tags.length}', t);
+      // pr('reciters: ${reciters.length}', t);
+      // pr('languages: ${languages.length}', t);
+      // pr('videos: ${videos.length}', t);
+      // pr('videoCats: ${videoCats.length}', t);
+      // pr('relatedArticles: ${relatedArticles.length}', t);
+      // pr('tagWords: ${tagWords.length}', t);
+      // pr('relatedTags: ${relatedTags.length}', t);
       if (tags.isNotEmpty) {
-        pr('tagsId: ${tags.first["id"]}', t);
+        // pr('tagsId: ${tags.first["id"]}', t);
       }
       // _getDeleted();
     } on Exception catch (e) {
@@ -572,9 +575,11 @@ class SyncManager extends GetxController {
 
   // Deleted
   Future<void> _getDeleted() async {
+    const t = '_getDeleted - syncManager';
+    pr('_getDeleted is called', t);
     try {
-      log('$tag _getDeleted  $deviceId');
-      print('$tag _getDeleted  $deviceId');
+      // log('$tag _getDeleted  $deviceId');
+      // print('$tag _getDeleted  $deviceId');
       if (!await AudioDownload().isInternetAvailable()) {
         return;
       }
@@ -703,23 +708,31 @@ class SyncManager extends GetxController {
   }
 
   Future<void> _endSync() async {
-    var response =
-        await _dio.post(_domainLink + _confirmSync, queryParameters: {_deviceKey: deviceId, 'date': lastSync});
-    bool hasUpdates = response.data['status'];
-    log('End Sync Status $hasUpdates');
-    print('End Sync Status $hasUpdates');
-    updateSyncDate();
+    const t = '_endSync - syncManager';
+    pr('_endSync is called', t);
+    // var response =
+    //     await _dio.post(_domainLink + _confirmSync, queryParameters: {_deviceKey: deviceId, 'date': lastSync});
+    // bool hasUpdates = response.data['status'];
+    // log('End Sync Status $hasUpdates');
+    // print('End Sync Status $hasUpdates');
+    await updateSyncDate();
     syncStarted = false;
+    pr('custom bar should show success');
     showCustomSnackBar(title: "تم بنجاح", body: "المزامنة مع قاعدة البيانات");
 
     setLoading(false);
   }
 
-  Future<void> updateSyncDate() async {
-    log('current Date  update Start ');
+  Future<void> updateSyncDate({bool isLoop = false}) async {
+    const t = 'updateSyncDate - syncManager';
+    pr('updateSyncDate is called', t);
+    // log('current Date  update Start ');
     final now = DateTime.now();
     String formatter = DateFormat(_dateFormat).format(now); // 28/03/2020
-    log('current Date  update date $formatter');
+    lastSync = formatter;
+    pr('lastSync: $lastSync', t);
+    update();
+    // log('current Date  update date $formatter');
     String query = " UPDATE saved_values SET value = '$formatter' WHERE key = 1";
     await dbInstance.rawUpdate(query);
   }

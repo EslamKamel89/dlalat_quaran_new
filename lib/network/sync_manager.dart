@@ -202,17 +202,14 @@ class SyncManager extends GetxController {
     DateTime lastSyncDate = DateFormat(_dateFormat).parse(lastSync ?? '');
     DateTime timeNow = DateTime.now();
 
-    if (lastSyncDate.millisecondsSinceEpoch <
-        DateTime(2024, 10, 7).millisecondsSinceEpoch) {
-      lastSync = DateTime(2024, 10, 8).toString();
-    }
+    // if (lastSyncDate.millisecondsSinceEpoch <
+    //     DateTime(2024, 10, 7).millisecondsSinceEpoch) {
+    //   lastSync = DateTime(2024, 10, 8).toString();
+    // }
 
     pr('forceUpdate: $forceUpdate', t);
     if (forceUpdate) {
-      lastSync = DateFormat(_dateFormat)
-          .parse(lastSync ?? '')
-          .subtract(const Duration(days: 1))
-          .toString();
+      lastSync = DateFormat(_dateFormat).parse(lastSync ?? '').subtract(const Duration(days: 1)).toString();
     }
     pr('lastSync: $lastSync', t);
     if (lastSync == currentDate && !forceUpdate) {
@@ -249,8 +246,7 @@ class SyncManager extends GetxController {
         pr('_getInsert: $_getInsert', t);
         pr('deviceId: $deviceId', t);
         pr('lastSync: $lastSync', t);
-        var response = await _dio.get(
-            "$_domainLink$_getInsert/${page * limit}/$limit",
+        var response = await _dio.get("$_domainLink$_getInsert/${page * limit}/$limit",
             queryParameters: {_deviceKey: deviceId, 'date': lastSync});
         //----------------------------------------------------------------------------------------------
         pr("step 4", t);
@@ -298,8 +294,7 @@ class SyncManager extends GetxController {
           if (articles.isNotEmpty) {
             for (var x = 0; x < articles.length; x++) {
               ArticleModel articleModel = ArticleModel.fromJson(articles[x]);
-              await DataBaseHelper.dataBaseInstance()
-                  .insertArticles(articleModel);
+              await DataBaseHelper.dataBaseInstance().insertArticles(articleModel);
             }
           }
           pr("step 7", t);
@@ -315,8 +310,7 @@ class SyncManager extends GetxController {
           if (reciters.isNotEmpty) {
             for (var x = 0; x < reciters.length; x++) {
               ReciterModel reciterModel = ReciterModel.fromJson(reciters[x]);
-              await DataBaseHelper.dataBaseInstance()
-                  .insertReciters(reciterModel);
+              await DataBaseHelper.dataBaseInstance().insertReciters(reciterModel);
             }
           }
           pr("step 8", t);
@@ -358,10 +352,8 @@ class SyncManager extends GetxController {
           // RelatedArticles
           if (relatedArticles.isNotEmpty) {
             for (var x = 0; x < relatedArticles.length; x++) {
-              RelatedArticlesModel relatedArticlesModel =
-                  RelatedArticlesModel.fromJson(relatedArticles[x]);
-              await DataBaseHelper.dataBaseInstance()
-                  .insertRelatedArticles(relatedArticlesModel);
+              RelatedArticlesModel relatedArticlesModel = RelatedArticlesModel.fromJson(relatedArticles[x]);
+              await DataBaseHelper.dataBaseInstance().insertRelatedArticles(relatedArticlesModel);
             }
           }
           pr("step 12", t);
@@ -369,18 +361,15 @@ class SyncManager extends GetxController {
           if (tagWords.isNotEmpty) {
             for (var x = 0; x < tagWords.length; x++) {
               TagWordModel tagWordModel = TagWordModel.fromJson(tagWords[x]);
-              await DataBaseHelper.dataBaseInstance()
-                  .insertTagWords(tagWordModel);
+              await DataBaseHelper.dataBaseInstance().insertTagWords(tagWordModel);
             }
           }
           pr("step13", t);
           // relatedTags
           if (relatedTags.isNotEmpty) {
             for (var x = 0; x < relatedTags.length; x++) {
-              RelatedTagModel tagModel =
-                  RelatedTagModel.fromJson(relatedTags[x]);
-              await DataBaseHelper.dataBaseInstance()
-                  .insertRelatedTags(tagModel);
+              RelatedTagModel tagModel = RelatedTagModel.fromJson(relatedTags[x]);
+              await DataBaseHelper.dataBaseInstance().insertRelatedTags(tagModel);
             }
           }
         }
@@ -424,8 +413,7 @@ class SyncManager extends GetxController {
       log('$tag _getUpdated $deviceId');
       // String deviceId = await _getId();
       pr("step 1", t);
-      var response = await _dio.get(
-          "$_domainLink$_getUpdates/${page * limit}/$limit",
+      var response = await _dio.get("$_domainLink$_getUpdates/${page * limit}/$limit",
           queryParameters: {_deviceKey: deviceId, 'date': lastSync});
       bool hasUpdates = response.data['status'];
       pr("step 2", t);
@@ -542,10 +530,8 @@ class SyncManager extends GetxController {
       // RelatedArticles
       if (relatedArticles.isNotEmpty ?? false) {
         for (var x = 0; x < (relatedArticles.length ?? 0); x++) {
-          RelatedArticlesModel relatedArticlesModel =
-              RelatedArticlesModel.fromJson(relatedArticles[x]);
-          DataBaseHelper.dataBaseInstance()
-              .updateRelatedArticles(relatedArticlesModel);
+          RelatedArticlesModel relatedArticlesModel = RelatedArticlesModel.fromJson(relatedArticles[x]);
+          DataBaseHelper.dataBaseInstance().updateRelatedArticles(relatedArticlesModel);
         }
       }
       pr("step 15", t);
@@ -592,8 +578,8 @@ class SyncManager extends GetxController {
       if (!await AudioDownload().isInternetAvailable()) {
         return;
       }
-      var response = await _dio.get(_domainLink + _getDeletes,
-          queryParameters: {_deviceKey: deviceId, 'date': lastSync});
+      var response =
+          await _dio.get(_domainLink + _getDeletes, queryParameters: {_deviceKey: deviceId, 'date': lastSync});
       bool hasUpdates = response.data['status'];
       if (!hasUpdates) {
         return;
@@ -691,8 +677,7 @@ class SyncManager extends GetxController {
       if (relatedArticles.isNotEmpty) {
         for (var x = 0; x < relatedArticles.length; x++) {
           int relatedArticlesModel = relatedArticles[x];
-          await DataBaseHelper.dataBaseInstance()
-              .deleteRelatedArticles(relatedArticlesModel);
+          await DataBaseHelper.dataBaseInstance().deleteRelatedArticles(relatedArticlesModel);
         }
       }
 
@@ -718,8 +703,8 @@ class SyncManager extends GetxController {
   }
 
   Future<void> _endSync() async {
-    var response = await _dio.post(_domainLink + _confirmSync,
-        queryParameters: {_deviceKey: deviceId, 'date': lastSync});
+    var response =
+        await _dio.post(_domainLink + _confirmSync, queryParameters: {_deviceKey: deviceId, 'date': lastSync});
     bool hasUpdates = response.data['status'];
     log('End Sync Status $hasUpdates');
     print('End Sync Status $hasUpdates');
@@ -735,8 +720,7 @@ class SyncManager extends GetxController {
     final now = DateTime.now();
     String formatter = DateFormat(_dateFormat).format(now); // 28/03/2020
     log('current Date  update date $formatter');
-    String query =
-        " UPDATE saved_values SET value = '$formatter' WHERE key = 1";
+    String query = " UPDATE saved_values SET value = '$formatter' WHERE key = 1";
     await dbInstance.rawUpdate(query);
   }
 

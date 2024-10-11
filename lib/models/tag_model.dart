@@ -121,6 +121,7 @@ class TagModel {
       default:
         desc = desc_ar ??= '';
     }
+    return desc;
     return DataBaseHelper().parseHtmlString(desc);
   }
 }

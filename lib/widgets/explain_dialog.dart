@@ -11,6 +11,7 @@ import 'package:dlalat_quaran_new/utils/servicle_locator.dart';
 import 'package:dlalat_quaran_new/widgets/custom_buttons.dart';
 import 'package:dlalat_quaran_new/widgets/font_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:html/parser.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -104,10 +105,21 @@ class _ExplainDialogState extends State<ExplainDialog> {
                     child: SingleChildScrollView(
                       child: Padding(
                         padding: const EdgeInsets.only(right: 12, left: 12),
-                        child: Obx(() => Text(
-                              _parseHtmlString(_dialogController.explain.value),
-                              textAlign: TextAlign.justify,
-                            )),
+                        child: Obx(
+                          () => Html(
+                            data: _dialogController.explain.value,
+                            style: {
+                              '#': Style(
+                                  // fontFamily: "Almarai",
+                                  //   color: primaryColor,
+                                  lineHeight: LineHeight.number(1.2)),
+                            },
+                          ),
+                          //   () => Text(
+                          //   _parseHtmlString(_dialogController.explain.value),
+                          //   textAlign: TextAlign.justify,
+                          // ),
+                        ),
                       ),
                     ),
                   ),

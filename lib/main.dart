@@ -1,10 +1,8 @@
 import 'dart:developer';
 
 import 'package:audioplayers/audioplayers.dart';
-import 'package:dlalat_quaran_new/controllers/comment_controller.dart';
 // import 'package:device_preview/device_preview.dart';
 import 'package:dlalat_quaran_new/db/database_helper.dart';
-import 'package:dlalat_quaran_new/network/sync_manager.dart';
 import 'package:dlalat_quaran_new/ui/about_app_screen.dart';
 import 'package:dlalat_quaran_new/ui/add_comment.dart';
 import 'package:dlalat_quaran_new/ui/add_research.dart';
@@ -26,6 +24,7 @@ import 'package:dlalat_quaran_new/ui/video_player_screen.dart';
 import 'package:dlalat_quaran_new/utils/audio_folders.dart';
 import 'package:dlalat_quaran_new/utils/constants.dart';
 import 'package:dlalat_quaran_new/utils/current_locales.dart';
+import 'package:dlalat_quaran_new/utils/initialize_get_controllers.dart';
 import 'package:dlalat_quaran_new/utils/servicle_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -60,8 +59,7 @@ class DlalatQuran extends StatefulWidget {
 class _DlalatQuranState extends State<DlalatQuran> {
   @override
   void initState() {
-    Get.put(SyncManager()..syncData(), permanent: true);
-    Get.put(CommentController(dioConsumer: serviceLocator()), permanent: true);
+    initializeGetController();
     super.initState();
   }
 

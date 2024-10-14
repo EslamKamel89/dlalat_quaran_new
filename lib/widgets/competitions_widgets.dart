@@ -4,75 +4,84 @@ import 'package:dlalat_quaran_new/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class CompetitionsWidget extends StatelessWidget {
+class CompetitionsWidget extends StatefulWidget {
   final CompetitionModel competitionModel;
 
   const CompetitionsWidget(this.competitionModel, {super.key});
 
+  @override
+  State<CompetitionsWidget> createState() => _CompetitionsWidgetState();
+}
+
+class _CompetitionsWidgetState extends State<CompetitionsWidget> {
   // String _parseHtmlString(String htmlString) {
-  //   final document = parse(htmlString);
-  //   final String parsedString =
-  //       parse(document.body!.text).documentElement!.text;
-
-  //   return parsedString;
-  // }
-
+  int? maxLines = 1;
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(left: 15, right: 15, top: 10),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.grey, backgroundColor: Colors.white, padding: EdgeInsets.zero, elevation: 2),
-        onPressed: () {
-          Get.toNamed(
-            JoinCompetitonView.id,
-            arguments: {'competitionModel': competitionModel},
-          );
-        },
-        child: Center(
-          child: Container(
-              padding: const EdgeInsets.only(left: 8, right: 8, top: 10, bottom: 10),
-              alignment: Alignment.centerRight,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    competitionModel.nameAr ?? '',
-                    textAlign: TextAlign.start,
-                    style: const TextStyle(color: primaryColor, fontSize: 18, fontFamily: 'Almarai'),
+      margin: const EdgeInsets.only(left: 15, right: 15, bottom: 10, top: 10),
+      child: Material(
+        borderRadius: BorderRadius.circular(20),
+        shadowColor: Colors.grey,
+        elevation: 10,
+        child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
+            decoration: BoxDecoration(
+              border: Border.all(),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            alignment: Alignment.centerRight,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  widget.competitionModel.nameAr ?? '',
+                  overflow: maxLines == null ? null : TextOverflow.ellipsis,
+                  textAlign: TextAlign.start,
+                  style: const TextStyle(
+                    color: primaryColor,
+                    fontSize: 18,
+                    fontFamily: 'Almarai',
                   ),
-                  // const SizedBox(
-                  //   height: 5,
-                  // ),
-                  // Container(
-                  //     padding: const EdgeInsets.only(bottom: 8),
-                  //     child: Text(
-                  //       _parseHtmlString(articleModel.description!),
-                  //       style: const TextStyle(
-                  //         fontSize: 15,
-                  //         fontFamily: "Almarai",
-                  //       ),
-                  //       maxLines: 1,
-                  //     ))
-                  // Html(
-                  //
-                  //   data: '${articleModel.description!}',
-                  //   style: {
-                  //
-                  //     '#': Style(
-                  //       maxLines: 1,
-                  //       fontFamily: "Almarai",
-                  //       padding: EdgeInsets.all(0),
-                  //       backgroundColor: Colors.red,
-                  //       textOverflow: TextOverflow.ellipsis,
-                  //     ),
-                  //   },
-                  // ),
-                ],
-              )),
-        ),
+                  maxLines: maxLines,
+                ),
+                const SizedBox(height: 5),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    maxLines != null
+                        ? const SizedBox()
+                        : TextButton(
+                            onPressed: () {
+                              Get.toNamed(
+                                JoinCompetitonView.id,
+                                arguments: {'competitionModel': widget.competitionModel},
+                              );
+                            },
+                            child: const Text('أجب علي هذا السؤال')),
+                    TextButton(
+                      onPressed: () {
+                        if (maxLines == 1) {
+                          maxLines = null;
+                          setState(() {});
+                          return;
+                        }
+                        if (maxLines == null) {
+                          maxLines = 1;
+                          setState(() {});
+                          return;
+                        }
+                      },
+                      child: Text(
+                        maxLines == null ? 'أخفاء' : 'قراءة المزيد',
+                        textAlign: TextAlign.end,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            )),
       ),
     );
   }

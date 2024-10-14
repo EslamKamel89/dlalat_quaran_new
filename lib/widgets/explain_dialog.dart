@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:dlalat_quaran_new/controllers/download_link_controller.dart';
 import 'package:dlalat_quaran_new/controllers/expain_dialog_controller.dart';
+import 'package:dlalat_quaran_new/controllers/explanation_controller.dart';
 import 'package:dlalat_quaran_new/ui/add_comment.dart';
 import 'package:dlalat_quaran_new/ui/video_player_screen.dart';
 import 'package:dlalat_quaran_new/utils/colors.dart';
@@ -33,12 +34,18 @@ class _ExplainDialogState extends State<ExplainDialog> {
   final GetDownloadLinkController _downloadLinkController = Get.put(
     GetDownloadLinkController(dioConsumer: serviceLocator()),
   );
+  final ExplanationController explanationController = Get.find<ExplanationController>();
   String? downloadLink;
+  String? explanation;
   @override
   void initState() {
     _downloadLinkController.getDownloadlink(downloadLinkType: DownloadLinkType.ayah, id: widget.ayaKey).then(
           (value) => downloadLink = value,
         );
+    explanationController.getExplanation(id: widget.ayaKey).then(
+          (value) => explanation = value,
+        );
+
     super.initState();
   }
 
@@ -104,23 +111,36 @@ class _ExplainDialogState extends State<ExplainDialog> {
                     thickness: 10,
                     child: SingleChildScrollView(
                       child: Padding(
-                        padding: const EdgeInsets.only(right: 12, left: 12),
-                        child: Obx(
-                          () => Html(
-                            data: _dialogController.explain.value,
-                            style: {
-                              '#': Style(
-                                  // fontFamily: "Almarai",
-                                  //   color: primaryColor,
-                                  lineHeight: LineHeight.number(1.2)),
+                          padding: const EdgeInsets.only(right: 12, left: 12),
+                          child: GetBuilder<ExplanationController>(
+                            builder: (_) {
+                              return Html(
+                                data: explanation ?? '',
+                                style: {
+                                  '#': Style(
+                                      // fontFamily: "Almarai",
+                                      //   color: primaryColor,
+                                      lineHeight: LineHeight.number(1.2)),
+                                },
+                              );
                             },
-                          ),
-                          //   () => Text(
-                          //   _parseHtmlString(_dialogController.explain.value),
-                          //   textAlign: TextAlign.justify,
+                          )
+                          // Obx(
+                          //   () => Html(
+                          //     data: _dialogController.explain.value,
+                          //     style: {
+                          //       '#': Style(
+                          //           // fontFamily: "Almarai",
+                          //           //   color: primaryColor,
+                          //           lineHeight: LineHeight.number(1.2)),
+                          //     },
+                          //   ),
+                          //   //   () => Text(
+                          //   //   _parseHtmlString(_dialogController.explain.value),
+                          //   //   textAlign: TextAlign.justify,
+                          //   // ),
                           // ),
-                        ),
-                      ),
+                          ),
                     ),
                   ),
                 ),

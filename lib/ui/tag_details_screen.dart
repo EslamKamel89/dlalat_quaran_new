@@ -79,9 +79,11 @@ class TagDetailsScreen extends StatelessWidget {
                               data: _detailsController.selectedTagModel.value.description(),
                               style: {
                                 '#': Style(
-                                    // fontFamily: "Almarai",
-                                    //   color: primaryColor,
-                                    lineHeight: LineHeight.number(1.2)),
+                                  // fontFamily: "Almarai",
+                                  // color: primaryColor,
+                                  fontSize: FontSize(12),
+                                  lineHeight: LineHeight.number(1.2),
+                                ),
                               },
                             )
                         // SizedBox(
@@ -184,7 +186,17 @@ class EvidenceDetailsBody extends StatelessWidget {
           Expanded(
               child: ListView(
             children: [
-              Html(data: model.desc_ar),
+              Html(
+                data: model.desc_ar,
+                style: {
+                  '#': Style(
+                    // fontFamily: "Almarai",
+                    // color: primaryColor,
+                    fontSize: FontSize(12),
+                    lineHeight: LineHeight.number(1.2),
+                  ),
+                },
+              ),
             ],
           )),
           const SizedBox(

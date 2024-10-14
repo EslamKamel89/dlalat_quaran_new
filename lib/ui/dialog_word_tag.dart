@@ -4,6 +4,7 @@ import 'package:dlalat_quaran_new/controllers/dialog_word_tag_controller.dart';
 import 'package:dlalat_quaran_new/controllers/download_link_controller.dart';
 import 'package:dlalat_quaran_new/ui/add_comment.dart';
 import 'package:dlalat_quaran_new/utils/colors.dart';
+import 'package:dlalat_quaran_new/utils/print_helper.dart';
 import 'package:dlalat_quaran_new/utils/servicle_locator.dart';
 import 'package:dlalat_quaran_new/widgets/custom_buttons.dart';
 import 'package:flutter/material.dart';
@@ -63,12 +64,24 @@ class _DialogWordTagState extends State<DialogWordTag> {
                     },
                   ),
                   Expanded(
-                      child: Obx(() => Text(
-                            _dialogController.wordName.value,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                                fontFamily: 'Almarai', color: primaryColor, fontSize: 15, fontWeight: FontWeight.bold),
-                          ))),
+                    child: Obx(() => Html(
+                              data: _dialogController.wordName.value,
+                              style: {
+                                '#': Style(
+                                    // fontFamily: "Almarai",
+                                    // color: primaryColor,
+                                    fontSize: FontSize(12),
+                                    lineHeight: LineHeight.number(1.2)),
+                              },
+                            )
+                        // () => Text(
+                        //   _dialogController.wordName.value,
+                        //   textAlign: TextAlign.center,
+                        //   style: const TextStyle(
+                        //       fontFamily: 'Almarai', color: primaryColor, fontSize: 15, fontWeight: FontWeight.bold),
+                        // ),
+                        ),
+                  ),
                   const Icon(null),
                 ],
               ),
@@ -100,11 +113,12 @@ class _DialogWordTagState extends State<DialogWordTag> {
                           child: Padding(
                             padding: const EdgeInsets.only(right: 12, left: 12),
                             child: Obx(() => Html(
-                                  data: _dialogController.description.value,
+                                  data: pr(_dialogController.description.value, 'tag description'),
                                   style: {
                                     '#': Style(
                                         // fontFamily: "Almarai",
-                                        color: Colors.blueGrey,
+                                        // color: primaryColor,
+                                        fontSize: FontSize(12),
                                         lineHeight: LineHeight.number(1.2)),
                                   },
                                 )),

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dlalat_quaran_new/db/database_helper.dart';
 import 'package:get/get.dart';
 
@@ -16,8 +14,10 @@ class TagsScreenController extends GetxController {
 
     TagsScreenData.tagsList = list;
     TagsScreenData.filteredList = list;
+    // for (var i = 0; i < TagsScreenData.tagsList.length; i++) {
+    //   pr(TagsScreenData.tagsList[i], 'getTags');
+    // }
 
-    log('tagsLength ${list.length}');
     isLoading.value = false;
     update();
   }

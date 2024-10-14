@@ -262,6 +262,7 @@ class SyncManager extends GetxController {
           // List word = response.data['word'];
           articles = response.data['articles'] ?? [];
           tags = response.data['tags'] ?? [];
+          // pr(tags, t);
           reciters = response.data['reciters'] ?? [];
           languages = response.data['languages'] ?? [];
           videos = response.data['videos'] ?? [];

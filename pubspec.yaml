@@ -30,6 +30,7 @@ environment:
 dependencies:
   audioplayers: ^1.0.1
   collection: null
+  connectivity_plus: ^6.0.5
   country_code_picker: ^3.0.0
   cupertino_icons: null
   device_info_plus: null
@@ -47,6 +48,7 @@ dependencies:
   get: null
   get_it: ^8.0.0
   get_storage: null
+  google_fonts: ^4.0.4
   html_unescape: null
   intl: null
   page_view_indicators: null
@@ -110,6 +112,11 @@ flutter:
     - family: Almarai
       fonts:
         - asset: assets/fonts/Almarai_Regular.ttf
+          style: normal
+
+    - family: Amiri
+      fonts:
+        - asset: assets/fonts/amiri/Amiri-Regular.ttf
           style: normal
 
     - family: p332

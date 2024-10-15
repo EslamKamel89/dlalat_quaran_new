@@ -3,6 +3,7 @@ import 'package:dlalat_quaran_new/models/tag_model.dart';
 import 'package:dlalat_quaran_new/models/video_model.dart';
 import 'package:dlalat_quaran_new/ui/dialog_tag_videos.dart';
 import 'package:dlalat_quaran_new/utils/colors.dart';
+import 'package:dlalat_quaran_new/utils/constants.dart';
 import 'package:dlalat_quaran_new/utils/print_helper.dart';
 import 'package:dlalat_quaran_new/widgets/quran_toolbar.dart';
 import 'package:flutter/material.dart';
@@ -77,14 +78,7 @@ class TagDetailsScreen extends StatelessWidget {
                   child: SingleChildScrollView(
                     child: Obx(() => Html(
                               data: _detailsController.selectedTagModel.value.description(),
-                              style: {
-                                '#': Style(
-                                  // fontFamily: "Almarai",
-                                  // color: primaryColor,
-                                  fontSize: FontSize(12),
-                                  lineHeight: LineHeight.number(1.2),
-                                ),
-                              },
+                              style: mainHtmlStyle,
                             )
                         // SizedBox(
                         //       width: double.infinity,
@@ -188,14 +182,7 @@ class EvidenceDetailsBody extends StatelessWidget {
             children: [
               Html(
                 data: model.desc_ar,
-                style: {
-                  '#': Style(
-                    // fontFamily: "Almarai",
-                    // color: primaryColor,
-                    fontSize: FontSize(12),
-                    lineHeight: LineHeight.number(1.2),
-                  ),
-                },
+                style: mainHtmlStyle,
               ),
             ],
           )),

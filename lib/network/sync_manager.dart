@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
 
-// import 'package:connectivity/connectivity.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:dlalat_quaran_new/db/database_helper.dart';
@@ -19,6 +18,7 @@ import 'package:dlalat_quaran_new/models/video_category.dart';
 import 'package:dlalat_quaran_new/models/video_model.dart';
 import 'package:dlalat_quaran_new/utils/audio_download.dart';
 import 'package:dlalat_quaran_new/utils/audio_folders.dart';
+import 'package:dlalat_quaran_new/utils/is_internet_available.dart';
 import 'package:dlalat_quaran_new/utils/print_helper.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -256,7 +256,7 @@ class SyncManager extends GetxController {
         // pr('hasUpdates: $hasUpdates', t);
         //----------------------------------------------------------------------------------------------
         if (hasUpdates) {
-          pr("step 5", t);
+          // pr("step 5", t);
           // List suras = response.data['sura'];
           // List ayats = response.data['ayats'];
           // List word = response.data['word'];
@@ -736,16 +736,5 @@ class SyncManager extends GetxController {
     // log('current Date  update date $formatter');
     String query = " UPDATE saved_values SET value = '$formatter' WHERE key = 1";
     await dbInstance.rawUpdate(query);
-  }
-
-  Future<bool> isInternetAvailable() async {
-    // var connectivityResult = await (Connectivity().checkConnectivity());
-    // if (connectivityResult == ConnectivityResult.mobile) {
-    //   return true;
-    // } else if (connectivityResult == ConnectivityResult.wifi) {
-    //   return true;
-    // }
-    // return false;
-    return true;
   }
 }

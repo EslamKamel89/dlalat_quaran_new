@@ -52,6 +52,7 @@ class _ExplainDialogState extends State<ExplainDialog> {
   @override
   Widget build(BuildContext context) {
     // pr('Ayah id: $ayaKey', 'Explain Dialog widget');
+
     log('Video Id => ${_dialogController.videoUrl.value} }');
     _dialogController.getAyaExplain(widget.ayaKey);
     return WillPopScope(
@@ -110,37 +111,33 @@ class _ExplainDialogState extends State<ExplainDialog> {
                     thumbVisibility: true,
                     thickness: 10,
                     child: SingleChildScrollView(
-                      child: Padding(
-                          padding: const EdgeInsets.only(right: 12, left: 12),
-                          child: GetBuilder<ExplanationController>(
-                            builder: (_) {
-                              return Html(
-                                data: explanation ?? '',
-                                style: {
-                                  '#': Style(
-                                      // fontFamily: "Almarai",
-                                      //   color: primaryColor,
-                                      lineHeight: LineHeight.number(1.2)),
-                                },
-                              );
-                            },
-                          )
-                          // Obx(
-                          //   () => Html(
-                          //     data: _dialogController.explain.value,
-                          //     style: {
-                          //       '#': Style(
-                          //           // fontFamily: "Almarai",
-                          //           //   color: primaryColor,
-                          //           lineHeight: LineHeight.number(1.2)),
-                          //     },
+                      child: GetBuilder<ExplanationController>(
+                        builder: (_) {
+                          // return Container(
+                          //   margin: const EdgeInsets.only(top: 10),
+                          //   child: Text(
+                          //     staticData,
+                          //     // style: GoogleFonts.cairo().copyWith(fontSize: 16),
+                          //     // style: GoogleFonts.amiri().copyWith(fontSize: 16),
+                          //     // style: GoogleFonts.scheherazadeNew().copyWith(fontSize: 16),
+                          //     // style: GoogleFonts.changa().copyWith(fontSize: 16),
+                          //     // style: GoogleFonts.notoNaskhArabic().copyWith(fontSize: 16),
+                          //     // style: GoogleFonts.elMessiri().copyWith(fontSize: 16),
+                          //     // style: GoogleFonts.mada().copyWith(fontSize: 16),
+                          //     // style: GoogleFonts.reemKufi().copyWith(fontSize: 16),
+                          //     style: GoogleFonts.lateef().copyWith(fontSize: 16),
                           //   ),
-                          //   //   () => Text(
-                          //   //   _parseHtmlString(_dialogController.explain.value),
-                          //   //   textAlign: TextAlign.justify,
-                          //   // ),
-                          // ),
-                          ),
+                          // );
+                          return SizedBox(
+                            // color: Colors.red,
+                            width: double.infinity,
+                            child: Html(
+                              data: explanation ?? '',
+                              style: mainHtmlStyle,
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),

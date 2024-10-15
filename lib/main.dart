@@ -35,7 +35,7 @@ import 'ui/video_library_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  initServiceLocator();
+  await initServiceLocator();
   await GetStorage.init();
   DataBaseHelper.dataBaseInstance();
   GetStorage().read(KpageBg);

@@ -26,7 +26,8 @@ class TagDetailsScreen extends StatelessWidget {
     _detailsController.tagId = model.id!;
     _detailsController.getRelatedTags();
     _detailsController.getTagVideos();
-    pr(_detailsController.selectedTagModel.value.description());
+    pr(_detailsController.selectedTagModel.value.description(), 'tag details screen');
+    pr(_detailsController.selectedTagModel.value.id, 'tag details screen');
 
     return Obx(() => Scaffold(
           appBar: QuranBar(_detailsController.selectedTagModel.value.name()),
@@ -76,9 +77,12 @@ class TagDetailsScreen extends StatelessWidget {
                   thumbVisibility: true,
                   thickness: 10,
                   child: SingleChildScrollView(
-                    child: Obx(() => Html(
-                              data: _detailsController.selectedTagModel.value.description(),
-                              style: mainHtmlStyle,
+                    child: Obx(() => Container(
+                              margin: const EdgeInsetsDirectional.only(start: 20, end: 10),
+                              child: Html(
+                                data: _detailsController.selectedTagModel.value.description(),
+                                style: mainHtmlStyle,
+                              ),
                             )
                         // SizedBox(
                         //       width: double.infinity,
@@ -180,9 +184,12 @@ class EvidenceDetailsBody extends StatelessWidget {
           Expanded(
               child: ListView(
             children: [
-              Html(
-                data: model.desc_ar,
-                style: mainHtmlStyle,
+              Container(
+                margin: const EdgeInsetsDirectional.only(start: 20, end: 10),
+                child: Html(
+                  data: model.desc_ar,
+                  style: mainHtmlStyle,
+                ),
               ),
             ],
           )),

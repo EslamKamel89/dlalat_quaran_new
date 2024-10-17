@@ -4,7 +4,6 @@ import 'package:dlalat_quaran_new/controllers/dialog_word_tag_controller.dart';
 import 'package:dlalat_quaran_new/controllers/download_link_controller.dart';
 import 'package:dlalat_quaran_new/ui/add_comment.dart';
 import 'package:dlalat_quaran_new/utils/constants.dart';
-import 'package:dlalat_quaran_new/utils/servicle_locator.dart';
 import 'package:dlalat_quaran_new/widgets/custom_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -26,9 +25,7 @@ class DialogWordTag extends StatefulWidget {
 class _DialogWordTagState extends State<DialogWordTag> {
   final DialogWordTagController _dialogController = Get.put(DialogWordTagController());
 
-  final GetDownloadLinkController _downloadLinkController = Get.put(
-    GetDownloadLinkController(dioConsumer: serviceLocator()),
-  );
+  final GetDownloadLinkController _downloadLinkController = Get.find<GetDownloadLinkController>();
   String? downloadLink;
   @override
   void initState() {
@@ -99,9 +96,12 @@ class _DialogWordTagState extends State<DialogWordTag> {
                         child: SingleChildScrollView(
                           child: Padding(
                             padding: const EdgeInsets.only(right: 12, left: 12),
-                            child: Obx(() => Html(
-                                  data: _dialogController.description.value,
-                                  style: mainHtmlStyle,
+                            child: Obx(() => Container(
+                                  margin: const EdgeInsetsDirectional.only(start: 20, end: 10),
+                                  child: Html(
+                                    data: _dialogController.description.value,
+                                    style: mainHtmlStyle,
+                                  ),
                                 )),
                           ),
                         ),

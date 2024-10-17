@@ -21,6 +21,7 @@ import 'package:dlalat_quaran_new/ui/tag_details_screen.dart';
 import 'package:dlalat_quaran_new/ui/tags_screen.dart';
 import 'package:dlalat_quaran_new/ui/video_categories_screen.dart';
 import 'package:dlalat_quaran_new/ui/video_player_screen.dart';
+import 'package:dlalat_quaran_new/ui/videos_screen.dart';
 import 'package:dlalat_quaran_new/utils/audio_folders.dart';
 import 'package:dlalat_quaran_new/utils/constants.dart';
 import 'package:dlalat_quaran_new/utils/current_locales.dart';
@@ -164,6 +165,10 @@ class _DlalatQuranState extends State<DlalatQuran> {
         GetPage(
           name: JoinCompetitonView.id,
           page: () => JoinCompetitonView(),
+        ),
+        GetPage(
+          name: VideosScreen.id,
+          page: () => VideosScreen(),
         ),
       ],
     );

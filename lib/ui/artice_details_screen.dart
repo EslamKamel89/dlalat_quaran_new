@@ -1,29 +1,49 @@
+import 'package:dlalat_quaran_new/controllers/download_link_controller.dart';
 import 'package:dlalat_quaran_new/db/database_helper.dart';
 import 'package:dlalat_quaran_new/models/article_model.dart';
 import 'package:dlalat_quaran_new/ui/add_comment.dart';
 import 'package:dlalat_quaran_new/utils/colors.dart';
 import 'package:dlalat_quaran_new/utils/constants.dart';
+import 'package:dlalat_quaran_new/utils/print_helper.dart';
 import 'package:dlalat_quaran_new/widgets/custom_buttons.dart';
 import 'package:dlalat_quaran_new/widgets/quran_toolbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:html/parser.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 //ignore: must_be_immutable
-class ArticleDetailsScreen extends StatelessWidget {
+class ArticleDetailsScreen extends StatefulWidget {
   static String id = '/ArticleDetailsScreen';
-  late ArticleModel model;
-  final ArticlesDetailsController _detailsController = Get.put(ArticlesDetailsController());
 
-  ArticleDetailsScreen({super.key});
+  const ArticleDetailsScreen({super.key});
+
+  @override
+  State<ArticleDetailsScreen> createState() => _ArticleDetailsScreenState();
+}
+
+class _ArticleDetailsScreenState extends State<ArticleDetailsScreen> {
+  late ArticleModel model;
+
+  final ArticlesDetailsController _detailsController = Get.put(ArticlesDetailsController());
+  final GetDownloadLinkController _downloadLinkController = Get.find<GetDownloadLinkController>();
+  String? downloadLink;
+  @override
+  void initState() {
+    model = ArticleModel.fromJson(Get.arguments);
+    _detailsController.articleId = model.id!;
+    pr(model.id, 'articleDetailsScreen - article id');
+    _detailsController.updateArticleModel(model);
+    _detailsController.getRelatedArticles();
+    _downloadLinkController.getDownloadlink(downloadLinkType: DownloadLinkType.article, id: model.id.toString()).then(
+          (value) => downloadLink = value,
+        );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    model = ArticleModel.fromJson(Get.arguments);
-    _detailsController.articleId = model.id!;
-    _detailsController.updateArticleModel(model);
-    _detailsController.getRelatedArticles();
     return Obx(
       () => Scaffold(
         appBar: QuranBar(_detailsController.selectedArticleModel.value.name!),
@@ -38,8 +58,22 @@ class ArticleDetailsScreen extends StatelessWidget {
                       _detailsController.selectedArticleModel.value.name!,
                       textAlign: TextAlign.start,
                       style: const TextStyle(
-                          fontWeight: FontWeight.bold, color: primaryColor, fontSize: 18, fontFamily: 'Almarai'),
+                        fontWeight: FontWeight.bold,
+                        color: primaryColor,
+                        fontSize: 18,
+                        fontFamily: 'Almarai',
+                      ),
                     )),
+              ),
+              const SizedBox(height: 5),
+              const Text(
+                'المؤلف :أسامة المهدي',
+                style: TextStyle(
+                  // fontWeight: FontWeight.bold,
+                  // color: primaryColor,
+                  fontSize: 14,
+                  fontFamily: 'Almarai',
+                ),
               ),
               Expanded(
                   child: Container(
@@ -57,9 +91,12 @@ class ArticleDetailsScreen extends StatelessWidget {
                   thickness: 3,
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.all(8),
-                    child: Obx(() => Html(
-                              data: _detailsController.selectedArticleModel.value.description!,
-                              style: mainHtmlStyle,
+                    child: Obx(() => Container(
+                              margin: const EdgeInsetsDirectional.only(start: 20, end: 10),
+                              child: Html(
+                                data: _detailsController.selectedArticleModel.value.description!,
+                                style: mainHtmlStyle,
+                              ),
                             )
 
                         // Text(parseHtmlString(_detailsController.selectedArticleModel.value.description!),textAlign: TextAlign.justify,)
@@ -88,18 +125,28 @@ class ArticleDetailsScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 5),
-                  PrimaryButton(
-                    onPressed: () {},
-                    borderRadius: 5,
-                    child: Text(
-                      'تحميل'.tr,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontFamily: 'Almarai',
-                      ),
-                    ),
+                  GetBuilder<GetDownloadLinkController>(
+                    builder: (_) {
+                      if (downloadLink != null) {
+                        return PrimaryButton(
+                          onPressed: () {
+                            launchUrl(Uri.parse(downloadLink!));
+                          },
+                          borderRadius: 5,
+                          child: Text(
+                            'تحميل'.tr,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontFamily: 'Almarai',
+                            ),
+                          ),
+                        );
+                      } else {
+                        return const SizedBox();
+                      }
+                    },
                   ),
                 ],
               ),

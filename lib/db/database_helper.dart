@@ -19,6 +19,7 @@ import 'package:dlalat_quaran_new/models/video_category.dart';
 import 'package:dlalat_quaran_new/models/video_model.dart';
 import 'package:dlalat_quaran_new/models/word_model.dart';
 import 'package:dlalat_quaran_new/utils/constants.dart';
+import 'package:dlalat_quaran_new/utils/print_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
@@ -427,6 +428,21 @@ class DataBaseHelper {
       videosList.add(videoModel);
     }
     //log("Articles Length ${videosList.length}}");
+    return videosList;
+  }
+
+  Future<List<VideoModel>> getAllVideosRaw() async {
+    List<VideoModel> videosList = [];
+    List<Map<String, dynamic>> rawQuery = await _database!.rawQuery("SELECT * FROM $_videosTable "
+        // "WHERE type = 'public'",
+        );
+
+    for (var x = 0; x < rawQuery.length; x++) {
+      var videoModel = VideoModel.fromJson(rawQuery[x]);
+      videosList.add(videoModel);
+    }
+    //log("Articles Length ${videosList.length}}");
+    pr(videosList, 'getAllVideosRaw');
     return videosList;
   }
 

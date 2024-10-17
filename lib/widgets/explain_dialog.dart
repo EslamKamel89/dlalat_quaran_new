@@ -8,7 +8,6 @@ import 'package:dlalat_quaran_new/ui/add_comment.dart';
 import 'package:dlalat_quaran_new/ui/video_player_screen.dart';
 import 'package:dlalat_quaran_new/utils/colors.dart';
 import 'package:dlalat_quaran_new/utils/constants.dart';
-import 'package:dlalat_quaran_new/utils/servicle_locator.dart';
 import 'package:dlalat_quaran_new/widgets/custom_buttons.dart';
 import 'package:dlalat_quaran_new/widgets/font_text.dart';
 import 'package:flutter/material.dart';
@@ -31,9 +30,7 @@ class ExplainDialog extends StatefulWidget {
 class _ExplainDialogState extends State<ExplainDialog> {
   final ExplainDialogController _dialogController = Get.put(ExplainDialogController());
 
-  final GetDownloadLinkController _downloadLinkController = Get.put(
-    GetDownloadLinkController(dioConsumer: serviceLocator()),
-  );
+  final GetDownloadLinkController _downloadLinkController = Get.find<GetDownloadLinkController>();
   final ExplanationController explanationController = Get.find<ExplanationController>();
   String? downloadLink;
   String? explanation;
@@ -128,7 +125,8 @@ class _ExplainDialogState extends State<ExplainDialog> {
                           //     style: GoogleFonts.lateef().copyWith(fontSize: 16),
                           //   ),
                           // );
-                          return SizedBox(
+                          return Container(
+                            margin: const EdgeInsetsDirectional.only(start: 20, end: 10),
                             // color: Colors.red,
                             width: double.infinity,
                             child: Html(

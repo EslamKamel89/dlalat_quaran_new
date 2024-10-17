@@ -10,6 +10,7 @@ abstract class VideoControllerData {
 class VideoController extends GetxController {
   final DataBaseHelper databaseHelper = DataBaseHelper.dataBaseInstance();
   Future<void> getAllVideos() async {
+    VideoControllerData.allVideos = [];
     VideoControllerData.allVideos = await databaseHelper.getAllVideosRaw();
     VideoControllerData.filteredVideosList = VideoControllerData.allVideos;
     update();

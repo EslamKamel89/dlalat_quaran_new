@@ -5,7 +5,7 @@ import 'package:dlalat_quaran_new/ui/competition_screen.dart';
 import 'package:dlalat_quaran_new/ui/home_sura_screen.dart';
 import 'package:dlalat_quaran_new/ui/setting_screen.dart';
 import 'package:dlalat_quaran_new/ui/tags_screen.dart';
-import 'package:dlalat_quaran_new/ui/video_categories_screen.dart';
+import 'package:dlalat_quaran_new/ui/videos_screen.dart';
 import 'package:dlalat_quaran_new/utils/colors.dart';
 import 'package:dlalat_quaran_new/utils/constants.dart';
 import 'package:dlalat_quaran_new/widgets/splash_background.dart';
@@ -135,7 +135,8 @@ class IntroScreen extends StatelessWidget {
                       width: itemSize - 20,
                       height: itemSize - 20,
                       child: GestureDetector(
-                        onTap: () => Get.to(VideoCategoriesScreen(), transition: Transition.fade),
+                        // onTap: () => Get.to(VideoCategoriesScreen(), transition: Transition.fade),
+                        onTap: () => Get.to(VideosScreen(), transition: Transition.fade),
                       ),
                     ),
                   ),

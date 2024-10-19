@@ -1,6 +1,5 @@
-import 'package:dlalat_quaran_new/db/database_helper.dart';
+import 'package:dlalat_quaran_new/controllers/tag_details_controller.dart';
 import 'package:dlalat_quaran_new/models/tag_model.dart';
-import 'package:dlalat_quaran_new/models/video_model.dart';
 import 'package:dlalat_quaran_new/ui/dialog_tag_videos.dart';
 import 'package:dlalat_quaran_new/utils/colors.dart';
 import 'package:dlalat_quaran_new/utils/constants.dart';
@@ -13,11 +12,23 @@ import 'package:get/get.dart';
 late TagModel model;
 
 //ignore: must_be_immutable
-class TagDetailsScreen extends StatelessWidget {
+class TagDetailsScreen extends StatefulWidget {
   static String id = '/TagDetailsScreen';
-  final TagDetailsController _detailsController = Get.put(TagDetailsController());
 
-  TagDetailsScreen({super.key});
+  const TagDetailsScreen({super.key});
+
+  @override
+  State<TagDetailsScreen> createState() => _TagDetailsScreenState();
+}
+
+class _TagDetailsScreenState extends State<TagDetailsScreen> {
+  final TagDetailsController _detailsController = Get.put(TagDetailsController());
+  @override
+  void dispose() {
+    TagDetailsData.tagVideos = [];
+    TagDetailsData.relatedTags = [];
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +57,7 @@ class TagDetailsScreen extends StatelessWidget {
                           style: const TextStyle(
                               fontWeight: FontWeight.bold, color: primaryColor, fontSize: 18, fontFamily: 'Almarai'),
                         )),
-                    Obx(() => _detailsController.tagVideos.isNotEmpty
+                    Obx(() => TagDetailsData.tagVideos.isNotEmpty
                         ? GestureDetector(
                             child: const Icon(
                               Icons.videocam_rounded,
@@ -98,7 +109,7 @@ class TagDetailsScreen extends StatelessWidget {
               )),
               Obx(() => Visibility(
                     // To Be Continue
-                    visible: _detailsController.relatedTags.isNotEmpty,
+                    visible: TagDetailsData.relatedTags.isNotEmpty,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -115,11 +126,11 @@ class TagDetailsScreen extends StatelessWidget {
                           padding: const EdgeInsets.only(left: 3, right: 3),
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: _detailsController.relatedTags.length,
+                            itemCount: TagDetailsData.relatedTags.length,
                             itemBuilder: (context, index) {
                               return ElevatedButton(
                                 onPressed: () {
-                                  _detailsController.updateTagModel(_detailsController.relatedTags[index]);
+                                  _detailsController.updateTagModel(TagDetailsData.relatedTags[index]);
                                 },
                                 style: ElevatedButton.styleFrom(
                                     foregroundColor: Colors.blueGrey,
@@ -127,7 +138,7 @@ class TagDetailsScreen extends StatelessWidget {
                                     padding: EdgeInsets.zero,
                                     elevation: 2),
                                 child: Text(
-                                  _detailsController.relatedTags[index].name(),
+                                  TagDetailsData.relatedTags[index].name(),
                                   style: const TextStyle(fontFamily: 'Almarai'),
                                 ),
                               );
@@ -140,31 +151,6 @@ class TagDetailsScreen extends StatelessWidget {
             ],
           ),
         ));
-  }
-}
-
-class TagDetailsController extends GetxController {
-  int tagId = 0;
-  var relatedTags = [].obs;
-  var selectedTagModel = TagModel().obs;
-  var tagVideos = <VideoModel>[].obs;
-
-  void getRelatedTags() async {
-    relatedTags.value = await DataBaseHelper.dataBaseInstance().relatedTags(tagId);
-    update();
-  }
-
-  getTagVideos() async {
-    tagVideos.value = await DataBaseHelper.dataBaseInstance().tagsVideos(tagId);
-    update();
-  }
-
-  void updateTagModel(TagModel model) {
-    selectedTagModel.value = model;
-    tagId = model.id!;
-
-    update();
-    getRelatedTags();
   }
 }
 

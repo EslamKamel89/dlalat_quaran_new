@@ -394,7 +394,7 @@ class SyncManager extends GetxController {
         // syncStarted = false;
       } on Exception catch (e) {
         syncStarted = false;
-        // pr('Exception occured: $e', t);
+        pr('Exception occured: $e', t);
       }
       // _getDeleted();
     } else {
@@ -570,6 +570,7 @@ class SyncManager extends GetxController {
       }
       // _getDeleted();
     } on Exception catch (e) {
+      pr('Exception occured: $e', t);
       syncStarted = false;
     }
   }

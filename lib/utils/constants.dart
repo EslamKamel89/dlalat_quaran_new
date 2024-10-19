@@ -62,3 +62,4 @@ final mainHtmlStyle = {
       //   color: primaryColor,
       lineHeight: LineHeight.number(1.2)),
 };
+const baseUrl = "https://ioqs.org/control-panel/api/v1/";

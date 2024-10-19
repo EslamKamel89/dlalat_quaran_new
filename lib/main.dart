@@ -106,7 +106,7 @@ class _DlalatQuranState extends State<DlalatQuran> {
         ),
         GetPage(
           name: ArticleDetailsScreen.id,
-          page: () => ArticleDetailsScreen(),
+          page: () => const ArticleDetailsScreen(),
         ),
         GetPage(
           name: VideoCategoriesScreen.id,
@@ -174,3 +174,98 @@ class _DlalatQuranState extends State<DlalatQuran> {
     );
   }
 }
+
+//? articles
+//! Get Request
+const articleEndpoint = "{{baseUrl}}/articles";
+const articlesResponse = [
+  {
+    "id": "some_data",
+    "lang_id": "some_data",
+    "name": "some_data",
+    "author": "some_data",
+    "description": "some_data",
+    "created_by": "some_data",
+    "enabled": "some_data",
+    "created_at": "some_data",
+    "updated_at": "some_data",
+  },
+  {"......."},
+];
+
+//? related articles
+//! Get Request
+const relatedArticlesEndpoint = "{{baseUrl}}/related-articles?article-id=5";
+const relatedArticlesResponse = [
+  {
+    "id": "some_data",
+    "lang_id": "some_data",
+    "name": "some_data",
+    "author": "some_data",
+    "description": "some_data",
+    "created_by": "some_data",
+    "enabled": "some_data",
+    "created_at": "some_data",
+    "updated_at": "some_data",
+  },
+  {"......."},
+];
+
+//? get All Tags
+const tagsIndexEndpoint = "{{baseUrl}}/tags";
+const tagsIndexResonse = [
+  {
+    "name_ar": "some_data",
+    "name_en": "some_data",
+    "name_fr": "some_data",
+    "name_sp": "some_data",
+    "name_it": "some_data",
+    "desc_ar": "some_data",
+    "desc_it": "some_data",
+    "desc_en": "some_data",
+    "desc_sp": "some_data",
+    "desc_fr": "some_data",
+    "created_by": "some_data",
+    "enabled": "some_data",
+    "created_at": "some_data",
+    "updated_at": "some_data",
+  },
+  {"......."},
+];
+
+//? get related tags
+const relatedTagsEndpoint = "{{baseUrl}}/related-tags?tag_id=5";
+const relatedTagsResonse = [
+  {
+    "name_ar": "some_data",
+    "name_en": "some_data",
+    "name_fr": "some_data",
+    "name_sp": "some_data",
+    "name_it": "some_data",
+    "desc_ar": "some_data",
+    "desc_it": "some_data",
+    "desc_en": "some_data",
+    "desc_sp": "some_data",
+    "desc_fr": "some_data",
+    "created_by": "some_data",
+    "enabled": "some_data",
+    "created_at": "some_data",
+    "updated_at": "some_data",
+  },
+  {"......."},
+];
+
+//? getTagVideoss
+const tagVideoEndpoint = "{{baseUrl}}/tag-video?tag-id=5";
+const tagVideoResponse = [
+  {
+    "id": "some_data",
+    "url": "some_data",
+    "name": "some_data",
+    "type": "some_data",
+    "word_id": "some_data",
+    "created_at": "some_data",
+    "updated_at": "some_data",
+  },
+  {"......."},
+];

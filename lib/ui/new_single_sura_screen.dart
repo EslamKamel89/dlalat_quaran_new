@@ -1,7 +1,6 @@
-import 'dart:developer';
-
 import 'package:audioplayers/audioplayers.dart';
 import 'package:dlalat_quaran_new/db/database_helper.dart';
+import 'package:dlalat_quaran_new/models/TagWordModel.dart';
 import 'package:dlalat_quaran_new/models/reciters_model.dart';
 import 'package:dlalat_quaran_new/models/word_model.dart';
 import 'package:dlalat_quaran_new/ui/player_bottom_widget.dart';
@@ -48,11 +47,13 @@ class NewSingleSuraScreenState extends State<NewSingleSuraScreen> {
 
   String reciterId = '0';
   String fontWeight = GetStorage().read(fontTypeKey) ?? FontType.normal.name;
+  TagWordModel? tagWordModel;
 
   void getColors() async {
     // if (normalFontColor == null) {
     normalFontColor = colors[await DataBaseHelper.dataBaseInstance().getColor(KnormalFontColor)];
-    tagWordsColor = colors[await DataBaseHelper.dataBaseInstance().getColor(KtagWordsColor)];
+    // tagWordsColor = colors[await DataBaseHelper.dataBaseInstance().getColor(KtagWordsColor)];
+    tagWordsColor = Colors.red;
     readWordsColor = colors[await DataBaseHelper.dataBaseInstance().getColor(KreadWordsColor)];
     bgColor = colors[await DataBaseHelper.dataBaseInstance().getColor(KpageBg)];
     // }
@@ -86,7 +87,7 @@ class NewSingleSuraScreenState extends State<NewSingleSuraScreen> {
       suraName = await DataBaseHelper.dataBaseInstance().getSuraByPage(int.parse(pageLines[0][0].sura!));
       juz = await DataBaseHelper.dataBaseInstance().getJuz(pageLines[0][0].ayaNo!, int.parse(pageLines[0][0].sura!));
     }
-    log('JJuze name ${juzArName(juz)}');
+    // log('JJuze name ${juzArName(juz)}');
     Future.delayed(Duration.zero, () async {
       if (mounted) {
         setState(() {});
@@ -146,34 +147,43 @@ class NewSingleSuraScreenState extends State<NewSingleSuraScreen> {
           // } else {
 
           children.add(GestureDetector(
-            child: SizedBox(
-              child: Text(
-                HtmlUnescape().convert(pageLines[x][j].word_ar!),
-                textAlign: TextAlign.justify,
-                textScaleFactor: 1.0,
-                style: TextStyle(
-                    // backgroundColor: Colors.yellow,
-                    fontFamily: 'p${widget.page}',
-                    fontSize: fontSize,
-                    // backgroundColor: selectedAyaId == pageLines[x][j].aya!
-                    //     ? Colors.transparent
-                    //     : Colors.transparent,
-                    color: pageLines[x][j].ayaId == searchResultId.value.toString()
-                        ? Colors.blue
-                        : pageLines[x][j].tagId == 'null'
-                            ? selectedAyaId.value == pageLines[x][j].ayaId!
-                                ? readWordsColor
-                                : normalFontColor
-                            : tagWordsColor,
-                    fontWeight: fontWeight == 'bold' ? FontWeight.bold : FontWeight.normal,
-                    // backgroundColor: pageLines[x][j].ayaId == searchResultId.value.toString() ? Colors.yellow[500] : Colors.transparent,
-                    fontStyle: FontStyle.normal),
-              ),
-            ),
+            child: Builder(builder: (context) {
+              tagWordModel = null;
+              return Container(
+                // margin: const EdgeInsets.only(right: 20),
+                child: Text(
+                  HtmlUnescape().convert(pageLines[x][j].word_ar!),
+                  // HtmlUnescape().convert('&#xfba2'),
+                  // '11111111',
+                  textAlign: TextAlign.justify,
+                  textScaleFactor: 1.0,
+                  style: TextStyle(
+                      fontFamily: 'p${widget.page}',
+                      fontSize: fontSize,
+                      // backgroundColor: selectedAyaId == pageLines[x][j].aya!
+                      //     ? Colors.transparent
+                      //     : Colors.transparent,
+                      // color: Colors.blue,
+                      color: pageLines[x][j].ayaId == searchResultId.value.toString()
+                          ? Colors.blue
+                          : pageLines[x][j].tagId == 'null'
+                              // : tagWordModel == null
+                              ? selectedAyaId.value == pageLines[x][j].ayaId!
+                                  ? readWordsColor
+                                  : normalFontColor
+                              : tagWordsColor,
+                      fontWeight: fontWeight == 'bold' ? FontWeight.bold : FontWeight.normal,
+                      // backgroundColor: pageLines[x][j].ayaId == searchResultId.value.toString() ? Colors.yellow[500] : Colors.transparent,
+                      fontStyle: FontStyle.normal),
+                ),
+              );
+            }),
             onTap: () {
-              log('videos \nWordVideo ${pageLines[x][j].wordVideo}\n Tag ${pageLines[x][j].tagId}');
+              // log('videos \nWordVideo ${pageLines[x][j].wordVideo}\n Tag ${pageLines[x][j].tagId}');
 
               if (pageLines[x][j].tagId != 'null') {
+                // pr('word dialog', '123456');
+                // return;
                 Get.dialog(DialogWordTag(tagId: pageLines[x][j].tagId!, wordId: pageLines[x][j].word_id!));
               }
               // else if(pageLines[x][j].wordVideo != 'null'){
@@ -237,23 +247,25 @@ class NewSingleSuraScreenState extends State<NewSingleSuraScreen> {
       parentWidget!.setState(() {});
     }
 
-    log('fully path =>  $fullPath');
+    // log('fully path =>  $fullPath');
     try {
       await audioPlayer.play(DeviceFileSource(fullPath));
     } catch (e) {
-      log('Player Exception $e');
+      // log('Player Exception $e');
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    // pr('hello world', 'sync manager');
+    // DataBaseHelper.dataBaseInstance().getTagWord(1);
     getColors();
     parentWidget = this;
     if (pageLines.isEmpty) {
       getPageLines();
     }
 
-    log("NewSingleSuraScreenLogME");
+    // log("NewSingleSuraScreenLogME");
     return Container(
         color: Colors.white,
         height: double.infinity,

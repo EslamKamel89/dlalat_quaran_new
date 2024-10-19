@@ -103,8 +103,11 @@ class DataBaseHelper {
         " left join videos on ( videos.word_id = words.id AND videos.type = 'tag' AND videos.enabled = 1 )"
         " join ayat on ( words.sura_id = ayat.sura_id and words.ayat_id = ayat.ayah )"
         " left join videos ayatvideos on ( ayatvideos.ayat_id = ayat.id AND ayatvideos.type = 'explain' AND ayatvideos.enabled = 1 )"
-        " left join ( tag_word join tags on tag_word.tag_id = tags.id AND tags.enabled = 1 and tag_word.enabled = 1 )"
-        " on tag_word.word_id = words.id where words.page  = $page group by words.id"
+        " left join ( tag_word join tags on tag_word.tag_id = tags.id "
+        " AND tags.enabled = 1 "
+        "and tag_word.enabled = 1 )"
+        " on tag_word.word_id = words.id where words.page  = $page "
+        "group by words.id"
         " order by words.id";
     List<Map<String, dynamic>> rawQuery = await _database!.rawQuery(query);
     log('querty = \n$query');
@@ -806,6 +809,24 @@ class DataBaseHelper {
   Future<int> deleteTagWords(int tagModel) async {
     log('delete updateTagWords $tagModel');
     return await _database!.delete('tag_word', where: 'id = ?', whereArgs: [tagModel]);
+  }
+
+  Future<TagWordModel?> getTagWord(int? wordId) async {
+    // Future<void> getTagWord([int? wordId]) async {
+    // const t = 'syncManger';
+    try {
+      // pr('getTagWord is called', t);
+      var data = await _database!.query("tag_word  ", where: "word_id = $wordId");
+      // pr(data, t);
+      if (data.isNotEmpty) {
+        return data.map<TagWordModel>((json) => TagWordModel.fromJsonSimplified(json)).toList().first;
+      } else {
+        return null;
+      }
+    } on Exception catch (e) {
+      // pr('error occured : $e', t);
+      return null;
+    }
   }
 
   // relatedTags

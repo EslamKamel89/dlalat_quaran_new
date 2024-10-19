@@ -1,5 +1,5 @@
+import 'package:dlalat_quaran_new/controllers/article_details_controller.dart';
 import 'package:dlalat_quaran_new/controllers/download_link_controller.dart';
-import 'package:dlalat_quaran_new/db/database_helper.dart';
 import 'package:dlalat_quaran_new/models/article_model.dart';
 import 'package:dlalat_quaran_new/ui/add_comment.dart';
 import 'package:dlalat_quaran_new/utils/colors.dart';
@@ -29,6 +29,12 @@ class _ArticleDetailsScreenState extends State<ArticleDetailsScreen> {
   final ArticlesDetailsController _detailsController = Get.put(ArticlesDetailsController());
   final GetDownloadLinkController _downloadLinkController = Get.find<GetDownloadLinkController>();
   String? downloadLink;
+  @override
+  void dispose() {
+    ArticleDetailsData.relatedArticles = [];
+    super.dispose();
+  }
+
   @override
   void initState() {
     model = ArticleModel.fromJson(Get.arguments);
@@ -152,7 +158,7 @@ class _ArticleDetailsScreenState extends State<ArticleDetailsScreen> {
               ),
               Obx(() => Visibility(
                     // To Be Continue
-                    visible: _detailsController.relatedArticles.isNotEmpty,
+                    visible: ArticleDetailsData.relatedArticles.isNotEmpty,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -169,18 +175,18 @@ class _ArticleDetailsScreenState extends State<ArticleDetailsScreen> {
                           padding: const EdgeInsets.only(left: 3, right: 3),
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: _detailsController.relatedArticles.length,
+                            itemCount: ArticleDetailsData.relatedArticles.length,
                             itemBuilder: (context, index) {
                               return ElevatedButton(
                                 onPressed: () =>
-                                    _detailsController.updateArticleModel(_detailsController.relatedArticles[index]),
+                                    _detailsController.updateArticleModel(ArticleDetailsData.relatedArticles[index]),
                                 style: ElevatedButton.styleFrom(
                                     foregroundColor: Colors.blueGrey,
                                     backgroundColor: Colors.white,
                                     padding: EdgeInsets.zero,
                                     elevation: 2),
                                 child: Text(
-                                  _detailsController.relatedArticles[index].name,
+                                  ArticleDetailsData.relatedArticles[index].name,
                                   style: const TextStyle(fontFamily: 'Almarai'),
                                 ),
                               );
@@ -202,24 +208,5 @@ class _ArticleDetailsScreenState extends State<ArticleDetailsScreen> {
     final document = parse(htmlString);
     final String parsedString = parse(document.body!.text).documentElement!.text;
     return parsedString;
-  }
-}
-
-class ArticlesDetailsController extends GetxController {
-  int articleId = 0;
-  var relatedArticles = [].obs;
-  var selectedArticleModel = ArticleModel().obs;
-
-  void getRelatedArticles() async {
-    relatedArticles.value = await DataBaseHelper.dataBaseInstance().relatedArticles(articleId);
-    update();
-  }
-
-  void updateArticleModel(ArticleModel model) {
-    selectedArticleModel.value = model;
-    articleId = model.id!;
-
-    update();
-    getRelatedArticles();
   }
 }

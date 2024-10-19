@@ -1,3 +1,5 @@
+import 'package:dlalat_quaran_new/utils/print_helper.dart';
+
 class TagWordModel {
   TagWordModel({
     this.id,
@@ -10,13 +12,24 @@ class TagWordModel {
     this.enabled,
   });
 
+  TagWordModel.fromJsonSimplified(dynamic json) {
+    id = json['id'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    tagId = json['tag_id'];
+    wordId = json['word_id'];
+    // suraId = pr(json['sura_id'], 'exception');
+    // ayahId = json['ayah_id'];
+    // enabled = json['enabled'];
+  }
+
   TagWordModel.fromJson(dynamic json) {
     id = json['id'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     tagId = json['tag_id'];
     wordId = json['word_id'];
-    suraId = json['sura_id'];
+    suraId = pr(json['sura_id'], 'exception');
     ayahId = json['ayah_id'];
     enabled = json['enabled'];
   }
@@ -40,5 +53,10 @@ class TagWordModel {
     map['ayah_id'] = ayahId;
     map['enabled'] = enabled;
     return map;
+  }
+
+  @override
+  String toString() {
+    return 'TagWordMode: {tagId:$tagId , wordId:$wordId}';
   }
 }

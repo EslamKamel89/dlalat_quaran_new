@@ -8,37 +8,27 @@ import 'package:dlalat_quaran_new/utils/response_state_enum.dart';
 import 'package:dlalat_quaran_new/utils/servicle_locator.dart';
 import 'package:get/get.dart';
 
-abstract class ArticlesData {
-  static List articlesList = [];
-  static List filteredList = [];
+abstract class ArticleDetailsData {
+  static List relatedArticles = [];
 }
 
-class ArticlesController extends GetxController {
-  // var articlesList = [].obs;
-  // var filteredList = [].obs;
+class ArticlesDetailsController extends GetxController {
+  int articleId = 0;
+  // var relatedArticles = [].obs;
+  var selectedArticleModel = ArticleModel().obs;
   ResponseState responseState = ResponseState.initial;
-  final articlesIndexEndpoint = "articles";
+  final getRelatedArticlesEndpoint = "related-articles";
 
-  void allArticles() async {
-    // var list = await DataBaseHelper.dataBaseInstance().allArticles();
-    var list = await allArticlesApi();
-    // articlesList.value = list;
-    // filteredList.value = list;
-    ArticlesData.articlesList = list;
-    ArticlesData.filteredList = list;
+  void getRelatedArticles() async {
+    // ArticleDetailsData.relatedArticles = await DataBaseHelper.dataBaseInstance().relatedArticles(articleId);
+    ArticleDetailsData.relatedArticles = await getRelatedArticlesApi();
     update();
   }
 
-  void search(String key) {
-    // filteredList.value = articlesList.where(((x) => x.toString().contains(key))).toList();
-    ArticlesData.filteredList = ArticlesData.articlesList.where(((x) => x.toString().contains(key))).toList();
-    update();
-  }
-
-  Future<List<ArticleModel>> allArticlesApi() async {
-    const t = 'allArticlesApi - ArticlesController ';
+  Future<List<ArticleModel>> getRelatedArticlesApi() async {
+    const t = 'getRelatedArticlesApi - ArticlesDetailsController ';
     DioConsumer dioConsumer = serviceLocator();
-    String path = baseUrl + articlesIndexEndpoint;
+    String path = baseUrl + getRelatedArticlesEndpoint;
     String deviceLocale = Get.locale?.languageCode ?? 'ar';
     responseState = ResponseState.loading;
     try {
@@ -47,13 +37,13 @@ class ArticlesController extends GetxController {
       //   return await getCachedExplanation(id: id);
       // }
       final response = await dioConsumer.get(path, queryParameter: {
-        "lang_code": deviceLocale,
+        "article-id": articleId,
       });
       List data = jsonDecode(response);
       pr(data, '$t - raw response');
       if (data.isEmpty) {
         responseState = ResponseState.success;
-        pr('No articles found', t);
+        pr('No related articles found', t);
         return [];
       }
       // await cacheExplanation(id: id, explanation: explanation);
@@ -69,13 +59,17 @@ class ArticlesController extends GetxController {
     }
   }
 
+  void updateArticleModel(ArticleModel model) {
+    selectedArticleModel.value = model;
+    articleId = model.id!;
+
+    update();
+    getRelatedArticles();
+  }
+
   @override
   void onClose() {
-    // filteredList.clear();
-    // articlesList.clear();
-    ArticlesData.filteredList.clear();
-    ArticlesData.articlesList.clear();
-    update();
+    ArticleDetailsData.relatedArticles = [];
     super.onClose();
   }
 }

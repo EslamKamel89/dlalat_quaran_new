@@ -19,8 +19,7 @@ class TagItemWidget extends StatelessWidget {
           backgroundColor: Colors.white,
           padding: EdgeInsets.zero,
         ),
-        onPressed: () => Get.to(destination,
-            transition: Transition.fade, arguments: tagModel.toJson()),
+        onPressed: () => Get.to(destination, transition: Transition.fade, arguments: tagModel.toJson()),
         child: Container(
           padding: const EdgeInsets.all(8),
           height: 50,
@@ -29,8 +28,7 @@ class TagItemWidget extends StatelessWidget {
               Expanded(
                   child: Text(
                 tagModel.name(),
-                style: const TextStyle(
-                    fontFamily: "Almarai", fontSize: 15, color: Colors.black),
+                style: const TextStyle(fontFamily: "Almarai", fontSize: 15, color: Colors.black),
               )),
               const Icon(Icons.chevron_right)
             ],

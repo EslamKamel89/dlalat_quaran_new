@@ -47,18 +47,23 @@ class ArticlesController extends GetxController {
     int page = 0;
     int limit = 20;
     responseState = ResponseState.loading;
+    update();
     try {
       do {
+        responseState = ResponseState.loading;
+        update();
         final response = await dioConsumer.get("$path/${page * limit}/$limit/$deviceLocale");
         List data = jsonDecode(response);
         pr(data, '$t - raw response');
         if (data.isEmpty) {
           responseState = ResponseState.success;
+          update();
           tempArticleList = [];
         } else {
           List<ArticleModel> articles = data.map<ArticleModel>((json) => ArticleModel.fromJson(json)).toList();
           pr(articles, '$t - parsed response');
           responseState = ResponseState.success;
+          update();
           tempArticleList = articles;
           ArticlesData.articlesList.addAll(articles);
           ArticlesData.filteredList = ArticlesData.articlesList;

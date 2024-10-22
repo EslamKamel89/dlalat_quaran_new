@@ -1,4 +1,5 @@
 import 'package:dlalat_quaran_new/controllers/articles_controller.dart';
+import 'package:dlalat_quaran_new/utils/response_state_enum.dart';
 import 'package:dlalat_quaran_new/widgets/articles_widgets.dart';
 import 'package:dlalat_quaran_new/widgets/quran_toolbar.dart';
 import 'package:dlalat_quaran_new/widgets/search_widget.dart';
@@ -27,24 +28,23 @@ class ArticlesScreen extends StatelessWidget {
           }),
           GetBuilder<ArticlesController>(
             builder: (context) {
-              return ArticlesData.filteredList.isNotEmpty
-                  ? Expanded(
-                      child: ListView.builder(
-                        itemBuilder: (context, index) {
-                          return ArticlesWidget(ArticlesData.filteredList[index]);
-                        },
-                        itemCount: ArticlesData.filteredList.length,
-                      ),
-                    )
-                  : const Expanded(
-                      child: Center(
-                        child: Text(
-                          // 'no_articles_found'.tr,
-                          '',
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    );
+              return Expanded(
+                child: ListView.builder(
+                  itemBuilder: (context, index) {
+                    if (index < ArticlesData.filteredList.length) {
+                      return ArticlesWidget(ArticlesData.filteredList[index]);
+                    }
+                    return _articlesController.responseState == ResponseState.loading
+                        ? Container(
+                            height: 500,
+                            alignment: Alignment.center,
+                            child: const CircularProgressIndicator(),
+                          )
+                        : const SizedBox();
+                  },
+                  itemCount: ArticlesData.filteredList.length + 1,
+                ),
+              );
             },
           )
 

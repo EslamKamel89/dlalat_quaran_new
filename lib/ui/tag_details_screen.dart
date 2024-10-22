@@ -1,13 +1,16 @@
+import 'package:dlalat_quaran_new/controllers/download_link_controller.dart';
 import 'package:dlalat_quaran_new/controllers/tag_details_controller.dart';
 import 'package:dlalat_quaran_new/models/tag_model.dart';
-import 'package:dlalat_quaran_new/ui/dialog_tag_videos.dart';
+import 'package:dlalat_quaran_new/ui/add_comment.dart';
 import 'package:dlalat_quaran_new/utils/colors.dart';
 import 'package:dlalat_quaran_new/utils/constants.dart';
 import 'package:dlalat_quaran_new/utils/print_helper.dart';
+import 'package:dlalat_quaran_new/widgets/custom_buttons.dart';
 import 'package:dlalat_quaran_new/widgets/quran_toolbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 late TagModel model;
 
@@ -23,6 +26,23 @@ class TagDetailsScreen extends StatefulWidget {
 
 class _TagDetailsScreenState extends State<TagDetailsScreen> {
   final TagDetailsController _detailsController = Get.put(TagDetailsController());
+  final GetDownloadLinkController _downloadLinkController = Get.find<GetDownloadLinkController>();
+  String? downloadLink;
+  @override
+  void initState() {
+    model = TagModel.fromJson(Get.arguments);
+    _detailsController.updateTagModel(model);
+    _detailsController.tagId = model.id!;
+    _detailsController.getRelatedTags();
+    _detailsController.getTagVideos();
+    pr(_detailsController.selectedTagModel.value.description(), 'tag details screen');
+    pr(_detailsController.selectedTagModel.value.id, 'tag details screen');
+    _downloadLinkController.getDownloadlink(downloadLinkType: DownloadLinkType.tag, id: model.id.toString()).then(
+          (value) => downloadLink = value,
+        );
+    super.initState();
+  }
+
   @override
   void dispose() {
     TagDetailsData.tagVideos = [];
@@ -32,14 +52,6 @@ class _TagDetailsScreenState extends State<TagDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    model = TagModel.fromJson(Get.arguments);
-    _detailsController.updateTagModel(model);
-    _detailsController.tagId = model.id!;
-    _detailsController.getRelatedTags();
-    _detailsController.getTagVideos();
-    pr(_detailsController.selectedTagModel.value.description(), 'tag details screen');
-    pr(_detailsController.selectedTagModel.value.id, 'tag details screen');
-
     return Scaffold(
       appBar: QuranBar(_detailsController.selectedTagModel.value.name()),
       backgroundColor: lightGray2,
@@ -57,16 +69,16 @@ class _TagDetailsScreenState extends State<TagDetailsScreen> {
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, color: primaryColor, fontSize: 18, fontFamily: 'Almarai'),
                 ),
-                GestureDetector(
-                  child: const Icon(
-                    Icons.videocam_rounded,
-                    size: 40,
-                    color: primaryColor2,
-                  ),
-                  onTap: () {
-                    Get.dialog(DialogTagVideos(_detailsController.selectedTagModel.value));
-                  },
-                ),
+                // GestureDetector(
+                //   child: const Icon(
+                //     Icons.videocam_rounded,
+                //     size: 40,
+                //     color: primaryColor2,
+                //   ),
+                //   onTap: () {
+                //     Get.dialog(DialogTagVideos(_detailsController.selectedTagModel.value));
+                //   },
+                // ),
                 //        Obx(() => Text(
                 //       _detailsController.selectedTagModel.value.name(),
                 //       textAlign: TextAlign.start,
@@ -89,42 +101,91 @@ class _TagDetailsScreenState extends State<TagDetailsScreen> {
             ),
           ),
           Expanded(
-              child: Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: const BorderRadius.all(Radius.circular(15)),
-                border: Border.all(color: lightGray2, width: 1)),
-            margin: const EdgeInsets.only(top: 20, bottom: 20, right: 10, left: 10),
-            child: Scrollbar(
-              trackVisibility: true,
-              // hoverThickness: 50,
-              scrollbarOrientation: ScrollbarOrientation.right,
-              radius: const Radius.circular(10),
-              thumbVisibility: true,
-              thickness: 10,
-              child: SingleChildScrollView(
-                child: Container(
-                  margin: const EdgeInsetsDirectional.only(start: 20, end: 10),
-                  child: Html(
-                    data: _detailsController.selectedTagModel.value.description(),
-                    style: mainHtmlStyle,
+            child: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: const BorderRadius.all(Radius.circular(15)),
+                  border: Border.all(color: lightGray2, width: 1)),
+              margin: const EdgeInsets.only(top: 20, bottom: 20, right: 10, left: 10),
+              child: Scrollbar(
+                trackVisibility: true,
+                // hoverThickness: 50,
+                scrollbarOrientation: ScrollbarOrientation.right,
+                radius: const Radius.circular(10),
+                thumbVisibility: true,
+                thickness: 10,
+                child: SingleChildScrollView(
+                  child: Container(
+                    margin: const EdgeInsetsDirectional.only(start: 20, end: 10),
+                    child: Html(
+                      data: _detailsController.selectedTagModel.value.description(),
+                      style: mainHtmlStyle,
+                    ),
                   ),
+                  // SizedBox(
+                  //       width: double.infinity,
+                  //       child: Text(
+                  //         _detailsController.selectedTagModel.value
+                  //             .description(),
+                  //         textAlign: TextAlign.justify,
+                  //       ),
+                  //     )
                 ),
-                // SizedBox(
-                //       width: double.infinity,
-                //       child: Text(
-                //         _detailsController.selectedTagModel.value
-                //             .description(),
-                //         textAlign: TextAlign.justify,
-                //       ),
-                //     )
               ),
             ),
-          )),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Spacer(),
+              PrimaryButton(
+                onPressed: () {
+                  Get.toNamed(AddCommentView.id, arguments: {"id": model.id, 'commentType': 'tag'});
+                },
+                borderRadius: 5,
+                child: Text(
+                  'addComment'.tr,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontFamily: 'Almarai',
+                  ),
+                ),
+              ),
+              const SizedBox(width: 5),
+              GetBuilder<GetDownloadLinkController>(
+                builder: (_) {
+                  if (downloadLink != null) {
+                    return PrimaryButton(
+                      onPressed: () {
+                        launchUrl(Uri.parse(downloadLink!));
+                      },
+                      borderRadius: 5,
+                      child: Text(
+                        'تحميل'.tr,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontFamily: 'Almarai',
+                        ),
+                      ),
+                    );
+                  } else {
+                    return const SizedBox();
+                  }
+                },
+              ),
+              const Spacer(),
+            ],
+          ),
+          const SizedBox(height: 15),
           Visibility(
             // To Be Continue
             visible: TagDetailsData.relatedTags.isNotEmpty,
+            // visible: true,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

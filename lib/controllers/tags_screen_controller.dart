@@ -20,13 +20,8 @@ class TagsScreenController extends GetxController {
   void getTags() async {
     // var list = await DataBaseHelper.dataBaseInstance().tagsIndex();
     var list = await getTagsApi();
-
     TagsScreenData.tagsList = list;
     TagsScreenData.filteredList = list;
-    // for (var i = 0; i < TagsScreenData.tagsList.length; i++) {
-    //   pr(TagsScreenData.tagsList[i], 'getTags');
-    // }
-
     isLoading.value = false;
     update();
   }
@@ -37,6 +32,7 @@ class TagsScreenController extends GetxController {
     String path = baseUrl + getTagsEndpoint;
     String deviceLocale = Get.locale?.languageCode ?? 'ar';
     responseState = ResponseState.loading;
+    update();
     try {
       // if (!(await isInternetAvailable())) {
       //   update();
@@ -47,6 +43,7 @@ class TagsScreenController extends GetxController {
       pr(data, '$t - raw response');
       if (data.isEmpty) {
         responseState = ResponseState.success;
+        update();
         pr('No tags found', t);
         return [];
       }
@@ -58,7 +55,7 @@ class TagsScreenController extends GetxController {
     } on Exception catch (e) {
       pr('Exception occured: $e', t);
       responseState = ResponseState.failed;
-      // update();
+      update();
       return [];
     }
   }

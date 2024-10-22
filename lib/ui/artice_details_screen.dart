@@ -70,16 +70,16 @@ class _ArticleDetailsScreenState extends State<ArticleDetailsScreen> {
                 ),
               ),
             ),
-            const SizedBox(height: 5),
-            const Text(
-              'المؤلف :أسامة المهدي',
-              style: TextStyle(
-                // fontWeight: FontWeight.bold,
-                // color: primaryColor,
-                fontSize: 14,
-                fontFamily: 'Almarai',
-              ),
-            ),
+            // const SizedBox(height: 5),
+            // const Text(
+            //   'المؤلف :أسامة المهدي',
+            //   style: TextStyle(
+            //     // fontWeight: FontWeight.bold,
+            //     // color: primaryColor,
+            //     fontSize: 14,
+            //     fontFamily: 'Almarai',
+            //   ),
+            // ),
             Expanded(
                 child: Container(
               padding: const EdgeInsets.all(8),

@@ -64,6 +64,7 @@ class TagsScreenController extends GetxController {
   }
 
   void search(String key) {
+    TagsScreenData.filteredList = TagsScreenData.tagsList;
     TagsScreenData.filteredList = TagsScreenData.tagsList.where(((x) {
       return x.toString().toLowerCase().contains(key.toLowerCase());
     })).toList();

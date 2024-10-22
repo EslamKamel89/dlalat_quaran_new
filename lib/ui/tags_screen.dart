@@ -6,12 +6,33 @@ import 'package:dlalat_quaran_new/widgets/tag_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class TagsScreen extends StatelessWidget {
-  TagsScreen({super.key});
+class TagsScreen extends StatefulWidget {
+  const TagsScreen({super.key});
 
   static String id = '/TagsScreen';
-  final TagsScreenController _tasController = Get.put(TagsScreenController()..getTags());
-  final TextEditingController _textEditingController = TextEditingController();
+
+  @override
+  State<TagsScreen> createState() => _TagsScreenState();
+}
+
+class _TagsScreenState extends State<TagsScreen> {
+  final TagsScreenController _tasController = Get.put(TagsScreenController());
+
+  late TextEditingController _textEditingController;
+  @override
+  void initState() {
+    TagsScreenData.filteredList = [];
+    TagsScreenData.tagsList = [];
+    _tasController.getTags();
+    _textEditingController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _textEditingController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +50,7 @@ class TagsScreen extends StatelessWidget {
             return Expanded(
               child: ListView.builder(
                 itemBuilder: (context, index) {
-                  return TagItemWidget(TagsScreenData.filteredList[index], TagDetailsScreen());
+                  return TagItemWidget(TagsScreenData.filteredList[index], const TagDetailsScreen());
                 },
                 itemCount: TagsScreenData.filteredList.length,
               ),

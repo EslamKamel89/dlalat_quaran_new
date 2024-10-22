@@ -31,4 +31,6 @@ https://ioqs.org/control-panel/
 eslam@admin.com
 admin1234
 
-
+lib\controllers\tag_details_controller.dart
+both related tags and related vidos don't work
+article controller need to adjust 

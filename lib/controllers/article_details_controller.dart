@@ -21,7 +21,8 @@ class ArticlesDetailsController extends GetxController {
 
   void getRelatedArticles() async {
     // ArticleDetailsData.relatedArticles = await DataBaseHelper.dataBaseInstance().relatedArticles(articleId);
-    ArticleDetailsData.relatedArticles = await getRelatedArticlesApi();
+    // ArticleDetailsData.relatedArticles = await getRelatedArticlesApi();
+    ArticleDetailsData.relatedArticles = [];
     update();
   }
 

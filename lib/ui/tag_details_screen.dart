@@ -40,117 +40,132 @@ class _TagDetailsScreenState extends State<TagDetailsScreen> {
     pr(_detailsController.selectedTagModel.value.description(), 'tag details screen');
     pr(_detailsController.selectedTagModel.value.id, 'tag details screen');
 
-    return Obx(() => Scaffold(
-          appBar: QuranBar(_detailsController.selectedTagModel.value.name()),
-          backgroundColor: lightGray2,
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0, right: 8.8, top: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Obx(() => Text(
-                          _detailsController.selectedTagModel.value.name(),
-                          textAlign: TextAlign.start,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, color: primaryColor, fontSize: 18, fontFamily: 'Almarai'),
-                        )),
-                    Obx(() => TagDetailsData.tagVideos.isNotEmpty
-                        ? GestureDetector(
-                            child: const Icon(
-                              Icons.videocam_rounded,
-                              size: 40,
-                              color: primaryColor2,
-                            ),
-                            onTap: () {
-                              Get.dialog(DialogTagVideos(_detailsController.selectedTagModel.value));
-                            },
-                          )
-                        : const SizedBox())
-                  ],
+    return Scaffold(
+      appBar: QuranBar(_detailsController.selectedTagModel.value.name()),
+      backgroundColor: lightGray2,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0, right: 8.8, top: 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  _detailsController.selectedTagModel.value.name(),
+                  textAlign: TextAlign.start,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, color: primaryColor, fontSize: 18, fontFamily: 'Almarai'),
                 ),
-              ),
-              Expanded(
-                  child: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: const BorderRadius.all(Radius.circular(15)),
-                    border: Border.all(color: lightGray2, width: 1)),
-                margin: const EdgeInsets.only(top: 20, bottom: 20, right: 10, left: 10),
-                child: Scrollbar(
-                  trackVisibility: true,
-                  // hoverThickness: 50,
-                  scrollbarOrientation: ScrollbarOrientation.right,
-                  radius: const Radius.circular(10),
-                  thumbVisibility: true,
-                  thickness: 10,
-                  child: SingleChildScrollView(
-                    child: Obx(() => Container(
-                              margin: const EdgeInsetsDirectional.only(start: 20, end: 10),
-                              child: Html(
-                                data: _detailsController.selectedTagModel.value.description(),
-                                style: mainHtmlStyle,
-                              ),
-                            )
-                        // SizedBox(
-                        //       width: double.infinity,
-                        //       child: Text(
-                        //         _detailsController.selectedTagModel.value
-                        //             .description(),
-                        //         textAlign: TextAlign.justify,
-                        //       ),
-                        //     )
-                        ),
+                GestureDetector(
+                  child: const Icon(
+                    Icons.videocam_rounded,
+                    size: 40,
+                    color: primaryColor2,
+                  ),
+                  onTap: () {
+                    Get.dialog(DialogTagVideos(_detailsController.selectedTagModel.value));
+                  },
+                ),
+                //        Obx(() => Text(
+                //       _detailsController.selectedTagModel.value.name(),
+                //       textAlign: TextAlign.start,
+                //       style: const TextStyle(
+                //           fontWeight: FontWeight.bold, color: primaryColor, fontSize: 18, fontFamily: 'Almarai'),
+                //     )),
+                // Obx(() => TagDetailsData.tagVideos.isNotEmpty
+                //     ? GestureDetector(
+                //         child: const Icon(
+                //           Icons.videocam_rounded,
+                //           size: 40,
+                //           color: primaryColor2,
+                //         ),
+                //         onTap: () {
+                //           Get.dialog(DialogTagVideos(_detailsController.selectedTagModel.value));
+                //         },
+                //       )
+                //     : const SizedBox())
+              ],
+            ),
+          ),
+          Expanded(
+              child: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: const BorderRadius.all(Radius.circular(15)),
+                border: Border.all(color: lightGray2, width: 1)),
+            margin: const EdgeInsets.only(top: 20, bottom: 20, right: 10, left: 10),
+            child: Scrollbar(
+              trackVisibility: true,
+              // hoverThickness: 50,
+              scrollbarOrientation: ScrollbarOrientation.right,
+              radius: const Radius.circular(10),
+              thumbVisibility: true,
+              thickness: 10,
+              child: SingleChildScrollView(
+                child: Container(
+                  margin: const EdgeInsetsDirectional.only(start: 20, end: 10),
+                  child: Html(
+                    data: _detailsController.selectedTagModel.value.description(),
+                    style: mainHtmlStyle,
                   ),
                 ),
-              )),
-              Obx(() => Visibility(
-                    // To Be Continue
-                    visible: TagDetailsData.relatedTags.isNotEmpty,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'read_also'.tr,
-                            style: const TextStyle(color: primaryColor, fontFamily: "Almarai"),
-                          ),
+                // SizedBox(
+                //       width: double.infinity,
+                //       child: Text(
+                //         _detailsController.selectedTagModel.value
+                //             .description(),
+                //         textAlign: TextAlign.justify,
+                //       ),
+                //     )
+              ),
+            ),
+          )),
+          Visibility(
+            // To Be Continue
+            visible: TagDetailsData.relatedTags.isNotEmpty,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'read_also'.tr,
+                    style: const TextStyle(color: primaryColor, fontFamily: "Almarai"),
+                  ),
+                ),
+                Container(
+                  height: 40,
+                  margin: const EdgeInsets.only(bottom: 8),
+                  padding: const EdgeInsets.only(left: 3, right: 3),
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: TagDetailsData.relatedTags.length,
+                    itemBuilder: (context, index) {
+                      return ElevatedButton(
+                        onPressed: () {
+                          _detailsController.updateTagModel(TagDetailsData.relatedTags[index]);
+                        },
+                        style: ElevatedButton.styleFrom(
+                            foregroundColor: Colors.blueGrey,
+                            backgroundColor: Colors.white,
+                            padding: EdgeInsets.zero,
+                            elevation: 2),
+                        child: Text(
+                          TagDetailsData.relatedTags[index].name(),
+                          style: const TextStyle(fontFamily: 'Almarai'),
                         ),
-                        Container(
-                          height: 40,
-                          margin: const EdgeInsets.only(bottom: 8),
-                          padding: const EdgeInsets.only(left: 3, right: 3),
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: TagDetailsData.relatedTags.length,
-                            itemBuilder: (context, index) {
-                              return ElevatedButton(
-                                onPressed: () {
-                                  _detailsController.updateTagModel(TagDetailsData.relatedTags[index]);
-                                },
-                                style: ElevatedButton.styleFrom(
-                                    foregroundColor: Colors.blueGrey,
-                                    backgroundColor: Colors.white,
-                                    padding: EdgeInsets.zero,
-                                    elevation: 2),
-                                child: Text(
-                                  TagDetailsData.relatedTags[index].name(),
-                                  style: const TextStyle(fontFamily: 'Almarai'),
-                                ),
-                              );
-                            },
-                          ),
-                        )
-                      ],
-                    ),
-                  )),
-            ],
+                      );
+                    },
+                  ),
+                )
+              ],
+            ),
           ),
-        ));
+        ],
+      ),
+    );
   }
 }
 

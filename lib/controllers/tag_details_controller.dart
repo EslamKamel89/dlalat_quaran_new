@@ -27,13 +27,15 @@ class TagDetailsController extends GetxController {
 
   void getRelatedTags() async {
     // TagDetailsData.relatedTags = await DataBaseHelper.dataBaseInstance().relatedTags(tagId);
-    TagDetailsData.relatedTags = await getRelatedTagsApi(tagId);
+    // TagDetailsData.relatedTags = await getRelatedTagsApi(tagId);
+    TagDetailsData.relatedTags = [];
     update();
   }
 
   getTagVideos() async {
     // TagDetailsData.tagVideos = await DataBaseHelper.dataBaseInstance().tagsVideos(tagId);
-    TagDetailsData.tagVideos = await getTagVideosApi(tagId);
+    // TagDetailsData.tagVideos = await getTagVideosApi(tagId);
+    TagDetailsData.tagVideos = [];
     update();
   }
 

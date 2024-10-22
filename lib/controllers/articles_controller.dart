@@ -21,51 +21,64 @@ class ArticlesController extends GetxController {
 
   void allArticles() async {
     // var list = await DataBaseHelper.dataBaseInstance().allArticles();
-    var list = await allArticlesApi();
+    await allArticlesApi();
     // articlesList.value = list;
     // filteredList.value = list;
-    ArticlesData.articlesList = list;
-    ArticlesData.filteredList = list;
+
     update();
   }
 
   void search(String key) {
+    ArticlesData.filteredList = ArticlesData.articlesList;
     // filteredList.value = articlesList.where(((x) => x.toString().contains(key))).toList();
     ArticlesData.filteredList = ArticlesData.articlesList.where(((x) => x.toString().contains(key))).toList();
     update();
   }
 
-  Future<List<ArticleModel>> allArticlesApi() async {
+  Future allArticlesApi() async {
     const t = 'allArticlesApi - ArticlesController ';
     DioConsumer dioConsumer = serviceLocator();
     String path = baseUrl + articlesIndexEndpoint;
     String deviceLocale = Get.locale?.languageCode ?? 'ar';
+    ArticlesData.articlesList = [];
+    ArticlesData.filteredList = [];
+    List tempArticleList = [];
+    bool continueLoop = true;
+    int page = 0;
+    int limit = 20;
     responseState = ResponseState.loading;
     try {
-      // if (!(await isInternetAvailable())) {
-      //   update();
-      //   return await getCachedExplanation(id: id);
-      // }
-      final response = await dioConsumer.get(path, queryParameter: {
-        "lang_code": deviceLocale,
-      });
-      List data = jsonDecode(response);
-      pr(data, '$t - raw response');
-      if (data.isEmpty) {
-        responseState = ResponseState.success;
-        pr('No articles found', t);
-        return [];
-      }
-      // await cacheExplanation(id: id, explanation: explanation);
-      List<ArticleModel> articles = data.map<ArticleModel>((json) => ArticleModel.fromJson(json)).toList();
-      pr(articles, '$t - parsed response');
-      responseState = ResponseState.success;
-      return articles;
+      do {
+        final response = await dioConsumer.get("$path/${page * limit}/$limit/$deviceLocale");
+        List data = jsonDecode(response);
+        pr(data, '$t - raw response');
+        if (data.isEmpty) {
+          responseState = ResponseState.success;
+          tempArticleList = [];
+        } else {
+          List<ArticleModel> articles = data.map<ArticleModel>((json) => ArticleModel.fromJson(json)).toList();
+          pr(articles, '$t - parsed response');
+          responseState = ResponseState.success;
+          tempArticleList = articles;
+          ArticlesData.articlesList.addAll(articles);
+          ArticlesData.filteredList = ArticlesData.articlesList;
+        }
+
+        if (tempArticleList.isEmpty) {
+          continueLoop = false;
+        } else {
+          continueLoop = true;
+          page++;
+          pr('continue loop', t);
+          pr('continueLoop : $continueLoop', t);
+          pr('page : $page', t);
+        }
+        update();
+      } while (continueLoop);
     } on Exception catch (e) {
       pr('Exception occured: $e', t);
       responseState = ResponseState.failed;
-      // update();
-      return [];
+      update();
     }
   }
 

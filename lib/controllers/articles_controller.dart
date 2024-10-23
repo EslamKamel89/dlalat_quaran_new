@@ -18,14 +18,16 @@ class ArticlesController extends GetxController {
   // var filteredList = [].obs;
   ResponseState responseState = ResponseState.initial;
   final articlesIndexEndpoint = "articles";
+  int page = 0;
+  int limit = 5;
+  bool hasNextPage = true;
 
-  void allArticles() async {
+  Future<void> allArticles() async {
     // var list = await DataBaseHelper.dataBaseInstance().allArticles();
-    await allArticlesApi();
+    await allArticlesApiPaginate();
     // articlesList.value = list;
     // filteredList.value = list;
-
-    update();
+    // update();
   }
 
   void search(String key) {
@@ -33,6 +35,48 @@ class ArticlesController extends GetxController {
     // filteredList.value = articlesList.where(((x) => x.toString().contains(key))).toList();
     ArticlesData.filteredList = ArticlesData.articlesList.where(((x) => x.toString().contains(key))).toList();
     update();
+  }
+
+  Future allArticlesApiPaginate() async {
+    const t = 'allArticlesApiPaginate - ArticlesController ';
+    DioConsumer dioConsumer = serviceLocator();
+    String deviceLocale = Get.locale?.languageCode ?? 'ar';
+    String path = baseUrl + articlesIndexEndpoint;
+    List tempArticleList = [];
+    responseState = ResponseState.loading;
+    update();
+    try {
+      responseState = ResponseState.loading;
+      update();
+      final response = await dioConsumer.get("$path/${page * limit}/$limit/$deviceLocale");
+      List data = jsonDecode(response);
+      pr(data, '$t - raw response');
+      if (data.isEmpty) {
+        responseState = ResponseState.success;
+        tempArticleList = [];
+      } else {
+        List<ArticleModel> articles = data.map<ArticleModel>((json) => ArticleModel.fromJson(json)).toList();
+        pr(articles, '$t - parsed response');
+        responseState = ResponseState.success;
+        tempArticleList = articles;
+      }
+      if (tempArticleList.isEmpty) {
+        hasNextPage = false;
+      } else {
+        ArticlesData.articlesList.addAll(tempArticleList);
+        ArticlesData.filteredList = ArticlesData.articlesList;
+        update();
+        hasNextPage = true;
+        page++;
+      }
+      pr(hasNextPage, '$t - has next page');
+      pr('next page : $page', t);
+      update();
+    } on Exception catch (e) {
+      pr('Exception occured: $e', t);
+      responseState = ResponseState.failed;
+      update();
+    }
   }
 
   Future allArticlesApi() async {
